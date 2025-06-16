@@ -12,4 +12,5 @@ public class SchemaActionInputConstants
     
     public const string SchemaIdentifierAttributeDynamicValueMinDate = "AttributeDynamicValueMinDate";
     public const string SchemaIdentifierAttributeDynamicValueMaxDate = "AttributeDynamicValueMaxDate";
+    public const string SchemaIdentifierAttributeDynamicValueTextParameterLabelMultiple = "AttributeDynamicValueTextParameterLabelMultiple";
 }

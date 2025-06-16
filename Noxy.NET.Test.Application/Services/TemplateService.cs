@@ -1,11 +1,12 @@
 using Noxy.NET.Test.Application.Interfaces;
 using Noxy.NET.Test.Application.Interfaces.Services;
+using Noxy.NET.Test.Domain.Entities.Data;
 using Noxy.NET.Test.Domain.Entities.Schemas;
 using Noxy.NET.Test.Domain.Forms.Schemas.Forms;
 
 namespace Noxy.NET.Test.Application.Services;
 
-public class TemplateService(IUnitOfWorkFactory serviceUoWFactory, ISchemaBuilderService serviceSchemaBuilder) : ITemplateService
+public class TemplateService(IUnitOfWorkFactory serviceUoWFactory, ISchemaBuilderService serviceSchemaBuilder, IApplicationService serviceApplication, IDynamicValueService serviceDynamicValue, IDataService serviceData) : ITemplateService
 {
     public async Task<List<EntitySchema>> GetSchemaList()
     {
@@ -71,5 +72,10 @@ public class TemplateService(IUnitOfWorkFactory serviceUoWFactory, ISchemaBuilde
         }
 
         await uow.Commit();
+        
+        List<EntityDataSystemParameter> listSystemParameter = await serviceData.GetSystemParameterList();
+        List<EntityDataTextParameter> listTextParameter = await serviceData.GetTextParameterList();
+        serviceApplication.SetSchema(entitySchema);
+        serviceDynamicValue.Initialize(entitySchema, listSystemParameter, listTextParameter);
     }
 }

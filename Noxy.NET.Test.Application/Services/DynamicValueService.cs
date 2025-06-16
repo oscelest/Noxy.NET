@@ -41,7 +41,7 @@ public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueAPI)
         SystemParameterContext = ExtractDynamicValueSystemParameterContext(listSystemParameter);
         TextParameterContext = ExtractDynamicValueTextParameterContext(listTextParameter);
     }
-    
+
     public object? Resolve(EntitySchemaDynamicValue? value, object? data = null, object? context = null)
     {
         return value switch
@@ -113,34 +113,17 @@ public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueAPI)
     private static List<EntitySchemaDynamicValueCode> ExtractDynamicValueCodeContext(EntitySchema schema)
     {
         List<EntitySchemaDynamicValueCode> result = [];
-        foreach (EntitySchemaAction item in schema.ActionList ?? [])
+        foreach (EntitySchemaDynamicValue.Discriminator item in schema.DynamicValueList ?? [])
         {
-            if (item.TitleDynamic?.GetValue() is EntitySchemaDynamicValueCode code)
+            if (item.GetValue() is EntitySchemaDynamicValueCode code)
             {
                 result.Add(code);
-            }
-
-            foreach (EntityJunctionSchemaActionHasDynamicValueCode list in item.DynamicValueCodeList ?? [])
-            {
-                if (list.Relation == null) continue;
-                result.Add(list.Relation);
-            }
-        }
-
-        foreach (EntitySchemaActionInput item in schema.ActionInputList ?? [])
-        {
-            foreach (EntityAssociationSchemaActionInputHasAttribute.Discriminator test in item.AttributeList ?? [])
-            {
-                if (test.GetValue() is EntityAssociationSchemaActionInputHasAttributeDynamicValue dynamic && dynamic.Value?.GetValue() is EntitySchemaDynamicValueCode code)
-                {
-                    result.Add(code);
-                }
             }
         }
 
         return result;
     }
-    
+
     private static string GenerateCode(List<EntitySchemaDynamicValueCode> context)
     {
         StringBuilder sb = new();
