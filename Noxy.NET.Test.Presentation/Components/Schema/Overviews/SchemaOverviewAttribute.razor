@@ -1,0 +1,46 @@
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateSchemaOverview Schema="Schema" List="Schema.AttributeList">
+        <Header>
+            <h3>Attributes</h3>
+        </Header>
+
+        <Form>
+            @if (context != null)
+            {
+                <FormSchemaAttribute Schema="Schema" Value="context" OnChange="FormChange"/>
+            }
+            else
+            {
+                <FormSchemaAttribute Schema="Schema" OnChange="FormChange"/>
+            }
+        </Form>
+
+        <Display>
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelSchemaIdentifier">
+                <span>@context.SchemaIdentifier.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelName">
+                <span>@context.Name.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelNote">
+                <span>@context.Note.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+        </Display>
+    </TemplateSchemaOverview>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required EntitySchema Schema { get; set; }
+
+    private void FormChange(EntitySchemaAttribute entity)
+    {
+        Schema.AttributeList = Schema.AttributeList?.Where(x => x.ID != entity.ID).Append(entity).OrderBy(x => x.Order).ToList();
+    }
+
+}

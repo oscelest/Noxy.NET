@@ -1,0 +1,61 @@
+@inject IJSRuntime JS
+@inherits ElementComponent
+@typeparam TValue
+
+<div @attributes="AdditionalAttributes" class="@CssClass" collapsed="@CollapsedCurrent" loading="@LoadingCurrent">
+    @foreach (TValue item in ListCurrent)
+    {
+        <div class="dropdown-item">
+            @ItemTemplate(item)
+        </div>
+    }
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required RenderFragment<TValue> ItemTemplate { get; set; }
+
+    [Parameter]
+    public bool? Collapsed { get; set; }
+    private bool CollapsedCurrent => Collapsed ?? true;
+
+    [Parameter]
+    public bool? Loading { get; set; }
+    private bool LoadingCurrent => Loading ?? false;
+
+    [Parameter]
+    public IEnumerable<TValue>? List { get; set; }
+    private IEnumerable<TValue> ListCurrent => List ?? [];
+
+    protected override string CssClass => CombineCssClass(base.CssClass);
+
+    private DotNetObjectReference<Dropdown<TValue>>? DotNetReference { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        await LoadInterop(JS);
+        await Module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.RegisterDropdown", UUIDString, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
+    }
+
+    [JSInvokable]
+    public void OnValueChange(string value)
+    {
+        // NotifyChange(value);
+    }
+
+    private void OnInputChange(ChangeEventArgs args)
+    {
+        // NotifyChange(args.Value?.ToString() ?? string.Empty);
+    }
+
+    public void Dispose()
+    {
+        DotNetReference?.Dispose();
+        Module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.DisposeDropdown", UUIDString);
+    }
+
+}

@@ -1,0 +1,24 @@
+@inherits BaseComponentActionInput
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <InputGroupRadioSet DisplayName="@Context.Title" Description="@Context.Description" OptionList="OptionList" @bind-Value="Context.StringValue" @bind-Value:after="Commit">
+        <span>@context</span>
+    </InputGroupRadioSet>
+</div>
+
+@code {
+
+    private IEnumerable<string> OptionList => ["Yes", "No"];
+
+    private string? GetValue()
+    {
+        return Context.Value as string;
+    }
+
+    private async Task SetValue(string? value)
+    {
+        Context.Value = value;
+        await Commit();
+    }
+
+}

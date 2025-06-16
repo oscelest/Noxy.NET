@@ -1,0 +1,46 @@
+﻿.Collapsible {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: column;
+    row-gap: var(--size-gap-md);
+    transition: row-gap var(--animation-length-medium) ease-in-out;
+}
+
+.Collapsible[collapsed] {
+    row-gap: 0;
+}
+
+.header-wrapper {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    align-items: flex-start;
+    min-height: var(--size-control-sm);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    min-height: var(--size-control-sm);
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-control-sm);
+    height: var(--size-control-sm);
+    cursor: pointer;
+}
+
+.content {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    transition: grid-template-rows var(--animation-length-medium) ease-in-out;
+    overflow: hidden;
+    border-left: 2px solid black;
+    background: color-mix(in srgb, transparent 96%, var(--color-mixin-complementary, #000000))
+}
+
+.Collapsible[collapsed] .content {
+    grid-template-rows: minmax(0, 0fr);
+}

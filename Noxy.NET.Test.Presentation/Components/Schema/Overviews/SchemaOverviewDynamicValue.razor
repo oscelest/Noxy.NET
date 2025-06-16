@@ -1,0 +1,92 @@
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateSchemaOverview Schema="Schema" List="Schema.DynamicValueList?.Select(x => x.GetValue()) ?? []">
+        <Header>
+            <h3>Dynamic values</h3>
+        </Header>
+
+            <Form>
+                @if (context != null)
+                {
+                    @switch (context)
+                {
+                    case EntitySchemaDynamicValueCode entityCode:
+                        <FormSchemaDynamicValueCode Schema="Schema" Value="entityCode" OnChange="FormChange"/>
+                        break;
+                    case EntitySchemaDynamicValueSystemParameter entitySystemParameter:
+                        <FormSchemaDynamicValueSystemParameter Schema="Schema" Value="entitySystemParameter" OnChange="FormChange"/>
+                        break;
+                    case EntitySchemaDynamicValueTextParameter entityTextParameter:
+                        <FormSchemaDynamicValueTextParameter Schema="Schema" Value="entityTextParameter" OnChange="FormChange"/>
+                        break;
+                }
+            }
+            else
+            {
+                <InputGroupRadioSet DisplayName="Choose dynamic value type:" OptionList="_optionList" @bind-Value="_currentValue" Context="item">
+                    <span>@item</span>
+                </InputGroupRadioSet>
+                
+                @switch (_currentValue)
+                {
+                    case TextConstants.FormEntitySchemaLabelDynamicValueTypeCode:
+                        <FormSchemaDynamicValueCode Schema="Schema" OnChange="FormChange"/>
+                        break;
+                    case TextConstants.FormEntitySchemaLabelDynamicValueTypeSystemParameter:
+                        <FormSchemaDynamicValueSystemParameter Schema="Schema" OnChange="FormChange"/>
+                        break;
+                    case TextConstants.FormEntitySchemaLabelDynamicValueTypeTextParameter:
+                        <FormSchemaDynamicValueTextParameter Schema="Schema" OnChange="FormChange"/>
+                        break;
+                }
+            }
+        </Form>
+
+        <Display>
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelSchemaIdentifier">
+                <span>@context.SchemaIdentifier.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelName">
+                <span>@context.Name.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelNote">
+                <span>@context.Note.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            @if (context is EntitySchemaDynamicValueCode propertyString)
+            {
+                <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDynamicValueCodeValue">
+                    <span>@propertyString.Value.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+                </TemplateInputGroup>
+
+                <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDynamicValueCodeIsAsynchronous">
+                    <span>@propertyString.IsAsynchronous</span>
+                </TemplateInputGroup>
+            }
+
+            @if (context is EntitySchemaDynamicValueParameter parameter)
+            {
+                <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDynamicValueParameterIsApprovalRequired">
+                    <span>@parameter.IsApprovalRequired</span>
+                </TemplateInputGroup>
+            }
+        </Display>
+    </TemplateSchemaOverview>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required EntitySchema Schema { get; set; }
+
+    private string _currentValue = TextConstants.FormEntitySchemaLabelDynamicValueTypeCode;
+    private readonly List<string> _optionList = [TextConstants.FormEntitySchemaLabelDynamicValueTypeCode, TextConstants.FormEntitySchemaLabelDynamicValueTypeSystemParameter, TextConstants.FormEntitySchemaLabelDynamicValueTypeTextParameter];
+
+    private void FormChange(EntitySchemaDynamicValue entity)
+    {
+        Schema.DynamicValueList = Schema.DynamicValueList?.Where(x => x.ID != entity.ID).Append(new(entity)).OrderBy(x => x.GetValue().Order).ToList();
+    }
+}

@@ -1,0 +1,49 @@
+﻿@inject IJSRuntime JS
+@inherits BaseInputTextualValue<string>
+@implements IDisposable
+
+<input @attributes="AdditionalAttributes" id="@IDCurrent" class="@CssClass" type="@TypeString" size="@SizeCurrent" value="@Value" @onchange="OnInputChange"/>
+
+@code {
+
+    [Parameter]
+    public WebFormInputTextTypeEnum? Type { get; set; }
+    private string TypeString => (Type ?? WebFormInputTextTypeEnum.Text).ToText();
+
+    [Parameter]
+    public bool? UseOnInput { get; set; }
+    private bool UseOnInputCurrent => UseOnInput ?? false;
+    
+    private DotNetObjectReference<InputElementText>? DotNetReference { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        if (UseOnInputCurrent)
+        {
+            await LoadInterop(JS);
+            Module?.InvokeVoidAsync("NoxyNETUIWebForm.RegisterOnInput", UUIDString, Constants.OnInputDelay, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
+        }
+    }
+
+    [JSInvokable]
+    public void OnValueChange(string value)
+    {
+        NotifyChange(value);
+    }
+
+    private void OnInputChange(ChangeEventArgs args)
+    {
+        NotifyChange(args.Value?.ToString() ?? string.Empty);
+    }
+    
+    public void Dispose()
+    {
+        Module?.InvokeVoidAsync("NoxyNETUIWebForm.DeregisterOnInput", UUIDString);
+        DotNetReference?.Dispose();
+    }
+
+}
+

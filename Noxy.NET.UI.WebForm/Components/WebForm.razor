@@ -1,0 +1,47 @@
+﻿@typeparam T where T : class
+@implements IDisposable
+@inherits ElementComponent
+
+<form @attributes="AdditionalAttributes" class="@CssClass" @onsubmit="SubmitHandler" @onsubmit:preventDefault>
+
+    <MessageBox MessageList="Context.GetFormErrorList()" Type="@StatusEnum.Error" />
+    
+    <CascadingValue Value="@Context" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+
+</form>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required WebFormContext<T> Context { get; set; }
+    
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnSubmit { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Context.ContextChanged += ContextChangedHandler;
+    }
+
+    public void Dispose()
+    {
+        Context.ContextChanged -= ContextChangedHandler;
+    }
+
+    private void SubmitHandler()
+    {
+        if (Context.IsSubmitting) return;
+        OnSubmit.InvokeAsync();
+    }
+
+    private void ContextChangedHandler(IWebFormContext sender)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+}

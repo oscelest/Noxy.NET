@@ -1,0 +1,35 @@
+@inject ActionHubService ActionHubService
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    @foreach (ViewModelSchemaActionInput field in (ActionStep.ActionInputList ?? []).OrderBy(x => x.Order))
+    {
+        <div class="action-input">
+            @if (Context?.CollectionVisibility[field.SchemaIdentifier] ?? false)
+            {
+                <DynamicComponent Type="ActionHubService.GetActionInput(field.Input?.SchemaIdentifier)" Parameters="GetFieldParameters(field, Context)"/>
+            }
+        </div>
+    }
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public ContextAction? Context { get; set; }
+
+    [Parameter, EditorRequired]
+    public required ViewModelSchemaActionStep ActionStep { get; set; }
+
+    private IDictionary<string, object?> GetFieldParameters(ViewModelSchemaActionInput field, ContextAction context)
+    {
+        return new Dictionary<string, object?>
+        {
+            { nameof(BaseComponentActionInput.ID), UUIDCode },
+            { nameof(BaseComponentActionInput.Reference), context.ID },
+            { nameof(BaseComponentActionInput.Context), context.CollectionField[field.SchemaIdentifier] },
+            { nameof(BaseComponentActionInput.ActionInput), field },
+        };
+    }
+
+}

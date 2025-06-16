@@ -1,0 +1,436 @@
+using Noxy.NET.Test.Application.Interfaces;
+using Noxy.NET.Test.Application.Interfaces.Services;
+using Noxy.NET.Test.Domain.Abstractions.Entities;
+using Noxy.NET.Test.Domain.Abstractions.Forms;
+using Noxy.NET.Test.Domain.Entities.Schemas;
+using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
+using Noxy.NET.Test.Domain.Forms.Schemas.AssociationForms;
+using Noxy.NET.Test.Domain.Forms.Schemas.Forms;
+using Noxy.NET.Test.Domain.Models;
+
+namespace Noxy.NET.Test.Application.Services;
+
+public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaService
+{
+    public async Task<EntitySchemaAction> CreateOrUpdate(FormModelSchemaAction model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaAction result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaAction
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                SchemaID = model.SchemaID,
+                TitleDynamicID = model.TitleDynamicID
+            });
+        }
+        else
+        {
+            result = UpdateSchemaFields(await uow.Schema.GetSchemaActionByID(model.ID), model);
+            uow.Schema.Update(result);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaActionInput> CreateOrUpdate(FormModelSchemaActionInput model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaActionInput result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaActionInput
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                SchemaID = model.SchemaID,
+                InputID = model.InputID,
+            });
+        }
+        else
+        {
+            result = UpdateSchemaFields(await uow.Schema.GetSchemaActionInputByID(model.ID), model);
+            result.InputID = model.InputID;
+            uow.Schema.Update(result);
+        }
+
+        if (model.AttributeList != null)
+        {
+            result.AttributeList = [];
+            await uow.Association.ClearActionInputAttribute(model.ID);
+
+            foreach (FormModelAssociationSchemaActionInputHasAttribute.Discriminator discriminator in model.AttributeList)
+            {
+                FormModelAssociationSchemaActionInputHasAttribute item = discriminator.GetValue();
+                List<EntityAssociationSchemaActionInputHasAttribute> parsed = item switch
+                {
+                    FormModelAssociationSchemaActionInputHasAttribute<string> value => await uow.Association.AssociateActionInputWithAttribute(value.EntityID, value.RelationID, value.Value),
+                    FormModelAssociationSchemaActionInputHasAttribute<int?> value => await uow.Association.AssociateActionInputWithAttribute(value.EntityID, value.RelationID, value.Value),
+                    FormModelAssociationSchemaActionInputHasAttribute<GenericUUID<EntitySchemaDynamicValue>?> value => await uow.Association.AssociateActionInputWithAttribute(value.EntityID, value.RelationID, value.Value),
+                    _ => throw new ArgumentOutOfRangeException(nameof(model))
+                };
+
+                result.AttributeList?.AddRange(parsed.Select(x => new EntityAssociationSchemaActionInputHasAttribute.Discriminator(x)));
+            }
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaActionStep> CreateOrUpdate(FormModelSchemaActionStep model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaActionStep result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaActionStep
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                IsRepeatable = model.IsRepeatable,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = UpdateSchemaFields(await uow.Schema.GetSchemaActionStepByID(model.ID), model);
+            uow.Schema.Update(result);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaAttribute> CreateOrUpdate(FormModelSchemaAttribute model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaAttribute result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaAttribute
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Type = model.Type,
+                IsList = model.IsList,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = UpdateSchemaFields(await uow.Schema.GetSchemaAttributeByID(model.ID), model);
+            uow.Schema.Update(result);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaContext> CreateOrUpdate(FormModelSchemaContext model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaContext result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaContext
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = UpdateSchemaFields(await uow.Schema.GetSchemaContextByID(model.ID), model);
+            uow.Schema.Update(result);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaDynamicValue.Discriminator> CreateOrUpdate(FormModelSchemaDynamicValueCode model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaDynamicValue.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaDynamicValueCode
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Value = model.Value,
+                IsAsynchronous = model.IsAsynchronous,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaDynamicValueByID(model.ID);
+            EntitySchemaDynamicValueCode property = UpdateSchemaFields(result.Code, model);
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaDynamicValue.Discriminator> CreateOrUpdate(FormModelSchemaDynamicValueSystemParameter model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaDynamicValue.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaDynamicValueSystemParameter
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                IsApprovalRequired = model.IsApprovalRequired,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaDynamicValueByID(model.ID);
+            EntitySchemaDynamicValueSystemParameter property = UpdateSchemaFields(result.SystemParameter, model);
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaDynamicValue.Discriminator> CreateOrUpdate(FormModelSchemaDynamicValueTextParameter model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaDynamicValue.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaDynamicValueTextParameter
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Type = model.Type,
+                IsApprovalRequired = model.IsApprovalRequired,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaDynamicValueByID(model.ID);
+            EntitySchemaDynamicValueTextParameter property = UpdateSchemaFields(result.TextParameter, model);
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaElement> CreateOrUpdate(FormModelSchemaElement model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaElement result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaElement
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = UpdateSchemaFields(await uow.Schema.GetSchemaElementByID(model.ID), model);
+            uow.Schema.Update(result);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaInput> CreateOrUpdate(FormModelSchemaInput model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaInput result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaInput
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                SchemaID = model.SchemaID
+            });
+        }
+        else
+        {
+            result = UpdateSchemaFields(await uow.Schema.GetSchemaInputByID(model.ID), model);
+            uow.Schema.Update(result);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaProperty.Discriminator> CreateOrUpdate(FormModelSchemaPropertyBoolean model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaProperty.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaPropertyBoolean
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                DefaultValue = model.DefaultValue,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaPropertyByID(model.ID);
+            EntitySchemaPropertyBoolean property = UpdateSchemaFields(result.Boolean, model);
+            property.DefaultValue = model.DefaultValue;
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaProperty.Discriminator> CreateOrUpdate(FormModelSchemaPropertyDateTime model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaProperty.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaPropertyDateTime
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                DefaultValue = model.DefaultValue,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaPropertyByID(model.ID);
+            EntitySchemaPropertyDateTime property = UpdateSchemaFields(result.DateTime, model);
+            property.DefaultValue = model.DefaultValue;
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaProperty.Discriminator> CreateOrUpdate(FormModelSchemaPropertyString model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaProperty.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaPropertyString
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                DefaultValue = model.DefaultValue,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaPropertyByID(model.ID);
+            EntitySchemaPropertyString property = UpdateSchemaFields(result.String, model);
+            property.DefaultValue = model.DefaultValue;
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    #region -- Private methods --
+
+    private static TEntity UpdateSchemaFields<TEntity>(TEntity? entity, BaseFormModelEntitySchema model) where TEntity : BaseEntitySchema
+    {
+        if (entity == null) throw new NullReferenceException();
+
+        entity.Name = model.Name;
+        entity.Note = model.Note;
+        entity.SchemaIdentifier = model.SchemaIdentifier;
+
+        return entity;
+    }
+
+    private static TEntity UpdateSchemaFields<TEntity>(TEntity? entity, BaseFormModelEntitySchemaComponent model) where TEntity : BaseEntitySchemaComponent
+    {
+        if (entity == null) throw new NullReferenceException();
+
+        entity.Title = model.Title;
+        entity.Description = model.Description;
+
+        return UpdateSchemaFields(entity, model as BaseFormModelEntitySchema);
+    }
+
+    #endregion
+}

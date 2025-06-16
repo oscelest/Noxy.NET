@@ -1,0 +1,22 @@
+@inherits BaseComponentActionInput
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateInputGroup DisplayName="@Context.Title" Description="@Context.Description">
+        <InputElementDecimal @bind-Value="Context.DecimalValue" @bind-Value:after="Commit"/>
+    </TemplateInputGroup>
+</div>
+
+@code {
+
+    private decimal? GetValue()
+    {
+        return Context.Value as decimal?;
+    }
+
+    private async Task  SetValue(decimal? value)
+    {
+        Context.Value = value;
+        await Commit();
+    }
+
+}

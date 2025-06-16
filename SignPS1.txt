@@ -1,0 +1,9 @@
+$CertificateName = "Noxy.NET Code Signing"
+$Certificate = New-SelfSignedCertificate -CertStoreLocation Cert:\CurrentUser\My -Subject "CN=$CertificateName" -KeySpec Signature -Type CodeSigningCert
+
+$CertificatePath = [Environment]::GetFolderPath("MyDocuments")+"\$CertificateName.cer"
+Export-Certificate -Cert $Certificate -FilePath $CertificatePath
+Get-Item $CertificatePath | Import-Certificate -CertStoreLocation "Cert:\LocalMachine\Root"
+  
+$ScriptPath = "D:\C# Projects\Noxy.NET\ReleaseNuGet.ps1"
+Set-AuthenticodeSignature -FilePath $ScriptPath -Certificate $Certificate

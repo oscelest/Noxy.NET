@@ -1,0 +1,38 @@
+@inherits BaseComponentFormJunction<FormModelJunctionSchemaActionHasDynamicValueCode, EntitySchemaAction, EntitySchemaDynamicValueCode, EntityJunctionSchemaActionHasDynamicValueCode>
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <h3>Dynamic value code:</h3>
+
+    <WebForm Context="Context" OnSubmit="() => Context.Submit(FormSubmit)">
+        <TemplateJunctionList OptionList="ListAvailable" @bind-Value="Context.Model.RelationIDList">
+            <Header>
+                <span>
+                    @CollectionLookup[context].Name
+                </span>
+            </Header>
+            <Content>
+                <TemplatePropertyDisplay Entity="CollectionLookup[context]"/>
+            </Content>
+        </TemplateJunctionList>
+
+        <Button Loading="Context.IsSubmitting" type="submit">Update</Button>
+    </WebForm>
+</div>
+
+@code {
+
+    protected override List<EntityJunctionSchemaActionHasDynamicValueCode> JunctionList => Entity.DynamicValueCodeList ?? [];
+
+    protected override void UpdateElement()
+    {
+        base.UpdateElement();
+        Context.Model.EntityID = Entity.ID;
+        Context.Model.RelationIDList = JunctionList.Select(x => x.RelationID).ToList();
+    }
+
+    protected override WebFormContext<FormModelJunctionSchemaActionHasDynamicValueCode> CreateContext()
+    {
+        return new(new(Value));
+    }
+
+}

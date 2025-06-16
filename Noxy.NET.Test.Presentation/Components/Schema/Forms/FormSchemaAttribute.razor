@@ -1,0 +1,33 @@
+@inherits BaseComponentFormSchema<FormModelSchemaAttribute, EntitySchemaAttribute>
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateSchemaForm Context="Context" FormSubmit="FormSubmit">
+        <Header>
+            @HeaderText
+        </Header>
+        
+        <Content>
+            <InputGroupText @bind-Value="Context.Model.SchemaIdentifier"/>
+            <InputGroupText @bind-Value="Context.Model.Name"/>
+            <InputGroupText @bind-Value="Context.Model.Note"/>
+        </Content>
+        
+        <Actions>
+            <Button Loading="Context.IsSubmitting" Status="StatusEnum.Success" type="submit">
+                @SubmitText
+            </Button>
+        </Actions>
+    </TemplateSchemaForm>
+</div>
+
+
+@code {
+
+    private string HeaderText => Context.Model.ID != Guid.Empty ? TextConstants.UpdateFormHeaderEntitySchemaAttribute : TextConstants.CreateFormHeaderEntitySchemaAttribute;
+
+    protected override WebFormContext<FormModelSchemaAttribute> CreateContext()
+    {
+        return new(new(Value){ SchemaID = Schema.ID });
+    }
+
+}

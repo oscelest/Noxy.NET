@@ -1,0 +1,28 @@
+﻿@inherits ElementComponent
+
+<AuthorizeView>
+    <Authorized>
+        @ChildContent
+    </Authorized>
+    <NotAuthorized>
+        <div @attributes="AdditionalAttributes" class="@CssClass">
+            <div class="content">
+                <div class="column">
+                    <h2>Create an account</h2>
+                    <SignUpForm/>
+                </div>
+                <div class="column">
+                    <h2>... Or log in</h2>
+                    <SignInForm/>
+                </div>
+            </div>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+}

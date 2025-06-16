@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.20</Version>
+    <Authors>Noxy.NET</Authors>
+    <Title>Noxy.NET.UI.Common</Title>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RootNamespace>Noxy.NET.UI</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Scripts\Interop.js" />
+    <None Include="README.md" Pack="true" PackagePath=""/>
+    <None Include="wwwroot\Interop.js" />
+    <Content Update="wwwroot\Interop.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Interop.js</LastGenOutput>
+    </Content>
+    <Content Update="wwwroot\Interop.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Interop.tt</DependentUpon>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Noxy.NET.Common\Noxy.NET.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Templates\TemplateStatus.razor" />
+  </ItemGroup>
+
+</Project>

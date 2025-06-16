@@ -1,0 +1,60 @@
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateSchemaOverview Schema="Schema" List="Schema.ElementList">
+        <Header>
+            <h3>Elements</h3>
+        </Header>
+
+        <Form>
+            @if (context != null)
+            {
+                <SidebarRightLayout>
+                    <Sidebar>
+                        <FormSchemaElement Schema="Schema" Value="context" OnChange="FormChange" />
+                    </Sidebar>
+                    <Content>
+                        <JunctionFormSchemaElementProperty Entity="context" Available="Schema.PropertyList" />
+                    </Content>
+                </SidebarRightLayout>
+            }
+            else
+            {
+                <FormSchemaElement Schema="Schema" OnChange="FormChange" />
+            }
+        </Form>
+
+        <Display>
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelSchemaIdentifier">
+                <span>@context.SchemaIdentifier.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelName">
+                <span>@context.Name.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelNote">
+                <span>@context.Note.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelTitle">
+                <span>@context.Title.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDescription">
+                <span>@context.Description.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+        </Display>
+    </TemplateSchemaOverview>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required EntitySchema Schema { get; set; }
+
+    private void FormChange(EntitySchemaElement entity)
+    {
+        Schema.ElementList = Schema.ElementList?.Where(x => x.ID != entity.ID).Append(entity).OrderBy(x => x.Order).ToList();
+    }
+}

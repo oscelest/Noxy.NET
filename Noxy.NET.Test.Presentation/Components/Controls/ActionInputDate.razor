@@ -1,0 +1,25 @@
+@inherits BaseComponentActionInput
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateInputGroup DisplayName="@Context.Title" Description="@Context.Description">
+        <InputElementDate @bind-Value="Context.DateTimeValue" min="@MinDate" max="@MaxDate" @bind-Value:after="Commit"/>
+    </TemplateInputGroup>
+</div>
+
+@code {
+
+    private string? MinDate => Context.CollectionAttribute.FirstOrDefault(x => x.Key == SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueMinDate).Value?.StringValue;
+    private string? MaxDate => Context.CollectionAttribute.FirstOrDefault(x => x.Key == SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueMaxDate).Value?.StringValue;
+
+    private DateTime? GetValue()
+    {
+        return Context.Value as DateTime?;
+    }
+
+    private async Task SetValue(DateTime? value)
+    {
+        Context.Value = value;
+        await Commit();
+    }
+
+}

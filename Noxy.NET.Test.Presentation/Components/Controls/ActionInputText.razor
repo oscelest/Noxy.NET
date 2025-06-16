@@ -1,0 +1,28 @@
+@inherits BaseComponentActionInput
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateInputGroup DisplayName="@Context.Title" Description="@Context.Description">
+        <InputElementText @bind-Value="Context.StringValue" @bind-Value:after="Commit"/>
+    </TemplateInputGroup>
+</div>
+
+@code {
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        ContextActionField a = Context;
+    }
+
+    private string? GetValue()
+    {
+        return Context.Value as string;
+    }
+
+    private async Task SetValue(string? value)
+    {
+        Context.Value = value;
+        await Commit();
+    }
+
+}

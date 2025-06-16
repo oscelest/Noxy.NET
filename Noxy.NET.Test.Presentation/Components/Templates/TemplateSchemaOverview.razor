@@ -1,0 +1,84 @@
+@typeparam T where T : BaseEntityTemplate
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <Collapsible>
+        <Header>
+            @Header
+        </Header>
+        <Content>
+            <div class="edit-content">
+                @if (!Schema.IsActive)
+                {
+                    <SidebarRightLayout>
+                        <Content>
+                            <div class="edit-list">
+                                @foreach (T item in List ?? [])
+                                {
+                                    <Collapsible>
+                                        <Header>
+                                            <div class="edit-header">
+                                                @item.Name
+                                            </div>
+                                        </Header>
+                                        <Content>
+                                            <div class="update">
+                                                @Form?.Invoke(item)
+                                            </div>
+                                        </Content>
+                                    </Collapsible>
+                                }
+                            </div>
+                        </Content>
+                        <Sidebar>
+                            @Form?.Invoke(null)
+                        </Sidebar>
+                    </SidebarRightLayout>
+                }
+                else
+                {
+                    <SidebarRightLayout>
+                        <Content>
+                            <div class="list">
+                                @foreach (T item in List ?? [])
+                                {
+                                    <Collapsible>
+                                        <Header>
+                                            <div class="display-header">
+                                                @item.Name
+                                            </div>
+                                        </Header>
+                                        <Content>
+                                            <div class="display-content">
+                                                @Display?.Invoke(item)
+                                            </div>
+                                        </Content>
+                                    </Collapsible>
+                                }
+                            </div>
+                        </Content>
+                    </SidebarRightLayout>
+                }
+            </div>
+        </Content>
+    </Collapsible>
+</div>
+
+@code {
+
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
+    [Parameter]
+    public RenderFragment<T?>? Form { get; set; }
+
+    [Parameter]
+    public RenderFragment<T>? Display { get; set; }
+
+    [Parameter, EditorRequired]
+    public required IEnumerable<T>? List { get; set; }
+
+    [Parameter, EditorRequired]
+    public required EntitySchema Schema { get; set; }
+
+}

@@ -1,0 +1,78 @@
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateSchemaOverview Schema="Schema" List="Schema.PropertyList?.Select(x => x.GetValue()) ?? []">
+        <Header>
+            <h3>Properties</h3>
+        </Header>
+
+        <Form>
+            @if (context != null)
+            {
+                @switch (context)
+                {
+                    case EntitySchemaPropertyString propertyString:
+                        <FormSchemaPropertyString Schema="Schema" Value="propertyString" OnChange="FormChange"/>
+                        break;
+                    case EntitySchemaPropertyDateTime propertyDateTime:
+                        <FormSchemaPropertyDateTime Schema="Schema" Value="propertyDateTime" OnChange="FormChange"/>
+                        break;
+                    case EntitySchemaPropertyBoolean propertyBoolean:
+                        <FormSchemaPropertyBoolean Schema="Schema" Value="propertyBoolean" OnChange="FormChange"/>
+                        break;
+                }
+            }
+            else
+            {
+                <InputGroupRadioSet DisplayName="Choose property type:" OptionList="_optionList" @bind-Value="_currentValue" Context="item">
+                    <span>@item</span>
+                </InputGroupRadioSet>
+
+                @switch (_currentValue)
+                {
+                    case TextConstants.FormEntitySchemaLabelPropertyTypeBoolean:
+                        <FormSchemaPropertyBoolean Schema="Schema" OnChange="FormChange"/>
+                        break;
+                    case TextConstants.FormEntitySchemaLabelPropertyTypeDateTime:
+                        <FormSchemaPropertyDateTime Schema="Schema" OnChange="FormChange"/>
+                        break;
+                    case TextConstants.FormEntitySchemaLabelPropertyTypeString:
+                        <FormSchemaPropertyString Schema="Schema" OnChange="FormChange"/>
+                        break;
+                }
+            }
+        </Form>
+
+        <Display>
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelSchemaIdentifier">
+                <span>@context.SchemaIdentifier.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelName">
+                <span>@context.Name.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelNote">
+                <span>@context.Note.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelPropertyDefaultValue">
+                <span>@context.DefaultValue.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+        </Display>
+    </TemplateSchemaOverview>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required EntitySchema Schema { get; set; }
+
+    private string? _currentValue = TextConstants.FormEntitySchemaLabelPropertyTypeString;
+    private readonly List<string> _optionList = [TextConstants.FormEntitySchemaLabelPropertyTypeBoolean, TextConstants.FormEntitySchemaLabelPropertyTypeDateTime, TextConstants.FormEntitySchemaLabelPropertyTypeString];
+
+    private void FormChange(EntitySchemaProperty entity)
+    {
+        Schema.PropertyList = Schema.PropertyList?.Where(x => x.ID != entity.ID).Append(new(entity)).OrderBy(x => x.GetValue().Order).ToList();
+    }
+}

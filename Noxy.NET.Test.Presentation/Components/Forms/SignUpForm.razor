@@ -1,0 +1,33 @@
+@inject AuthenticationAPIService APIService
+@inject UserAuthenticationStateProvider AuthService
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <WebForm Context="Context" OnSubmit="() => Context.Submit(FormSubmit)">
+        <InputGroupText @bind-Value="Context.Model.Email"/>
+        <InputGroupPassword @bind-Value="Context.Model.Password"/>
+        <InputGroupPassword Autocomplete="WebFormInputFieldPasswordAutocompleteEnum.NewPassword" @bind-Value="Context.Model.ConfirmPassword"/>
+
+        <Button Status="StatusEnum.Info" type="submit">Sign Up</Button>
+    </WebForm>
+</div>
+
+@code {
+
+    private WebFormContext<SignUpUserFormModel> Context { get; } = new(new());
+
+    private async void FormSubmit()
+    {
+        try
+        {
+            if (!Context.Validate()) return;
+            string result = await APIService.SignUpUser(Context.Model);
+            await AuthService.UpdateIdentity(result);
+        }
+        catch (Exception e)
+        {
+            Context.HandleException(e);
+        }
+    }
+
+}

@@ -1,0 +1,80 @@
+﻿@inherits ElementComponent
+
+<div @attributes="@AdditionalAttributes" class="@CssClass" collapsed="@_internalCollapsed">
+    <div class="header-wrapper">
+        <div class="header">
+            @Header
+        </div>
+        <div class="arrow" tabindex="0" @onclick="ArrowClicked" @onkeydown="ArrowKeyPressed">
+            @if (Arrow != null)
+            {
+                @Arrow(_internalCollapsed)
+            }
+            else
+            {
+                @if (_internalCollapsed)
+                {
+                    <span>⮟</span>
+                }
+                else
+                {
+                    <span>⮝</span>
+                }
+            }
+        </div>
+    </div>
+    <div class="content">
+        @Content
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+
+    [Parameter]
+    public RenderFragment<bool>? Arrow { get; set; }
+
+    [Parameter]
+    public bool? Collapsed { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> CollapsedChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<bool>>? CollapsedExpression { get; set; }
+
+    private bool _internalCollapsed;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _internalCollapsed = Collapsed ?? true;
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Collapsed.HasValue)
+        {
+            _internalCollapsed = Collapsed.Value;
+        }
+    }
+
+    private void ArrowKeyPressed(KeyboardEventArgs args)
+    {
+        CollapsedChanged.InvokeAsync(_internalCollapsed = !_internalCollapsed);
+    }
+
+    private void ArrowClicked()
+    {
+        CollapsedChanged.InvokeAsync(_internalCollapsed = !_internalCollapsed);
+    }
+
+}

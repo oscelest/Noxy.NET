@@ -1,0 +1,22 @@
+@inherits BaseComponentActionInput
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateInputGroup DisplayName="@Context.Title" Description="@Context.Description">
+        <InputElementInteger @bind-Value="Context.IntegerValue" @bind-Value:after="Commit"/>
+    </TemplateInputGroup>
+</div>
+
+@code {
+
+    private int? GetValue()
+    {
+        return Context.Value as int?;
+    }
+
+    private async Task  SetValue(int? value)
+    {
+        Context.Value = value;
+        await Commit();
+    }
+
+}

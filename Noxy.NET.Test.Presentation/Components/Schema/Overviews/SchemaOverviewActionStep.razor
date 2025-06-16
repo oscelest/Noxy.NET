@@ -1,0 +1,61 @@
+@inherits ElementComponent
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <TemplateSchemaOverview Schema="Schema" List="Schema.ActionStepList">
+        <Header>
+            <h3>Action steps</h3>
+        </Header>
+
+        <Form>
+            @if (context != null)
+            {
+                <SidebarRightLayout>
+                    <Sidebar>
+                        <FormSchemaActionStep Schema="Schema" Value="context" OnChange="FormChange"/>
+                    </Sidebar>
+                    <Content>
+                        <JunctionFormSchemaActionStepHasActionInput Entity="context" Available="Schema.ActionInputList"/>
+                    </Content>
+                </SidebarRightLayout>
+            }
+            else
+            {
+                <FormSchemaActionStep Schema="Schema" OnChange="FormChange"/>
+            }
+        </Form>
+
+        <Display>
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelSchemaIdentifier">
+                <span>@context.SchemaIdentifier.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelName">
+                <span>@context.Name.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelNote">
+                <span>@context.Note.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelTitle">
+                <span>@context.Title.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+
+            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDescription">
+                <span>@context.Description.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
+            </TemplateInputGroup>
+        </Display>
+    </TemplateSchemaOverview>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required EntitySchema Schema { get; set; }
+
+    private void FormChange(EntitySchemaActionStep entity)
+    {
+        Schema.ActionStepList = Schema.ActionStepList?.Where(x => x.ID != entity.ID).Append(entity).OrderBy(x => x.Order).ToList();
+    }
+
+}

@@ -1,0 +1,54 @@
+﻿@inject IJSRuntime JS
+@inherits BaseInputValue<string>
+@implements IDisposable
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <input @attributes="AdditionalAttributes" class="input" name="@Name" type="text" value="@Value" @onchange="OnInputChange"/>
+    <div class="dropdown-list">
+        
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public IReadOnlyDictionary<string, object>? InputAttributes { get; set; }
+    
+    [Parameter]
+    public bool? UseOnInput { get; set; }
+    private bool UseOnInputCurrent => UseOnInput ?? false;
+    
+    private DotNetObjectReference<InputElementSelect>? DotNetReference { get; set; }
+    private string Name => TryExtractAttribute(InputAttributes, "name", out string? result) && !string.IsNullOrWhiteSpace(result) ? result : UUIDString;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        if (UseOnInputCurrent)
+        {
+            await LoadInterop(JS);
+            Module?.InvokeVoidAsync("NoxyNETUIWebForm.RegisterOnInput", UUIDString, Constants.OnInputDelay, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
+        }
+    }
+
+    [JSInvokable]
+    public void OnValueChange(string value)
+    {
+        NotifyChange(value);
+    }
+
+    private void OnInputChange(ChangeEventArgs args)
+    {
+        NotifyChange(args.Value?.ToString() ?? string.Empty);
+    }
+    
+    public void Dispose()
+    {
+        DotNetReference?.Dispose();
+        Module?.InvokeVoidAsync("NoxyNETUIWebForm.DeregisterOnInput", UUIDString);
+    }
+
+}
+

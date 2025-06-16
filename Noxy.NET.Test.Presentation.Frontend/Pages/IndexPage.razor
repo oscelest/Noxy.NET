@@ -1,0 +1,41 @@
+﻿@page "/"
+@inject DataAPIService DataAPIService
+@inject TextService TextService
+@inherits PageComponent
+
+<PageTitle>Home</PageTitle>
+
+<AuthorizeLayout>
+    <PageLayout>
+        @foreach (ViewModelSchemaContext item in _listContext)
+        {
+            <h2>@item.Title</h2>
+            <span>@item.Description</span>
+            <NavLink href="@GetLink(item.SchemaIdentifier)">Go to</NavLink>
+        }
+    </PageLayout>
+</AuthorizeLayout>
+
+@code {
+
+    private ViewModelSchemaContext[] _listContext = [];
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        await WithLoader(LoadData);
+        await WithLoader(TextService.Resolve);
+    }
+
+    private async Task LoadData()
+    {
+        _listContext = await DataAPIService.GetContextList();
+    }
+    
+    private static string GetLink(string identifier)
+    {
+        return $"/Context/{identifier}";
+    }
+}
