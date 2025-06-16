@@ -1,8 +1,8 @@
+using Noxy.NET.Models;
 using Noxy.NET.Test.Application.Interfaces;
 using Noxy.NET.Test.Application.Interfaces.Services;
 using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
 using Noxy.NET.Test.Domain.Forms.Schemas.AssociationForms;
-using Noxy.NET.Test.Domain.Models;
 
 namespace Noxy.NET.Test.Application.Services;
 

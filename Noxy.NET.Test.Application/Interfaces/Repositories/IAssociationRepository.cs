@@ -1,5 +1,5 @@
+using Noxy.NET.Models;
 using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
-using Noxy.NET.Test.Domain.Models;
 
 namespace Noxy.NET.Test.Application.Interfaces.Repositories;
 

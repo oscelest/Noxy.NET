@@ -1,4 +1,4 @@
-namespace Noxy.NET.Test.Domain.Abstractions;
+namespace Noxy.NET.Abstractions;
 
 public abstract class UniversalValue
 {

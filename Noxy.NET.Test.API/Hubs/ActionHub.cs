@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Noxy.NET.Models;
 using Noxy.NET.Test.Application.Interfaces.Hubs;
 using Noxy.NET.Test.Application.Interfaces.Services;
 using Noxy.NET.Test.Domain.Entities.Schemas;
@@ -35,7 +36,7 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
         manager.Deregister(id);
     }
 
-    public StateAction CommitField(Guid id, string identifier, JSONProperty value)
+    public StateAction CommitField(Guid id, string identifier, JsonDiscriminator value)
     {
         if (!Data.TryGetValue(UserIdentifier, out ActionManager? manager)) throw new InvalidOperationException();
         manager.SetDataValue(id, identifier, value.GetValue());
@@ -116,7 +117,7 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
         return result;
     }
 
-    private JSONProperty GetAttributeValue(EntityAssociationSchemaActionInputHasAttribute.Discriminator attribute)
+    private JsonDiscriminator GetAttributeValue(EntityAssociationSchemaActionInputHasAttribute.Discriminator attribute)
     {
         return new(attribute.GetValue() switch
         {

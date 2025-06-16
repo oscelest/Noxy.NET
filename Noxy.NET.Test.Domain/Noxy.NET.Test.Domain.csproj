@@ -11,4 +11,8 @@
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Noxy.NET.Common\Noxy.NET.Common.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -1,6 +1,5 @@
 using Noxy.NET.Test.Persistence.Abstractions.Tables;
 using Noxy.NET.Test.Persistence.Tables.Schemas.Associations;
-using Noxy.NET.Test.Persistence.Tables.Schemas.Junctions;
 
 namespace Noxy.NET.Test.Persistence.Tables.Schemas.Discriminators;
 

@@ -1,4 +1,4 @@
-using Noxy.NET.Test.Domain.Abstractions;
+using Noxy.NET.Abstractions;
 using Noxy.NET.Test.Domain.Enums;
 using Noxy.NET.Test.Domain.Models;
 

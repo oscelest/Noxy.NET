@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Noxy.NET.Test.Domain.Abstractions.Entities;
 
 namespace Noxy.NET.Test.Domain.Abstractions.Forms;

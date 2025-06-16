@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
+using Noxy.NET.Models;
 using Noxy.NET.Test.Application.Interfaces.Hubs;
 using Noxy.NET.Test.Domain.Models;
 using Noxy.NET.Test.Presentation.Abstractions.Components;
@@ -51,7 +52,7 @@ public class ActionHubService
         ContextAction contextAction = _collectionActionContext[id];
         ContextActionField contextActionField = contextAction.CollectionField[identifierInput];
         
-        StateAction result = await _hubConnection.InvokeAsync<StateAction>(nameof(IActionServerHub.CommitField), id, identifierInput, new JSONProperty(contextActionField.Value));
+        StateAction result = await _hubConnection.InvokeAsync<StateAction>(nameof(IActionServerHub.CommitField), id, identifierInput, new JsonDiscriminator(contextActionField.Value));
         return contextAction.Apply(result);
     }
 

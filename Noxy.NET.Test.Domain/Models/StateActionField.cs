@@ -1,3 +1,5 @@
+using Noxy.NET.Models;
+
 namespace Noxy.NET.Test.Domain.Models;
 
 public class StateActionField
@@ -7,5 +9,5 @@ public class StateActionField
     public required string[]? ErrorList { get; init; }
     public required bool IsActive { get; init; }
     public required Dictionary<string, StateActionFieldAttribute> AttributeCollection { get; init; }
-    public required JSONProperty Value { get; init; }
+    public required JsonDiscriminator Value { get; init; }
 }

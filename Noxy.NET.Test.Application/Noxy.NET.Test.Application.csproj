@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Noxy.NET.Common\Noxy.NET.Common.csproj" />
       <ProjectReference Include="..\Noxy.NET.Test.Domain\Noxy.NET.Test.Domain.csproj" />
     </ItemGroup>
 

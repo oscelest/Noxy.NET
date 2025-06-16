@@ -1,4 +1,4 @@
-using Noxy.NET.Test.Domain.Abstractions;
+using Noxy.NET.Abstractions;
 using Noxy.NET.Test.Domain.Models;
 
 namespace Noxy.NET.Test.Presentation.Models;

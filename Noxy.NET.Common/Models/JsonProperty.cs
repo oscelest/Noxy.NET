@@ -1,45 +1,45 @@
 using System.Collections;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Noxy.NET.Test.Domain.Enums;
+using Noxy.NET.Enums;
 
-namespace Noxy.NET.Test.Domain.Models;
+namespace Noxy.NET.Models;
 
-public class JSONProperty
+public class JsonDiscriminator
 {
     public JsonElement Value { get; set; }
-    public JSONPropertyTypeEnum Type { get; set; }
+    public JsonDiscriminatorTypeEnum Type { get; set; }
 
     [JsonConstructor]
-    public JSONProperty()
+    public JsonDiscriminator()
     {
     }
 
-    public JSONProperty(object? value)
+    public JsonDiscriminator(object? value)
     {
         Value = ConvertToJsonElement(value);
         Type = value switch
         {
-            null => JSONPropertyTypeEnum.Null,
-            sbyte => JSONPropertyTypeEnum.SByte,
-            byte => JSONPropertyTypeEnum.Byte,
-            bool => JSONPropertyTypeEnum.Boolean,
-            short => JSONPropertyTypeEnum.Short,
-            int => JSONPropertyTypeEnum.Integer,
-            long => JSONPropertyTypeEnum.Long,
-            ushort => JSONPropertyTypeEnum.UShort,
-            uint => JSONPropertyTypeEnum.UInteger,
-            ulong => JSONPropertyTypeEnum.ULong,
-            float => JSONPropertyTypeEnum.Single,
-            decimal => JSONPropertyTypeEnum.Decimal,
-            double => JSONPropertyTypeEnum.Double,
-            string => JSONPropertyTypeEnum.String,
-            Guid => JSONPropertyTypeEnum.Guid,
-            DateTime => JSONPropertyTypeEnum.DateTime,
-            DateTimeOffset => JSONPropertyTypeEnum.DateTimeOffset,
-            IList => JSONPropertyTypeEnum.Array,
-            IDictionary => JSONPropertyTypeEnum.Object,
-            _ => JSONPropertyTypeEnum.Unknown,
+            null => JsonDiscriminatorTypeEnum.Null,
+            sbyte => JsonDiscriminatorTypeEnum.SByte,
+            byte => JsonDiscriminatorTypeEnum.Byte,
+            bool => JsonDiscriminatorTypeEnum.Boolean,
+            short => JsonDiscriminatorTypeEnum.Short,
+            int => JsonDiscriminatorTypeEnum.Integer,
+            long => JsonDiscriminatorTypeEnum.Long,
+            ushort => JsonDiscriminatorTypeEnum.UShort,
+            uint => JsonDiscriminatorTypeEnum.UInteger,
+            ulong => JsonDiscriminatorTypeEnum.ULong,
+            float => JsonDiscriminatorTypeEnum.Single,
+            decimal => JsonDiscriminatorTypeEnum.Decimal,
+            double => JsonDiscriminatorTypeEnum.Double,
+            string => JsonDiscriminatorTypeEnum.String,
+            Guid => JsonDiscriminatorTypeEnum.Guid,
+            DateTime => JsonDiscriminatorTypeEnum.DateTime,
+            DateTimeOffset => JsonDiscriminatorTypeEnum.DateTimeOffset,
+            IList => JsonDiscriminatorTypeEnum.Array,
+            IDictionary => JsonDiscriminatorTypeEnum.Object,
+            _ => JsonDiscriminatorTypeEnum.Unknown,
         };
     }
 
@@ -47,26 +47,26 @@ public class JSONProperty
     {
         return Type switch
         {
-            JSONPropertyTypeEnum.Unknown => Value.GetRawText(),
-            JSONPropertyTypeEnum.Null => null,
-            JSONPropertyTypeEnum.SByte => AsSByte(),
-            JSONPropertyTypeEnum.Byte => AsByte(),
-            JSONPropertyTypeEnum.Boolean => AsBoolean(),
-            JSONPropertyTypeEnum.Short => AsShort(),
-            JSONPropertyTypeEnum.Integer => AsInteger(),
-            JSONPropertyTypeEnum.Long => AsLong(),
-            JSONPropertyTypeEnum.UShort => AsUShort(),
-            JSONPropertyTypeEnum.UInteger => AsUInteger(),
-            JSONPropertyTypeEnum.ULong => AsULong(),
-            JSONPropertyTypeEnum.Single => AsSingle(),
-            JSONPropertyTypeEnum.Decimal => AsDecimal(),
-            JSONPropertyTypeEnum.Double => AsDouble(),
-            JSONPropertyTypeEnum.String => AsString(),
-            JSONPropertyTypeEnum.Guid => AsGUID(),
-            JSONPropertyTypeEnum.DateTime => AsDateTime(),
-            JSONPropertyTypeEnum.DateTimeOffset => AsDateTimeOffset(),
-            JSONPropertyTypeEnum.Array => AsArray(),
-            JSONPropertyTypeEnum.Object => AsDictionary(),
+            JsonDiscriminatorTypeEnum.Unknown => Value.GetRawText(),
+            JsonDiscriminatorTypeEnum.Null => null,
+            JsonDiscriminatorTypeEnum.SByte => AsSByte(),
+            JsonDiscriminatorTypeEnum.Byte => AsByte(),
+            JsonDiscriminatorTypeEnum.Boolean => AsBoolean(),
+            JsonDiscriminatorTypeEnum.Short => AsShort(),
+            JsonDiscriminatorTypeEnum.Integer => AsInteger(),
+            JsonDiscriminatorTypeEnum.Long => AsLong(),
+            JsonDiscriminatorTypeEnum.UShort => AsUShort(),
+            JsonDiscriminatorTypeEnum.UInteger => AsUInteger(),
+            JsonDiscriminatorTypeEnum.ULong => AsULong(),
+            JsonDiscriminatorTypeEnum.Single => AsSingle(),
+            JsonDiscriminatorTypeEnum.Decimal => AsDecimal(),
+            JsonDiscriminatorTypeEnum.Double => AsDouble(),
+            JsonDiscriminatorTypeEnum.String => AsString(),
+            JsonDiscriminatorTypeEnum.Guid => AsGUID(),
+            JsonDiscriminatorTypeEnum.DateTime => AsDateTime(),
+            JsonDiscriminatorTypeEnum.DateTimeOffset => AsDateTimeOffset(),
+            JsonDiscriminatorTypeEnum.Array => AsArray(),
+            JsonDiscriminatorTypeEnum.Object => AsDictionary(),
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -297,12 +297,12 @@ public class JSONProperty
 
     public object?[] AsArray()
     {
-        return Value.EnumerateArray().Select(x => x.Deserialize<JSONProperty>()?.GetValue()).ToArray();
+        return Value.EnumerateArray().Select(x => x.Deserialize<JsonDiscriminator>()?.GetValue()).ToArray();
     }
 
     public Dictionary<string, object?> AsDictionary()
     {
-        return Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value.Deserialize<JSONProperty>()?.GetValue());
+        return Value.EnumerateObject().ToDictionary(x => x.Name, x => x.Value.Deserialize<JsonDiscriminator>()?.GetValue());
     }
 
     private bool? GetNumberAsBoolean()

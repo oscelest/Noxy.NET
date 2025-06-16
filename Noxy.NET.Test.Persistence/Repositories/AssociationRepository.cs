@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Noxy.NET.Models;
 using Noxy.NET.Test.Application.Interfaces.Repositories;
 using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
-using Noxy.NET.Test.Domain.Models;
 using Noxy.NET.Test.Persistence.Abstractions;
 using Noxy.NET.Test.Persistence.Interfaces.Services;
 using Noxy.NET.Test.Persistence.Tables.Schemas.Associations;

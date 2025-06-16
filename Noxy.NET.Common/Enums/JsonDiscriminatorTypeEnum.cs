@@ -1,6 +1,6 @@
-namespace Noxy.NET.Test.Domain.Enums;
+namespace Noxy.NET.Enums;
 
-public enum JSONPropertyTypeEnum
+public enum JsonDiscriminatorTypeEnum
 {
     Unknown,
     Null,

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Noxy.NET.Test.Domain.Models;
+namespace Noxy.NET.Models;
 
 public class GenericUUID<T>(Guid? value)
 {
