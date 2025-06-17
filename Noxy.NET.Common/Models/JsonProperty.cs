@@ -332,6 +332,28 @@ public class JsonDiscriminator
 
     private static JsonElement ConvertToJsonElement(object? value)
     {
+        if (value is IList list)
+        {
+            List<JsonDiscriminator> result = [];
+            foreach (object? item in list)
+            {
+                result.Add(new(item));
+            }
+
+            return JsonDocument.Parse(JsonSerializer.Serialize(result)).RootElement;
+        }
+        
+        if (value is IDictionary dict)
+        {
+            Dictionary<string, JsonDiscriminator> result = [];
+            foreach (DictionaryEntry item in dict)
+            {
+                result.Add(item.Key.ToString() ?? string.Empty, new(item));
+            }
+
+            return JsonDocument.Parse(JsonSerializer.Serialize(result)).RootElement;
+        }
+        
         return JsonDocument.Parse(JsonSerializer.Serialize(value)).RootElement;
     }
 }

@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.SignalR;
 using Noxy.NET.Models;
 using Noxy.NET.Test.Application.Interfaces.Hubs;
@@ -94,37 +95,44 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
             FieldCollection = collectionField,
         };
     }
-    
+
     private Dictionary<string, StateActionFieldAttribute> GenerateStateActionFieldAttributeCollection(List<EntityAssociationSchemaActionInputHasAttribute.Discriminator>? list)
     {
-        Dictionary<string, StateActionFieldAttribute> result = [];
-        if (list == null) return result;
+        if (list == null) return [];
+
+
+        Dictionary<string, (EntitySchemaAttribute Attribute, List<object?> List)> result = [];
 
         foreach (EntityAssociationSchemaActionInputHasAttribute.Discriminator junctionActionInputAttribute in list)
         {
             EntityAssociationSchemaActionInputHasAttribute entityActionInputAttribute = junctionActionInputAttribute.GetValue();
             EntitySchemaAttribute entityAttribute = entityActionInputAttribute.Relation ?? throw new InvalidOperationException();
 
-            result[entityAttribute.SchemaIdentifier] = new()
+            if (!result.TryGetValue(entityAttribute.SchemaIdentifier, out (EntitySchemaAttribute Attribute, List<object?> List) stateActionFieldAttribute))
             {
-                Value = GetAttributeValue(junctionActionInputAttribute),
-                Type = entityAttribute.Type,
-                IsList = entityAttribute.IsList,
-                Order = entityAttribute.Order,
-            };
+                stateActionFieldAttribute = result[entityAttribute.SchemaIdentifier] = (entityAttribute, []);
+            }
+
+            stateActionFieldAttribute.List.Add(GetAttributeValue(junctionActionInputAttribute));
         }
 
-        return result;
+        return result.ToDictionary(x => x.Key, y => new StateActionFieldAttribute()
+        {
+            Value = new(y.Value.List),
+            Type = y.Value.Attribute.Type,
+            IsList = y.Value.Attribute.IsList,
+            Order = y.Value.Attribute.Order,
+        });
     }
 
-    private JsonDiscriminator GetAttributeValue(EntityAssociationSchemaActionInputHasAttribute.Discriminator attribute)
+    private object? GetAttributeValue(EntityAssociationSchemaActionInputHasAttribute.Discriminator attribute)
     {
-        return new(attribute.GetValue() switch
+        return attribute.GetValue() switch
         {
             EntityAssociationSchemaActionInputHasAttributeDynamicValue value => serviceDynamicValue.Resolve(value.Value?.GetValue()),
             EntityAssociationSchemaActionInputHasAttributeInteger value => value.Value,
             EntityAssociationSchemaActionInputHasAttributeString value => value.Value,
             _ => throw new InvalidOperationException()
-        });
+        };
     }
 }
