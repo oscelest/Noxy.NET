@@ -10,6 +10,9 @@
             <InputGroupText @bind-Value="Context.Model.SchemaIdentifier"/>
             <InputGroupText @bind-Value="Context.Model.Name"/>
             <InputGroupText @bind-Value="Context.Model.Note"/>
+            <InputGroupRadioSet OptionList="Enum.GetValues<TextParameterTypeEnum>()" @bind-Value="Context.Model.Type">
+                @context.ToText();
+            </InputGroupRadioSet>
             <InputGroupCheckbox Option="true" @bind-Value="Context.Model.IsApprovalRequired">
                 <span>Yes</span>
             </InputGroupCheckbox>

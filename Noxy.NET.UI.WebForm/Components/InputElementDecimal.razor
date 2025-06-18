@@ -1,36 +1,20 @@
-﻿@inject IJSRuntime JS
-@inherits BaseInputTextualValue<decimal?>
-@implements IDisposable
+﻿@inherits BaseInputTextualValue<decimal?>
 
-<input @attributes="AdditionalAttributes" id="@IDCurrent" class="@CssClass" type="number" size="@SizeCurrent" value="@Value" @onchange="OnInputChange"/>
+<input @attributes="AdditionalAttributes" id="@IDCurrent" class="@CssClass" type="number" size="@SizeCurrent" value="@Value" @onchange="OnValueChange"/>
 
 @code {
 
     [Parameter]
-    public bool? UseOnInput { get; set; }
-    private bool UseOnInputCurrent => UseOnInput ?? false;
-
-    private DotNetObjectReference<InputElementDecimal>? DotNetReference { get; set; }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (!firstRender) return;
-
-        if (UseOnInputCurrent)
-        {
-            await LoadInterop(JS);
-            Module?.InvokeVoidAsync("NoxyNETUIWebForm.RegisterOnInput", UUIDString, Constants.OnInputDelay, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
-        }
-    }
+    public int? Size { get; set; }
+    protected int SizeCurrent => Size ?? 35;
 
     [JSInvokable]
-    public void OnValueChange(string value)
+    public override void OnValueInput(string value)
     {
         HandleChange(value);
     }
 
-    private void OnInputChange(ChangeEventArgs args)
+    protected override void OnValueChange(ChangeEventArgs args)
     {
         HandleChange(args.Value?.ToString() ?? string.Empty);
     }
@@ -41,12 +25,6 @@
 
         NotifyChange(next);
         Module?.InvokeVoidAsync("NoxyNETUIWebForm.SetInputValue", UUIDString, next?.ToString());
-    }
-
-    public void Dispose()
-    {
-        DotNetReference?.Dispose();
-        Module?.InvokeVoidAsync("NoxyNETUIWebForm.DeregisterOnInput", UUIDString);
     }
 
 }

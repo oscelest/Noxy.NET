@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Noxy.NET.Test.Domain.Constants;
 using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
+using Noxy.NET.Test.Domain.Enums;
 
 namespace Noxy.NET.Test.Domain.Abstractions.Forms;
 

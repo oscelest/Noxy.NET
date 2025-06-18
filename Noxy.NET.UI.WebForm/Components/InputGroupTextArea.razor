@@ -2,7 +2,7 @@
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
     <TemplateInputGroup For="@UUIDCode" DisplayName="@DisplayNameCurrent" Description="@DescriptionCurrent" ErrorList="ErrorList">
-        <InputElementPassword @attributes="InputAttributes" ID="@UUIDCode" Autocomplete="@Autocomplete" Size="Size" HasChangeEventOnInput="HasChangeEventOnInput"
+        <InputElementTextArea @attributes="InputAttributes" ID="@UUIDCode" Columns="ColumnsCurrent" Rows="RowsCurrent" HasChangeEventOnInput="HasChangeEventOnInputCurrent"
                               @bind-Value:get="Value" @bind-Value:set="x => ValueChanged.InvokeAsync(x)"/>
     </TemplateInputGroup>
 </div>
@@ -10,13 +10,16 @@
 @code {
 
     [Parameter]
-    public WebFormInputFieldPasswordAutocompleteEnum? Autocomplete { get; set; }
+    public int? Columns { get; set; }
+    private int ColumnsCurrent => Columns ?? 40;
 
     [Parameter]
-    public int? Size { get; set; }
+    public int? Rows { get; set; }
+    private int RowsCurrent => Rows ?? 6;
 
     [Parameter]
     public bool? HasChangeEventOnInput { get; set; }
+    private bool HasChangeEventOnInputCurrent => HasChangeEventOnInput ?? false;
 
 }
 

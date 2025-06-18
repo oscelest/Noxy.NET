@@ -15,8 +15,8 @@
     public IReadOnlyDictionary<string, object>? InputAttributes { get; set; }
     
     [Parameter]
-    public bool? UseOnInput { get; set; }
-    private bool UseOnInputCurrent => UseOnInput ?? false;
+    public bool? HasChangeEventOnInput { get; set; }
+    private bool HasChangeEventOnInputCurrent => HasChangeEventOnInput ?? false;
     
     private DotNetObjectReference<InputElementSelect>? DotNetReference { get; set; }
     private string Name => TryExtractAttribute(InputAttributes, "name", out string? result) && !string.IsNullOrWhiteSpace(result) ? result : UUIDString;
@@ -26,7 +26,7 @@
         await base.OnAfterRenderAsync(firstRender);
         if (!firstRender) return;
 
-        if (UseOnInputCurrent)
+        if (HasChangeEventOnInputCurrent)
         {
             await LoadInterop(JS);
             Module?.InvokeVoidAsync("NoxyNETUIWebForm.RegisterOnInput", UUIDString, Constants.OnInputDelay, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
