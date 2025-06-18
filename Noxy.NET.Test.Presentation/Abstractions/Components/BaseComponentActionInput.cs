@@ -13,7 +13,7 @@ public abstract class BaseComponentActionInput : ElementComponent
 
     [Parameter, EditorRequired]
     public required string ID { get; set; }
-    
+
     [Parameter, EditorRequired]
     public required Guid Reference { get; set; }
 
@@ -31,7 +31,37 @@ public abstract class BaseComponentActionInput : ElementComponent
         await ActionHubService.CommitField(Reference, ActionInput.SchemaIdentifier);
         await InvokeAsync(StateHasChanged);
     }
-    
 
+    protected ContextActionFieldAttribute? GetAttribute(string identifier)
+    {
+        return Context.CollectionAttribute.GetValueOrDefault(identifier);
+    }
+
+    protected T? GetAttributeValue<T>(string identifier) where T : class
+    {
+        foreach (object? item in GetAttribute(identifier)?.ValueList ?? [])
+        {
+            if (item is T value)
+            {
+                return value;
+            }
+        }
+
+        return null;
+    }
+
+    protected List<T> GetAttributeValueList<T>(string identifier) where T : class
+    {
+        List<T> results = [];
+
+        foreach (object? item in GetAttribute(identifier)?.ValueList ?? [])
+        {
+            if (item is T value)
+            {
+                results.Add(value);
+            }
+        }
+
+        return results;
+    }
 }
-

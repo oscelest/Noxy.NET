@@ -9,7 +9,7 @@ public class ContextActionField(StateActionField state) : UniversalValue
     public string Description { get; private set; } = state.Description;
     public string[]? ErrorList { get; private set; } = state.ErrorList;
     public override object? Value { get; set; } = state.Value.GetValue();
-    
+
     public Dictionary<string, ContextActionFieldAttribute> CollectionAttribute { get; } =
         state.AttributeCollection.ToDictionary(x => x.Key, x => new ContextActionFieldAttribute(x.Value));
 

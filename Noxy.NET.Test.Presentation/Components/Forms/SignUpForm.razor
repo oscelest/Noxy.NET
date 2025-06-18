@@ -1,5 +1,6 @@
 @inject AuthenticationAPIService APIService
 @inject UserAuthenticationStateProvider AuthService
+@inject TextService TextService
 @inherits ElementComponent
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
@@ -8,13 +9,21 @@
         <InputGroupPassword @bind-Value="Context.Model.Password"/>
         <InputGroupPassword Autocomplete="WebFormInputFieldPasswordAutocompleteEnum.NewPassword" @bind-Value="Context.Model.ConfirmPassword"/>
 
-        <Button Status="StatusEnum.Info" type="submit">Sign Up</Button>
+        <Button Status="StatusEnum.Info" type="submit">@TextService.Get(TextConstants.ButtonSignUp)</Button>
     </WebForm>
 </div>
 
 @code {
 
     private WebFormContext<SignUpUserFormModel> Context { get; } = new(new());
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        await WithLoader(TextService.Resolve);
+    }
 
     private async void FormSubmit()
     {

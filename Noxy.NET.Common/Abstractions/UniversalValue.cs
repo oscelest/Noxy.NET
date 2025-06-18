@@ -1,8 +1,8 @@
 namespace Noxy.NET.Abstractions;
 
-public abstract class UniversalValue
+public class UniversalValue(object? value = null)
 {
-    public abstract object? Value { get; set; }
+    public virtual object? Value { get; set; } = value;
 
     public sbyte? SByteValue
     {

@@ -8,15 +8,7 @@
 
 @code {
 
-    private IEnumerable<string> OptionList => ["Yes", "No"];
-
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        KeyValuePair<string, ContextActionFieldAttribute> attribute = Context.CollectionAttribute.FirstOrDefault(x => x.Key == SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueTextParameterLabelMultiple);
-
-    }
+    private IEnumerable<string> OptionList => GetAttributeValueList<string>(SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueTextParameterLabelMultiple);
 
     private string? GetValue()
     {

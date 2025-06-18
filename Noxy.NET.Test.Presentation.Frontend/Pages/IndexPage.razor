@@ -1,6 +1,8 @@
 ﻿@page "/"
 @inject DataAPIService DataAPIService
 @inject TextService TextService
+@inject UserAuthenticationStateProvider UserAuthenticationStateProvider
+@using Noxy.NET.Test.Domain.Constants
 @inherits PageComponent
 
 <PageTitle>Home</PageTitle>
@@ -11,7 +13,7 @@
         {
             <h2>@item.Title</h2>
             <span>@item.Description</span>
-            <NavLink href="@GetLink(item.SchemaIdentifier)">Go to</NavLink>
+            <NavLink href="@GetLink(item.SchemaIdentifier)">@TextService.Get(TextConstants.LinkNavigationSchema)</NavLink>
         }
     </PageLayout>
 </AuthorizeLayout>
@@ -25,17 +27,19 @@
         await base.OnAfterRenderAsync(firstRender);
         if (!firstRender) return;
 
-        await WithLoader(LoadData);
         await WithLoader(TextService.Resolve);
+        if ((await UserAuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity?.IsAuthenticated ?? true) return;
+        await WithLoader(LoadData);
     }
 
     private async Task LoadData()
     {
         _listContext = await DataAPIService.GetContextList();
     }
-    
+
     private static string GetLink(string identifier)
     {
         return $"/Context/{identifier}";
     }
+
 }

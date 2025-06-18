@@ -26,7 +26,7 @@ public abstract class BlazorComponent : ComponentBase
         try
         {
             IsLoading = true;
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
             await callback();
         }
         catch (Exception)
@@ -36,7 +36,7 @@ public abstract class BlazorComponent : ComponentBase
         finally
         {
             IsLoading = false;
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 

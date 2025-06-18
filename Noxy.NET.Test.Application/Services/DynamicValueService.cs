@@ -8,9 +8,7 @@ using System.Text;
 using Noxy.NET.Test.Application.Interfaces.Services;
 using Noxy.NET.Test.Domain.Entities.Data;
 using Noxy.NET.Test.Domain.Entities.Schemas;
-using Noxy.NET.Test.Domain.Entities.Schemas.Associations;
 using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
-using Noxy.NET.Test.Domain.Entities.Schemas.Junctions;
 
 namespace Noxy.NET.Test.Application.Services;
 

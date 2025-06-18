@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.SignalR;
 using Noxy.NET.Models;
 using Noxy.NET.Test.Application.Interfaces.Hubs;
@@ -100,15 +99,14 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
     {
         if (list == null) return [];
 
-
-        Dictionary<string, (EntitySchemaAttribute Attribute, List<object?> List)> result = [];
+        Dictionary<string, (EntitySchemaAttribute Attribute, List<JsonDiscriminator> List)> result = [];
 
         foreach (EntityAssociationSchemaActionInputHasAttribute.Discriminator junctionActionInputAttribute in list)
         {
             EntityAssociationSchemaActionInputHasAttribute entityActionInputAttribute = junctionActionInputAttribute.GetValue();
             EntitySchemaAttribute entityAttribute = entityActionInputAttribute.Relation ?? throw new InvalidOperationException();
 
-            if (!result.TryGetValue(entityAttribute.SchemaIdentifier, out (EntitySchemaAttribute Attribute, List<object?> List) stateActionFieldAttribute))
+            if (!result.TryGetValue(entityAttribute.SchemaIdentifier, out (EntitySchemaAttribute Attribute, List<JsonDiscriminator> List) stateActionFieldAttribute))
             {
                 stateActionFieldAttribute = result[entityAttribute.SchemaIdentifier] = (entityAttribute, []);
             }
@@ -118,21 +116,21 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
 
         return result.ToDictionary(x => x.Key, y => new StateActionFieldAttribute()
         {
-            Value = new(y.Value.List),
+            Value = y.Value.List,
             Type = y.Value.Attribute.Type,
             IsList = y.Value.Attribute.IsList,
             Order = y.Value.Attribute.Order,
         });
     }
 
-    private object? GetAttributeValue(EntityAssociationSchemaActionInputHasAttribute.Discriminator attribute)
+    private JsonDiscriminator GetAttributeValue(EntityAssociationSchemaActionInputHasAttribute.Discriminator attribute)
     {
-        return attribute.GetValue() switch
+        return new(attribute.GetValue() switch
         {
             EntityAssociationSchemaActionInputHasAttributeDynamicValue value => serviceDynamicValue.Resolve(value.Value?.GetValue()),
             EntityAssociationSchemaActionInputHasAttributeInteger value => value.Value,
             EntityAssociationSchemaActionInputHasAttributeString value => value.Value,
             _ => throw new InvalidOperationException()
-        };
+        });
     }
 }

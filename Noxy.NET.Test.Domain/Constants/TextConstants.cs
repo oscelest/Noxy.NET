@@ -2,14 +2,20 @@ namespace Noxy.NET.Test.Domain.Constants;
 
 public class TextConstants
 {
+    // Actual constants
     public const string DefaultEmptyValue = "-";
     
     public const string ButtonActivate = "ButtonActivate";
     public const string ButtonCreate = "ButtonCreate";
     public const string ButtonUpdate = "ButtonUpdate";
     public const string ButtonSubmit = "ButtonSubmit";
+    public const string ButtonSignIn = "ButtonSignIn";
+    public const string ButtonSignUp = "ButtonSignUp";
+
+    public const string LinkNavigationSchema = "LinkNavigationSchema";
     
     public const string ActionPanelHeader = "ActionPanelHeader";
+
     
     public const string FormEntitySchemaLabelSchemaIdentifier = "Schema identifier";
     public const string FormEntitySchemaLabelName = "Name";

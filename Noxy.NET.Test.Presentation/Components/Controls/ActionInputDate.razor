@@ -8,8 +8,8 @@
 
 @code {
 
-    private string? MinDate => Context.CollectionAttribute.FirstOrDefault(x => x.Key == SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueMinDate).Value?.StringValue;
-    private string? MaxDate => Context.CollectionAttribute.FirstOrDefault(x => x.Key == SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueMaxDate).Value?.StringValue;
+    private string? MinDate => GetAttributeValue<string>(SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueMinDate);
+    private string? MaxDate => GetAttributeValue<string>(SchemaActionInputConstants.SchemaIdentifierAttributeDynamicValueMaxDate);
 
     private DateTime? GetValue()
     {
