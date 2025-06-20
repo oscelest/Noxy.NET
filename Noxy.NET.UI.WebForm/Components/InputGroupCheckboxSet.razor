@@ -4,7 +4,7 @@
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
     <TemplateInputGroup For="@UUIDCode" DisplayName="@DisplayNameCurrent" Description="@DescriptionCurrent" ErrorList="ErrorList">
-        <InputElementCheckboxSet OptionList="OptionList" Name="@Name" InputAttributes="InputAttributesCurrent" Value="Value" ValueChanged="ValueChanged" ValueExpression="ValueExpression" >
+        <InputElementCheckboxSet @attributes="InputAttributes" Name="@Name" OptionList="OptionList" OptionAttributes="OptionAttributes" Value="Value" ValueChanged="ValueChanged" ValueExpression="ValueExpression" >
             @ChildContent(context)
         </InputElementCheckboxSet>
     </TemplateInputGroup>
@@ -22,12 +22,6 @@
     public string? Name { get; set; }
 
     [Parameter]
-    public Func<TValue, IReadOnlyDictionary<string, object>?>? InputAttributesCallback { get; set; }
-    private Func<TValue, IReadOnlyDictionary<string, object>?> InputAttributesCurrent => InputAttributesCallback ?? InputAttributesDummy;
-
-    private IReadOnlyDictionary<string, object>? InputAttributesDummy(TValue _)
-    {
-        return InputAttributes;
-    }
+    public Func<TValue, IReadOnlyDictionary<string, object>?>? OptionAttributes { get; set; }
     
 }

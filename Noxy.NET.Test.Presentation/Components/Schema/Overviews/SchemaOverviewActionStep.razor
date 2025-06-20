@@ -23,28 +23,6 @@
                 <FormSchemaActionStep Schema="Schema" OnChange="FormChange"/>
             }
         </Form>
-
-        <Display>
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelSchemaIdentifier">
-                <span>@context.SchemaIdentifier.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelName">
-                <span>@context.Name.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelNote">
-                <span>@context.Note.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelTitle">
-                <span>@context.Title.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDescription">
-                <span>@context.Description.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-        </Display>
     </TemplateSchemaOverview>
 </div>
 

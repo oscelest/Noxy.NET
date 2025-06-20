@@ -541,7 +541,7 @@ public class TableToEntityMapper : ITableToEntityMapper
             Note = table.Note,
             Order = table.Order,
             Type = table.Type,
-            IsList = table.IsList,
+            IsValueList = table.IsList,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
         };

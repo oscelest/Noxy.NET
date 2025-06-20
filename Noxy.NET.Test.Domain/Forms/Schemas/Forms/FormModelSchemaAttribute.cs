@@ -1,6 +1,8 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Noxy.NET.Test.Domain.Abstractions.Forms;
+using Noxy.NET.Test.Domain.Constants;
 using Noxy.NET.Test.Domain.Entities.Schemas;
 using Noxy.NET.Test.Domain.Enums;
 
@@ -11,10 +13,14 @@ public class FormModelSchemaAttribute(EntitySchemaAttribute? entity) : BaseFormM
     public override string APIEndpoint => "Schema/Attribute";
 
     [Required]
+    [DisplayName(TextConstants.LabelFormAttributeType)]
+    [Description(TextConstants.HelpFormAttributeType)]
     public AttributeTypeEnum Type { get; set; } = entity?.Type ?? AttributeTypeEnum.String;
 
     [Required]
-    public bool IsList { get; set; } = entity?.IsList ?? false;
+    [DisplayName(TextConstants.LabelFormIsValueList)]
+    [Description(TextConstants.HelpFormIsValueList)]
+    public bool IsValueList { get; set; } = entity?.IsValueList ?? false;
 
     [JsonConstructor]
     public FormModelSchemaAttribute() : this(null)

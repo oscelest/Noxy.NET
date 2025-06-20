@@ -7,7 +7,8 @@ namespace Noxy.NET.Test.Domain.Abstractions.Entities;
 
 public class BaseEntitySchema : BaseEntityTemplate
 {
-    [DisplayName(TextConstants.FormEntitySchemaLabelSchemaIdentifier)]
+    [DisplayName(TextConstants.LabelFormSchemaIdentifier)]
+    [Description(TextConstants.HelpFormSchemaIdentifier)]
     public required string SchemaIdentifier { get; set; }
     
     [JsonIgnore]

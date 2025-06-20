@@ -11,8 +11,8 @@ public abstract class BaseFormModelEntitySchema(BaseEntitySchema? entity = null)
     [Required]
     [MinLength(3), MaxLength(64)]
     [IdentifierValidation]
-    [DisplayName(TextConstants.FormEntitySchemaLabelSchemaIdentifier)]
-    [Description(TextConstants.FormEntitySchemaHelpSchemaIdentifier)]
+    [DisplayName(TextConstants.LabelFormSchemaIdentifier)]
+    [Description(TextConstants.HelpFormSchemaIdentifier)]
     public string SchemaIdentifier { get; set; } = entity?.SchemaIdentifier ?? string.Empty;
     
     [Required]

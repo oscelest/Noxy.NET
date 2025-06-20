@@ -9,17 +9,17 @@ public abstract class BaseFormModelEntityTemplate(BaseEntityTemplate? entity) : 
 {
     [Required]
     [MinLength(3), MaxLength(64)]
-    [DisplayName(TextConstants.FormEntitySchemaLabelName)]
-    [Description(TextConstants.FormEntitySchemaHelpName)]
+    [DisplayName(TextConstants.LabelFormName)]
+    [Description(TextConstants.HelpFormName)]
     public string Name { get; set; } = entity?.Name ?? string.Empty;
 
     [MaxLength(1024)]
-    [DisplayName(TextConstants.FormEntitySchemaLabelNote)]
-    [Description(TextConstants.FormEntitySchemaHelpNote)]
+    [DisplayName(TextConstants.LabelFormNote)]
+    [Description(TextConstants.HelpFormNote)]
     public string Note { get; set; } = entity?.Note ?? string.Empty;
     
     [Range(0, int.MaxValue)]
-    [DisplayName(TextConstants.FormEntitySchemaLabelOrder)]
-    [Description(TextConstants.FormEntitySchemaHelpOrder)]
+    [DisplayName(TextConstants.LabelFormOrder)]
+    [Description(TextConstants.HelpFormOrder)]
     public int Order { get; set; } = entity?.Order ?? 0;
 }

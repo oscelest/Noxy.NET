@@ -7,11 +7,11 @@
         </Header>
         
         <Content>
-            <InputGroupText @bind-Value="Context.Model.SchemaIdentifier"/>
-            <InputGroupText @bind-Value="Context.Model.Name"/>
-            <InputGroupText @bind-Value="Context.Model.Note"/>
-            <InputGroupText @bind-Value="Context.Model.Title"/>
-            <InputGroupText @bind-Value="Context.Model.Description"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.SchemaIdentifier))" Description="@GetDescription(nameof(Context.Model.SchemaIdentifier))" @bind-Value="Context.Model.SchemaIdentifier"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Name))" Description="@GetDescription(nameof(Context.Model.Name))" @bind-Value="Context.Model.Name"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Note))" Description="@GetDescription(nameof(Context.Model.Note))" @bind-Value="Context.Model.Note"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Title))" Description="@GetDescription(nameof(Context.Model.Title))" @bind-Value="Context.Model.Title"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Description))" Description="@GetDescription(nameof(Context.Model.Description))" @bind-Value="Context.Model.Description"/>
         </Content>
         
         <Actions>

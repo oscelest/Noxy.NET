@@ -12,13 +12,13 @@ public class FormModelSchemaDynamicValueCode(EntitySchemaDynamicValueCode? entit
     public override string APIEndpoint => "Schema/DynamicValue/Code";
 
     [Required]
-    [DisplayName(TextConstants.FormEntitySchemaLabelDynamicValueCodeValue)]
-    [Description(TextConstants.FormEntitySchemaHelpDynamicValueCodeValue)]
-    public string Value { get; set; } = entity?.Value ?? string.Empty;
+    [DisplayName(TextConstants.LabelFormCodeSnippet)]
+    [Description(TextConstants.HelpFormCodeSnippet)]
+    public string CodeSnippet { get; set; } = entity?.Value ?? string.Empty;
 
     [Required]
-    [DisplayName(TextConstants.FormEntitySchemaLabelDynamicValueCodeIsAsynchronous)]
-    [Description(TextConstants.FormEntitySchemaHelpDynamicValueCodeIsAsynchronous)]
+    [DisplayName(TextConstants.LabelFormIsAsynchronous)]
+    [Description(TextConstants.HelpFormIsAsynchronous)]
     public bool IsAsynchronous { get; set; } = entity?.IsAsynchronous ?? true;
 
     [JsonConstructor]

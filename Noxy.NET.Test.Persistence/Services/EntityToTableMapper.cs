@@ -216,7 +216,7 @@ public class EntityToTableMapper : IEntityToTableMapper
             Note = entity.Note,
             Order = entity.Order,
             Type = entity.Type,
-            IsList = entity.IsList,
+            IsList = entity.IsValueList,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
         };

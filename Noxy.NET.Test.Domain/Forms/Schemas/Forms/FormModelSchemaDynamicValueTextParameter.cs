@@ -1,5 +1,8 @@
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Noxy.NET.Test.Domain.Abstractions.Forms;
+using Noxy.NET.Test.Domain.Constants;
 using Noxy.NET.Test.Domain.Entities.Schemas;
 using Noxy.NET.Test.Domain.Enums;
 
@@ -9,6 +12,9 @@ public class FormModelSchemaDynamicValueTextParameter(EntitySchemaDynamicValueTe
 {
     public override string APIEndpoint =>  "Schema/DynamicValue/Code";
 
+    [Required]
+    [DisplayName(TextConstants.LabelFormTextParameterType)]
+    [Description(TextConstants.HelpFormTextParameterType)]
     public TextParameterTypeEnum Type { get; set; } = entity?.Type ?? TextParameterTypeEnum.Line;
     
     [JsonConstructor]

@@ -134,7 +134,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
                 Note = model.Note,
                 Order = model.Order,
                 Type = model.Type,
-                IsList = model.IsList,
+                IsValueList = model.IsValueList,
                 SchemaID = model.SchemaID,
             });
         }
@@ -189,7 +189,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
                 Name = model.Name,
                 Note = model.Note,
                 Order = model.Order,
-                Value = model.Value,
+                Value = model.CodeSnippet,
                 IsAsynchronous = model.IsAsynchronous,
                 SchemaID = model.SchemaID,
             });

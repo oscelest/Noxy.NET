@@ -1,54 +1,42 @@
-﻿@inject IJSRuntime JS
-@inherits BaseInputValue<string>
-@implements IDisposable
+﻿@inherits BaseInputValue<TValue>
+@typeparam TValue
 
-<div @attributes="AdditionalAttributes" class="@CssClass">
-    <input @attributes="AdditionalAttributes" class="input" name="@Name" type="text" value="@Value" @onchange="OnInputChange"/>
-    <div class="dropdown-list">
-        
-    </div>
-</div>
+<select @attributes="AdditionalAttributes" class="@CssClass" name="@NameCurrent" @onchange="OnInputChange">
+    @for (var i = 0; i < OptionList.Count(); i++)
+    {
+        var index = i;
+        var item = OptionList.ElementAt(i);
+        var isChecked = EqualityComparer<TValue>.Default.Equals(Value, item);
+
+        <option @attributes="OptionAttributes?.Invoke(item)" value="@index" selected="@isChecked">
+            @ChildContent(item)
+        </option>
+    }
+</select>
 
 @code {
 
-    [Parameter]
-    public IReadOnlyDictionary<string, object>? InputAttributes { get; set; }
-    
-    [Parameter]
-    public bool? HasChangeEventOnInput { get; set; }
-    private bool HasChangeEventOnInputCurrent => HasChangeEventOnInput ?? false;
-    
-    private DotNetObjectReference<InputElementSelect>? DotNetReference { get; set; }
-    private string Name => TryExtractAttribute(InputAttributes, "name", out string? result) && !string.IsNullOrWhiteSpace(result) ? result : UUIDString;
-    
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (!firstRender) return;
+    [Parameter, EditorRequired]
+    public required IEnumerable<TValue> OptionList { get; set; }
 
-        if (HasChangeEventOnInputCurrent)
-        {
-            await LoadInterop(JS);
-            Module?.InvokeVoidAsync("NoxyNETUIWebForm.RegisterOnInput", UUIDString, Constants.OnInputDelay, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
-        }
-    }
+    [Parameter, EditorRequired]
+    public required RenderFragment<TValue> ChildContent { get; set; }
 
-    [JSInvokable]
-    public void OnValueChange(string value)
-    {
-        NotifyChange(value);
-    }
+    [Parameter]
+    public string? Name { get; set; }
+    private string NameCurrent => Name ?? UUIDCode;
+
+    [Parameter]
+    public Func<TValue, IReadOnlyDictionary<string, object>?>? OptionAttributes { get; set; }
 
     private void OnInputChange(ChangeEventArgs args)
     {
-        NotifyChange(args.Value?.ToString() ?? string.Empty);
-    }
-    
-    public void Dispose()
-    {
-        DotNetReference?.Dispose();
-        Module?.InvokeVoidAsync("NoxyNETUIWebForm.DeregisterOnInput", UUIDString);
+        if (!int.TryParse(args.Value?.ToString(), out int parsed)) return;
+
+        var item = OptionList.ElementAtOrDefault(parsed);
+        if (item == null) return;
+
+        NotifyChange(item);
     }
 
 }
-

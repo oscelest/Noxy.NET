@@ -35,6 +35,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     public DbSet<TableSchemaDynamicValue> SchemaDynamicValue { get; set; } = null!;
     public DbSet<TableSchemaDynamicValueCode> SchemaDynamicValueCode { get; set; } = null!;
     public DbSet<TableSchemaDynamicValueSystemParameter> SchemaDynamicValueSystemParameter { get; set; } = null!;
+    public DbSet<TableSchemaDynamicValueStyleParameter> SchemaDynamicValueStyleParameter { get; set; } = null!;
     public DbSet<TableSchemaDynamicValueTextParameter> SchemaDynamicValueTextParameter { get; set; } = null!;
     public DbSet<TableSchemaElement> SchemaElement { get; set; } = null!;
     public DbSet<TableSchemaGroupElement> SchemaGroupElement { get; set; } = null!;

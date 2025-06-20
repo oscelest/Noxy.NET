@@ -12,8 +12,8 @@ public class FormModelSchemaPropertyString(EntitySchemaPropertyString? entity) :
     public override string APIEndpoint => "Schema/Property/String";
 
     [Required]
-    [DisplayName(TextConstants.FormEntitySchemaLabelPropertyDefaultValue)]
-    [Description(TextConstants.FormEntitySchemaHelpPropertyDefaultValue)]
+    [DisplayName(TextConstants.LabelFormDefaultValue)]
+    [Description(TextConstants.HelpFormDefaultValue)]
     public string DefaultValue { get; set; } = entity?.DefaultValue ?? string.Empty;
 
     [JsonConstructor]

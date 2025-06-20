@@ -42,38 +42,6 @@
                 }
             }
         </Form>
-
-        <Display>
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelSchemaIdentifier">
-                <span>@context.SchemaIdentifier.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelName">
-                <span>@context.Name.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-
-            <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelNote">
-                <span>@context.Note.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-            </TemplateInputGroup>
-
-            @if (context is EntitySchemaDynamicValueCode propertyString)
-            {
-                <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDynamicValueCodeValue">
-                    <span>@propertyString.Value.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
-                </TemplateInputGroup>
-
-                <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDynamicValueCodeIsAsynchronous">
-                    <span>@propertyString.IsAsynchronous</span>
-                </TemplateInputGroup>
-            }
-
-            @if (context is EntitySchemaDynamicValueParameter parameter)
-            {
-                <TemplateInputGroup DisplayName="@TextConstants.FormEntitySchemaLabelDynamicValueParameterIsApprovalRequired">
-                    <span>@parameter.IsApprovalRequired</span>
-                </TemplateInputGroup>
-            }
-        </Display>
     </TemplateSchemaOverview>
 </div>
 

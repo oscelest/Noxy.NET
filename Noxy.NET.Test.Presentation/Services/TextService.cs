@@ -7,8 +7,9 @@ public class TextService(DataAPIService serviceDataAPI)
     private Task? _taskResolver; 
     private TaskCompletionSource<bool> _taskCompletionSource = new();
 
-    public string Get(string identifier)
+    public string Get(string? identifier)
     {
+        if (string.IsNullOrWhiteSpace(identifier)) return string.Empty;
         if (_collection.TryGetValue(identifier, out (string Value, DateTime? TimeResolved) item) && item.TimeResolved != null)
         {
             return item.Value;
@@ -40,9 +41,12 @@ public class TextService(DataAPIService serviceDataAPI)
 
     private async Task ResolveInternal()
     {
-        IEnumerable<string> request = _collection
+        string[] request = _collection
             .Where(x => x.Value.TimeResolved == null)
-            .Select(x => x.Key);
+            .Select(x => x.Key)
+            .ToArray();
+        
+        if (request.Length == 0) return;
         Dictionary<string, string> result = await serviceDataAPI.ResolveTextParameterList(request);
 
         DateTime now = DateTime.UtcNow;

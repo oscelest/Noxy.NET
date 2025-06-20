@@ -118,7 +118,7 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
         {
             Value = y.Value.List,
             Type = y.Value.Attribute.Type,
-            IsList = y.Value.Attribute.IsList,
+            IsList = y.Value.Attribute.IsValueList,
             Order = y.Value.Attribute.Order,
         });
     }

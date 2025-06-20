@@ -1,4 +1,3 @@
-@using Noxy.NET.Models
 @inherits BaseComponentFormSchema<FormModelSchemaActionInput, EntitySchemaActionInput>
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
@@ -8,14 +7,16 @@
         </Header>
 
         <Content>
-            <InputGroupText @bind-Value="Context.Model.SchemaIdentifier"/>
-            <InputGroupText @bind-Value="Context.Model.Name"/>
-            <InputGroupText @bind-Value="Context.Model.Note"/>
-            <InputGroupText @bind-Value="Context.Model.Title"/>
-            <InputGroupText @bind-Value="Context.Model.Description"/>
-            <InputGroupRadioSet OptionList="InputOptionList" @bind-Value="Context.Model.InputID" @bind-Value:after="UpdateInput">
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.SchemaIdentifier))" Description="@GetDescription(nameof(Context.Model.SchemaIdentifier))" @bind-Value="Context.Model.SchemaIdentifier"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Name))" Description="@GetDescription(nameof(Context.Model.Name))" @bind-Value="Context.Model.Name"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Note))" Description="@GetDescription(nameof(Context.Model.Note))" @bind-Value="Context.Model.Note"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Title))" Description="@GetDescription(nameof(Context.Model.Title))" @bind-Value="Context.Model.Title"/>
+            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Description))" Description="@GetDescription(nameof(Context.Model.Description))" @bind-Value="Context.Model.Description"/>
+
+            <InputGroupSelect DisplayName="@GetDisplayName(nameof(Context.Model.InputID))" Description="@GetDescription(nameof(Context.Model.InputID))"
+                              OptionList="InputOptionList" @bind-Value="Context.Model.InputID" @bind-Value:after="UpdateInput">
                 @Schema.InputList?.FirstOrDefault(x => x.ID == context)?.Name
-            </InputGroupRadioSet>
+            </InputGroupSelect>
 
             @foreach (EntityJunctionSchemaInputHasAttribute item in Input?.AttributeList ?? [])
             {
@@ -27,28 +28,30 @@
                 <TemplateInputGroup DisplayName="@value.Name" Description="@value.Note">
                     @if (model is FormModelAssociationSchemaActionInputHasAttribute<string> modelString)
                     {
-                        <TemplateInputAssociation List="modelString.Value" IsList="value.IsList" OnAdd="() => modelString.Value.Add(string.Empty)" OnRemove="index => modelString.Value.RemoveAt(index)">
-                            <InputElementText @bind-Value:get="modelString.Value[context]" @bind-Value:set="x => modelString.Value[context] = x"/>
+                        <TemplateInputAssociation List="modelString.Value" IsList="value.IsValueList" OnAdd="() => modelString.Value.Add(string.Empty)" OnRemove="index => modelString.Value.RemoveAt(index)">
+                            <InputGroupText @bind-Value:get="modelString.Value[context]" @bind-Value:set="x => modelString.Value[context] = x"/>
                         </TemplateInputAssociation>
                     }
                     @if (model is FormModelAssociationSchemaActionInputHasAttribute<int?> modelInteger)
                     {
-                        <TemplateInputAssociation List="modelInteger.Value" IsList="value.IsList" OnAdd="() => modelInteger.Value.Add(null)" OnRemove="index => modelInteger.Value.RemoveAt(index)">
-                            <InputElementInteger @bind-Value:get="modelInteger.Value[context]" @bind-Value:set="x => modelInteger.Value[context] = x"/>
+                        <TemplateInputAssociation List="modelInteger.Value" IsList="value.IsValueList" OnAdd="() => modelInteger.Value.Add(null)" OnRemove="index => modelInteger.Value.RemoveAt(index)">
+                            <InputGroupInteger @bind-Value:get="modelInteger.Value[context]" @bind-Value:set="x => modelInteger.Value[context] = x"/>
                         </TemplateInputAssociation>
                     }
                     @if (model is FormModelAssociationSchemaActionInputHasAttribute<bool?> modelBool)
                     {
-                        <TemplateInputAssociation List="modelBool.Value" IsList="value.IsList" OnAdd="() => modelBool.Value.Add(null)" OnRemove="index => modelBool.Value.RemoveAt(index)">
-                            <InputElementCheckbox Option="true" @bind-Value:get="modelBool.Value[context]" @bind-Value:set="x => modelBool.Value[context] = x"/>
+                        <TemplateInputAssociation List="modelBool.Value" IsList="value.IsValueList" OnAdd="() => modelBool.Value.Add(null)" OnRemove="index => modelBool.Value.RemoveAt(index)">
+                            <InputGroupCheckbox Option="true" @bind-Value:get="modelBool.Value[context]" @bind-Value:set="x => modelBool.Value[context] = x">
+                                Yes?
+                            </InputGroupCheckbox>
                         </TemplateInputAssociation>
                     }
                     @if (model is FormModelAssociationSchemaActionInputHasAttribute<GenericUUID<EntitySchemaDynamicValue>?> modelGuid)
                     {
-                        <TemplateInputAssociation List="modelGuid.Value" IsList="value.IsList" OnAdd="() => modelGuid.Value.Add(null)" OnRemove="index => modelGuid.Value.RemoveAt(index)" Context="index">
-                            <InputElementRadioSet TValue="Guid?" OptionList="DynamicValueOptionList" @bind-Value:get="GetDynamicValueGuid(modelGuid.Value, index)" @bind-Value:set="x => SetDynamicValue(modelGuid.Value, index, x)" Context="option">
+                        <TemplateInputAssociation List="modelGuid.Value" IsList="value.IsValueList" OnAdd="() => modelGuid.Value.Add(null)" OnRemove="index => modelGuid.Value.RemoveAt(index)" Context="index">
+                            <InputGroupSelect TValue="Guid?" OptionList="DynamicValueOptionList" @bind-Value:get="GetDynamicValueGuid(modelGuid.Value, index)" @bind-Value:set="x => SetDynamicValue(modelGuid.Value, index, x)" Context="option">
                                 @GetDynamicValue(option)?.GetValue().Name
-                            </InputElementRadioSet>
+                            </InputGroupSelect>
                         </TemplateInputAssociation>
                     }
                 </TemplateInputGroup>

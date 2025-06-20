@@ -3,8 +3,8 @@ namespace Noxy.NET.Test.Domain.Constants;
 public class TextConstants
 {
     // Actual constants
-    public const string DefaultEmptyValue = "-";
-    
+    public const string DefaultEmptyValue = "DefaultEmptyValue";
+
     public const string ButtonActivate = "ButtonActivate";
     public const string ButtonCreate = "ButtonCreate";
     public const string ButtonUpdate = "ButtonUpdate";
@@ -13,16 +13,40 @@ public class TextConstants
     public const string ButtonSignUp = "ButtonSignUp";
 
     public const string LinkNavigationSchema = "LinkNavigationSchema";
-    
-    public const string ActionPanelHeader = "ActionPanelHeader";
 
-    
-    public const string FormEntitySchemaLabelSchemaIdentifier = "Schema identifier";
-    public const string FormEntitySchemaLabelName = "Name";
-    public const string FormEntitySchemaLabelNote = "Note ";
-    public const string FormEntitySchemaLabelTitle = "Title";
-    public const string FormEntitySchemaLabelDescription = "Description";
-    public const string FormEntitySchemaLabelOrder = "Order";
+    public const string LabelFormSchemaIdentifier = "LabelFormSchemaIdentifier";
+    public const string LabelFormName = "LabelFormName";
+    public const string LabelFormNote = "LabelFormNote";
+    public const string LabelFormTitle = "LabelFormTitle";
+    public const string LabelFormDescription = "LabelFormDescription";
+    public const string LabelFormOrder = "LabelFormOrder";
+    public const string LabelFormInputID = "LabelFormInputID";
+    public const string LabelFormDefaultValue = "LabelFormDefaultValue";
+    public const string LabelFormCodeSnippet = "LabelFormValue";
+    public const string LabelFormIsAsynchronous = "LabelFormIsAsynchronous";
+    public const string LabelFormIsApprovalRequired = "LabelFormIsApprovalRequired";
+    public const string LabelFormIsRepeatable = "LabelFormIsRepeatable";
+    public const string LabelFormAttributeType = "LabelFormAttributeType";
+    public const string LabelFormTextParameterType = "LabelFormTextParameterType";
+    public const string LabelFormIsValueList = "LabelFormIsList";
+
+    public const string HelpFormSchemaIdentifier = "HelpFormSchemaIdentifier";
+    public const string HelpFormName = "HelpFormName";
+    public const string HelpFormNote = "HelpFormNote";
+    public const string HelpFormTitle = "HelpFormTitle";
+    public const string HelpFormDescription = "HelpFormDescription";
+    public const string HelpFormOrder = "HelpFormOrder";
+    public const string HelpFormInputID = "HelpFormInputID";
+    public const string HelpFormDefaultValue = "HelpFormDefaultValue";
+    public const string HelpFormCodeSnippet = "HelpFormValue";
+    public const string HelpFormIsAsynchronous = "HelpFormIsAsynchronous";
+    public const string HelpFormIsApprovalRequired = "HelpFormIsApprovalRequired";
+    public const string HelpFormIsRepeatable = "HelpFormIsRepeatable";
+    public const string HelpFormAttributeType = "HelpFormAttributeType";
+    public const string HelpFormTextParameterType = "HelpFormTextParameterType";
+    public const string HelpFormIsValueList = "HelpFormIsList";
+
+    public const string ActionPanelHeader = "ActionPanelHeader";
 
     public const string FormEntitySchemaLabelPropertyTypeBoolean = "Boolean";
     public const string FormEntitySchemaLabelPropertyTypeDateTime = "DateTime";
@@ -39,20 +63,13 @@ public class TextConstants
     public const string FormEntitySchemaLabelDynamicValueCodeValue = "Method code to be executed";
     public const string FormEntitySchemaLabelDynamicValueCodeIsAsynchronous = "Is asynchronous?";
     public const string FormEntitySchemaLabelDynamicValueParameterIsApprovalRequired = "Is approval required?";
-    
-    public const string FormEntitySchemaHelpSchemaIdentifier = "The unique, humanly readable identifier for this entity type.";
-    public const string FormEntitySchemaHelpName = "The internal name of this entity type. Should only be visible in the configuration.";
-    public const string FormEntitySchemaHelpNote = "A short note detailing how this entity type is used. Should only be visible in the configuration.";
-    public const string FormEntitySchemaHelpTitle = "The title used when displaying an entity of this type.";
-    public const string FormEntitySchemaHelpDescription = "The description used when displaying an entity of this type.";
-    public const string FormEntitySchemaHelpOrder = "The order in which this entity type is sorted";
 
     public const string FormEntitySchemaHelpPropertyDefaultValue = "The default value that will be used for this entity type.";
     public const string FormEntitySchemaHelpPropertyStringMin = "The minimum string length that can be used for this entity type.";
     public const string FormEntitySchemaHelpPropertyStringMax = "The maximum string length that can be used for this entity type.";
     public const string FormEntitySchemaHelpPropertyDateTimeMin = "The earliest date value that can be used for this entity type.";
     public const string FormEntitySchemaHelpPropertyDateTimeMax = "The latest date value that can be used for this entity type.";
-    
+
     public const string FormEntitySchemaHelpDynamicValueCodeValue = "The code snippet to be run. Must return a value.";
     public const string FormEntitySchemaHelpDynamicValueCodeIsAsynchronous = "Determines if the method will be run as asynchronous code.";
     public const string FormEntitySchemaHelpDynamicValueParameterIsApprovalRequired = "Determines if another user must approve a text parameter value before it becomes active.";
@@ -71,7 +88,7 @@ public class TextConstants
     public const string CreateFormHeaderEntitySchemaPropertyBoolean = "Create Boolean Property";
     public const string CreateFormHeaderEntitySchemaPropertyDateTime = "Create DateTime Property";
     public const string CreateFormHeaderEntitySchemaPropertyString = "Create String Property";
-    
+
     public const string UpdateFormHeaderEntitySchema = "Update Schema";
     public const string UpdateFormHeaderEntitySchemaAction = "Update Action";
     public const string UpdateFormHeaderEntitySchemaActionInput = "Update Action Input";

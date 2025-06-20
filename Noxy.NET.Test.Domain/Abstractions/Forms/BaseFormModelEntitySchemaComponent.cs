@@ -9,12 +9,12 @@ public abstract class BaseFormModelEntitySchemaComponent(BaseEntitySchemaCompone
 {
     [Required]
     [MinLength(3), MaxLength(64)]
-    [DisplayName(TextConstants.FormEntitySchemaLabelTitle)]
-    [Description(TextConstants.FormEntitySchemaHelpTitle)]
+    [DisplayName(TextConstants.LabelFormTitle)]
+    [Description(TextConstants.HelpFormTitle)]
     public string Title { get; set; } = entity?.Title ?? string.Empty;
 
     [MaxLength(1024)]
-    [DisplayName(TextConstants.FormEntitySchemaLabelDescription)]
-    [Description(TextConstants.FormEntitySchemaHelpDescription)]
+    [DisplayName(TextConstants.LabelFormDescription)]
+    [Description(TextConstants.HelpFormDescription)]
     public string Description { get; set; } = entity?.Description ?? string.Empty;
 }

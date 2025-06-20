@@ -10,7 +10,7 @@ public class FormModelSchemaAction(EntitySchemaAction? entity = null) : BaseForm
     public override string APIEndpoint => "Schema/Action";
     
     [Required]
-    public Guid TitleDynamicID { get; set; }
+    public Guid TitleDynamicID { get; set; } = entity?.TitleDynamicID ?? Guid.NewGuid();
     
     [JsonConstructor]
     public FormModelSchemaAction() : this(null)

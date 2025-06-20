@@ -9,7 +9,7 @@ namespace Noxy.NET.Test.Domain.Entities.Schemas;
 public class EntitySchemaAttribute : BaseEntitySchema
 {
     public required AttributeTypeEnum Type { get; set; }
-    public required bool IsList { get; set; }
+    public required bool IsValueList { get; set; }
 
     [JsonIgnore]
     public List<EntityJunctionSchemaInputHasAttribute>? InputList { get; set; }

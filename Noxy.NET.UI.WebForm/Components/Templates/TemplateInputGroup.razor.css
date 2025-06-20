@@ -2,14 +2,14 @@
     display: flex;
     flex: 0 1 auto;
     flex-flow: column;
-    row-gap: var(--size-gap-xs);
+    row-gap: var(--size-gap-sm);
 }
 
 .wrapper {
     display: flex;
     flex: 0 1 auto;
     flex-flow: column;
-    row-gap: var(--size-gap-xs);
+    row-gap: var(--size-gap-sm);
 }
 
 .control {

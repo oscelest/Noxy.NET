@@ -5,9 +5,11 @@ namespace Noxy.NET.Test.Domain.Abstractions.Entities;
 
 public class BaseEntitySchemaComponent : BaseEntitySchema
 {
-    [DisplayName(TextConstants.FormEntitySchemaLabelTitle)]
+    [DisplayName(TextConstants.LabelFormTitle)]
+    [Description(TextConstants.HelpFormTitle)]
     public required string Title { get; set; }
     
-    [DisplayName(TextConstants.FormEntitySchemaLabelDescription)]
+    [DisplayName(TextConstants.LabelFormDescription)]
+    [Description(TextConstants.HelpFormDescription)]
     public required string Description { get; set; }
 }

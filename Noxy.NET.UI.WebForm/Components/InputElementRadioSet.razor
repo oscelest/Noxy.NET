@@ -5,7 +5,7 @@
     @foreach (TValue item in OptionList)
     {
         <label class="option">
-            <InputElementRadio @attributes="InputAttributes?.Invoke(item)" name="@NameCurrent" Option="item" Value="Value" ValueChanged="ValueChanged" ValueExpression="ValueExpression" />
+            <InputElementRadio @attributes="OptionAttributes?.Invoke(item)" name="@NameCurrent" Option="item" Value="Value" ValueChanged="ValueChanged" ValueExpression="ValueExpression" />
             @ChildContent(item)
         </label>
     }
@@ -24,6 +24,6 @@
     private string NameCurrent => Name ?? UUIDCode;
 
     [Parameter]
-    public Func<TValue, IReadOnlyDictionary<string, object>?>? InputAttributes { get; set; }
+    public Func<TValue, IReadOnlyDictionary<string, object>?>? OptionAttributes { get; set; }
 
 }
