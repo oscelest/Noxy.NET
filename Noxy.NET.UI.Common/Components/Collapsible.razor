@@ -1,6 +1,8 @@
-﻿@inherits ElementComponent
+﻿@inject IJSRuntime JS
+@inherits ElementComponent
+@implements IAsyncDisposable
 
-<div @attributes="@AdditionalAttributes" class="@CssClass" collapsed="@_internalCollapsed">
+<div @attributes="@AdditionalAttributes" class="@CssClass" collapsed="@_internalCollapsed" animated="@IsAnimated">
     <div class="header-wrapper">
         <div class="header">
             @Header
@@ -23,8 +25,11 @@
             }
         </div>
     </div>
-    <div class="content">
-        @Content
+    <div @ref="_contentRef" class="content">
+        @if (!_internalCollapsed)
+        {
+            @Content
+        }
     </div>
 </div>
 
@@ -40,6 +45,9 @@
     public RenderFragment<bool>? Arrow { get; set; }
 
     [Parameter]
+    public bool? Animated { get; set; }
+
+    [Parameter]
     public bool? Collapsed { get; set; }
 
     [Parameter]
@@ -49,12 +57,25 @@
     public Expression<Func<bool>>? CollapsedExpression { get; set; }
 
     private bool _internalCollapsed;
+    private ElementReference _contentRef;
+    private IJSObjectReference? _module;
+    private DotNetObjectReference<Collapsible>? _reference;
+
+    private bool IsAnimated => _module != null && _reference != null;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         _internalCollapsed = Collapsed ?? true;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender) return;
+
+        await Register();
     }
 
     protected override void OnParametersSet()
@@ -67,14 +88,92 @@
         }
     }
 
-    private void ArrowKeyPressed(KeyboardEventArgs args)
+    protected override async Task OnParametersSetAsync()
     {
-        CollapsedChanged.InvokeAsync(_internalCollapsed = !_internalCollapsed);
+        await base.OnParametersSetAsync();
+
+        if (!IsRendered || !Animated.HasValue) return;
+
+        switch (Animated ?? true)
+        {
+            case true when _module == null:
+                await Register();
+                break;
+            case false when _module != null:
+                await Deregister();
+                break;
+        }
     }
 
-    private void ArrowClicked()
+    [JSInvokable]
+    public async Task OnAnimationComplete(bool collapsed)
     {
-        CollapsedChanged.InvokeAsync(_internalCollapsed = !_internalCollapsed);
+        await CollapsedChanged.InvokeAsync(_internalCollapsed = collapsed);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task ArrowKeyPressed(KeyboardEventArgs args)
+    {
+        if (args.Code is " " or "Enter")
+        {
+            await Toggle();
+        }
+    }
+
+    private async Task ArrowClicked()
+    {
+        await Toggle();
+    }
+
+    private async Task Toggle()
+    {
+        if (_module == null || _reference == null)
+        {
+            await CollapsedChanged.InvokeAsync(_internalCollapsed = !_internalCollapsed);
+        }
+        else
+        {
+            string method = _internalCollapsed ? "AnimateExpand" : "AnimateCollapse";
+            if (_internalCollapsed)
+            {
+                await CollapsedChanged.InvokeAsync(_internalCollapsed = false);
+            }
+
+            await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.{method}", _contentRef, _reference, nameof(OnAnimationComplete));
+        }
+    }
+
+    private async Task Register()
+    {
+        _reference ??= DotNetObjectReference.Create(this);
+        _module ??= await JS.InvokeAsync<IJSObjectReference>("import", $"./_content/{Constants.AssemblyNameUICommon}/Interop.js");
+        await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.RegisterCollapsible", _contentRef, _reference, nameof(OnAnimationComplete));
+    }
+
+    private async Task Deregister()
+    {
+        if (_module != null && _reference != null)
+        {
+            await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.DeregisterCollapsible", _contentRef, _reference, nameof(OnAnimationComplete));
+
+            await _module.DisposeAsync();
+            _reference.Dispose();
+
+            _module = null;
+            _reference = null;
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+        {
+            await _module.DisposeAsync();
+            _module = null;
+        }
+
+        _reference?.Dispose();
+        _reference = null;
     }
 
 }

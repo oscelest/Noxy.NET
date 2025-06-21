@@ -14,14 +14,6 @@ public abstract class ElementComponent : BlazorComponent
 
     protected override string CssClass => CombineCssClass(base.CssClass, GetComponentClass());
 
-    internal IJSObjectReference Module => _module ?? throw new ArgumentNullException(nameof(_module));
-    private IJSObjectReference? _module;
-
-    internal async Task LoadInterop(IJSRuntime js)
-    {
-        _module ??= await js.InvokeAsync<IJSObjectReference>("import", $"./_content/{Constants.AssemblyNameUICommon}/Interop.js");
-    }
-
     protected void InvokeEventCallback<TArgs>(string param, TArgs args) where TArgs : EventArgs
     {
         if (!(AdditionalAttributes?.TryGetValue(param, out object? objFunction) ?? false)) return;

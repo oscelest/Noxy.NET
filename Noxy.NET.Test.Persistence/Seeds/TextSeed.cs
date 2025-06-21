@@ -10,6 +10,7 @@ public class TextSeed(ModelBuilder builder, TableSchema refSchema) : BaseSeed(bu
     public void Apply()
     {
         HasSchemaDynamicValueTextParameter("019789fc-3929-75a9-99e9-11f9d8b81e8a", TextConstants.DefaultEmptyValue);
+        
         HasTableDataTextParameter("019789fc-3929-75a9-99e9-142d13f18fb0", TextConstants.DefaultEmptyValue, "-");
 
         HasSchemaDynamicValueTextParameter("019764ca-25c4-7785-bd02-daa168ae477d", TextConstants.ButtonActivate);

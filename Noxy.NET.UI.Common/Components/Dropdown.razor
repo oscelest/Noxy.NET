@@ -31,14 +31,15 @@
     protected override string CssClass => CombineCssClass(base.CssClass);
 
     private DotNetObjectReference<Dropdown<TValue>>? DotNetReference { get; set; }
-
+    private IJSObjectReference _module = null!;
+    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
         if (!firstRender) return;
 
-        await LoadInterop(JS);
-        await Module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.RegisterDropdown", UUIDString, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
+        _module = await JS.InvokeAsync<IJSObjectReference>("import", $"./_content/{Constants.AssemblyNameUICommon}/Interop.js");
+        await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.RegisterDropdown", UUIDString, DotNetReference = DotNetObjectReference.Create(this), nameof(OnValueChange));
     }
 
     [JSInvokable]
@@ -55,7 +56,7 @@
     public void Dispose()
     {
         DotNetReference?.Dispose();
-        Module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.DisposeDropdown", UUIDString);
+        _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.DisposeDropdown", UUIDString);
     }
 
 }

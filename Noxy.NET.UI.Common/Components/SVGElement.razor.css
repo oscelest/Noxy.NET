@@ -12,7 +12,7 @@
         display: none;
     }
 
-.collapsible-header-wrapper {
+.Collapsible-header-wrapper {
     display: flex;
     flex: 0 0 auto;
     flex-flow: row;
@@ -22,7 +22,7 @@
     box-sizing: border-box;
 }
 
-.collapsible-content-wrapper {
+.Collapsible-content-wrapper {
     display: flex;
     flex: 0 0 auto;
     flex-flow: column;

@@ -2,7 +2,6 @@
 @inject DataAPIService DataAPIService
 @inject TextService TextService
 @inject UserAuthenticationStateProvider UserAuthenticationStateProvider
-@using Noxy.NET.Test.Domain.Constants
 @inherits PageComponent
 
 <PageTitle>Home</PageTitle>
@@ -15,6 +14,24 @@
             <span>@item.Description</span>
             <NavLink href="@GetLink(item.SchemaIdentifier)">@TextService.Get(TextConstants.LinkNavigationSchema)</NavLink>
         }
+
+        <Collapsible CollapsedChanged="UpdateText">
+            <Header>
+                Test
+            </Header>
+            <Content>
+                @TextService.Get(TextConstants.HelpFormSchemaIdentifier)
+            </Content>
+        </Collapsible>
+
+        <Collapsible Animated="false">
+            <Header>
+                Test
+            </Header>
+            <Content>
+                Hello World
+            </Content>
+        </Collapsible>
     </PageLayout>
 </AuthorizeLayout>
 
@@ -30,6 +47,11 @@
         await WithLoader(TextService.Resolve);
         if ((await UserAuthenticationStateProvider.GetAuthenticationStateAsync()).User.Identity?.IsAuthenticated ?? true) return;
         await WithLoader(LoadData);
+    }
+
+    private async Task UpdateText()
+    {
+        await TextService.Resolve();
     }
 
     private async Task LoadData()
