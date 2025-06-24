@@ -3,4 +3,7 @@ using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
 
 namespace Noxy.NET.Test.Domain.Entities.Schemas.Junctions;
 
-public class EntityJunctionSchemaElementHasProperty : BaseEntityJunction<EntitySchemaElement, EntitySchemaProperty.Discriminator>;
+public class EntityJunctionSchemaElementHasProperty : BaseEntityManyToMany<EntitySchemaElement, EntitySchemaProperty.Discriminator>
+{
+    public required int Order { get; set; }
+}

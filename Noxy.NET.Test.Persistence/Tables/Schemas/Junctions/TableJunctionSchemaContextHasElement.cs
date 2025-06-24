@@ -6,4 +6,4 @@ namespace Noxy.NET.Test.Persistence.Tables.Schemas.Junctions;
 
 [Table(nameof(TableJunctionSchemaContextHasElement))]
 [Index(nameof(EntityID), nameof(RelationID), IsUnique = true)]
-public class TableJunctionSchemaContextHasElement : BaseTableJunction<TableSchemaContext, TableSchemaElement>;
+public class TableJunctionSchemaContextHasElement : BaseTableManyToMany<TableSchemaContext, TableSchemaElement>;

@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Noxy.NET.Test.Domain.Abstractions.Entities;
 
-public abstract class BaseEntityJunction<TEntity, TRelation> : BaseEntity where TEntity : BaseEntity where TRelation : BaseEntity
+public abstract class BaseEntityManyToMany<TEntity, TRelation> : BaseEntity where TEntity : BaseEntity where TRelation : BaseEntity
 {
     [JsonIgnore]
     public TEntity? Entity { get; set; }

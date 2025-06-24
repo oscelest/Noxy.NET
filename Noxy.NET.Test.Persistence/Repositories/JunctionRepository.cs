@@ -14,25 +14,25 @@ public class JunctionRepository(DataContext context, IEntityToTableMapper mapper
 {
     public async Task<List<EntityJunctionSchemaElementHasProperty>> RelateElementToPropertyList(Guid entityGuid, IEnumerable<Guid> listGuid)
     {
-        List<TableJunctionSchemaElementHasProperty> list = await Relate<TableJunctionSchemaElementHasProperty, TableSchemaElement, TableSchemaProperty>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y });
+        List<TableJunctionSchemaElementHasProperty> list = await Relate<TableJunctionSchemaElementHasProperty, TableSchemaElement, TableSchemaProperty>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y, Order = 0 });
         return list.Select(MapperT2E.Map).ToList();
     }
 
     public async Task<List<EntityJunctionSchemaActionHasActionStep>> RelateActionToActionStepList(Guid entityGuid, IEnumerable<Guid> listGuid)
     {
-        List<TableJunctionSchemaActionHasActionStep> list = await Relate<TableJunctionSchemaActionHasActionStep, TableSchemaAction, TableSchemaActionStep>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y });
+        List<TableJunctionSchemaActionHasActionStep> list = await Relate<TableJunctionSchemaActionHasActionStep, TableSchemaAction, TableSchemaActionStep>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y, Order = 0 });
         return list.Select(MapperT2E.Map).ToList();
     }
 
     public async Task<List<EntityJunctionSchemaActionHasDynamicValueCode>> RelateActionToDynamicValueCode(Guid entityGuid, IEnumerable<Guid> listGuid)
     {
-        List<TableJunctionSchemaActionHasDynamicValueCode> list = await Relate<TableJunctionSchemaActionHasDynamicValueCode, TableSchemaAction, TableSchemaDynamicValueCode>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y });
+        List<TableJunctionSchemaActionHasDynamicValueCode> list = await Relate<TableJunctionSchemaActionHasDynamicValueCode, TableSchemaAction, TableSchemaDynamicValueCode>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y, Order = 0 });
         return list.Select(MapperT2E.Map).ToList();
     }
 
     public async Task<List<EntityJunctionSchemaActionStepHasActionInput>> RelateActionStepToActionInputList(Guid entityGuid, IEnumerable<Guid> listGuid)
     {
-        List<TableJunctionSchemaActionStepHasActionInput> list = await Relate<TableJunctionSchemaActionStepHasActionInput, TableSchemaActionStep, TableSchemaActionInput>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y });
+        List<TableJunctionSchemaActionStepHasActionInput> list = await Relate<TableJunctionSchemaActionStepHasActionInput, TableSchemaActionStep, TableSchemaActionInput>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y, Order = 0 });
         return list.Select(MapperT2E.Map).ToList();
     }
 
@@ -48,7 +48,7 @@ public class JunctionRepository(DataContext context, IEntityToTableMapper mapper
         return list.Select(MapperT2E.Map).ToList();
     }
 
-    private async Task<List<TJunction>> Relate<TJunction, TEntity, TRelation>(Guid entityGuid, IEnumerable<Guid> listGuid, Func<Guid, Guid, TJunction> callback) where TJunction : BaseTableJunction<TEntity, TRelation>
+    private async Task<List<TJunction>> Relate<TJunction, TEntity, TRelation>(Guid entityGuid, IEnumerable<Guid> listGuid, Func<Guid, Guid, TJunction> callback) where TJunction : BaseTableManyToMany<TEntity, TRelation>
     {
         List<TJunction> list = listGuid.Select(x => callback(entityGuid, x)).ToList();
         List<TJunction> result = await Context.Set<TJunction>().AsNoTracking().Where(x => x.EntityID == entityGuid).ToListAsync();

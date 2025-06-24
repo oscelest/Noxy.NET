@@ -2,11 +2,11 @@
 @typeparam TValue
 
 <select @attributes="AdditionalAttributes" class="@CssClass" name="@NameCurrent" @onchange="OnInputChange">
-    @for (var i = 0; i < OptionList.Count(); i++)
+    @for (int i = 0; i < OptionList.Count(); i++)
     {
-        var index = i;
-        var item = OptionList.ElementAt(i);
-        var isChecked = EqualityComparer<TValue>.Default.Equals(Value, item);
+        int index = i;
+        TValue item = OptionList.ElementAt(i);
+        bool isChecked = EqualityComparer<TValue>.Default.Equals(Value, item);
 
         <option @attributes="OptionAttributes?.Invoke(item)" value="@index" selected="@isChecked">
             @ChildContent(item)
@@ -32,11 +32,7 @@
     private void OnInputChange(ChangeEventArgs args)
     {
         if (!int.TryParse(args.Value?.ToString(), out int parsed)) return;
-
-        var item = OptionList.ElementAtOrDefault(parsed);
-        if (item == null) return;
-
-        NotifyChange(item);
+        NotifyChange(OptionList.ElementAt(parsed));
     }
 
 }

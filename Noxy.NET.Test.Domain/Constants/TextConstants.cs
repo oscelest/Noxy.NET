@@ -28,7 +28,18 @@ public class TextConstants
     public const string LabelFormIsRepeatable = "LabelFormIsRepeatable";
     public const string LabelFormAttributeType = "LabelFormAttributeType";
     public const string LabelFormTextParameterType = "LabelFormTextParameterType";
+    public const string LabelFormDynamicValueTypeList = "LabelFormDynamicValueTypeList";
+    public const string LabelFormPropertyTypeList = "LabelFormPropertyTypeList";
     public const string LabelFormIsValueList = "LabelFormIsList";
+    public const string LabelFormString = "LabelFormString";
+    public const string LabelFormBoolean = "LabelFormBoolean";
+    public const string LabelFormDateTime = "LabelFormDateTime";
+    public const string LabelFormInteger = "LabelFormInteger";
+    public const string LabelFormDecimal = "LabelFormDecimal";
+    public const string LabelFormDynamicValueCode = "LabelFormDynamicValueCode";
+    public const string LabelFormDynamicValueStyleParameter = "LabelFormDynamicValueStyleParameter";
+    public const string LabelFormDynamicValueSystemParameter = "LabelFormDynamicValueSystemParameter";
+    public const string LabelFormDynamicValueTextParameter = "LabelFormDynamicValueTextParameter";
 
     public const string HelpFormSchemaIdentifier = "HelpFormSchemaIdentifier";
     public const string HelpFormName = "HelpFormName";
@@ -44,7 +55,18 @@ public class TextConstants
     public const string HelpFormIsRepeatable = "HelpFormIsRepeatable";
     public const string HelpFormAttributeType = "HelpFormAttributeType";
     public const string HelpFormTextParameterType = "HelpFormTextParameterType";
+    public const string HelpFormDynamicValueTypeList = "HelpFormDynamicValueTypeList";
+    public const string HelpFormPropertyTypeList = "HelpFormPropertyTypeList";
     public const string HelpFormIsValueList = "HelpFormIsList";
+    public const string HelpFormString = "HelpFormString";
+    public const string HelpFormBoolean = "HelpFormBoolean";
+    public const string HelpFormDateTime = "HelpFormDateTime";
+    public const string HelpFormInteger = "HelpFormInteger";
+    public const string HelpFormDecimal = "HelpFormDecimal";
+    public const string HelpFormDynamicValueCode = "HelpFormDynamicValueCode";
+    public const string HelpFormDynamicValueStyleParameter = "HelpFormDynamicValueStyleParameter";
+    public const string HelpFormDynamicValueSystemParameter = "HelpFormDynamicValueSystemParameter";
+    public const string HelpFormDynamicValueTextParameter = "HelpFormDynamicValueTextParameter";
 
     public const string ActionPanelHeader = "ActionPanelHeader";
 

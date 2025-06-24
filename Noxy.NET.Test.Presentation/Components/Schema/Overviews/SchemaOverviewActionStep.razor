@@ -7,21 +7,7 @@
         </Header>
 
         <Form>
-            @if (context != null)
-            {
-                <SidebarRightLayout>
-                    <Sidebar>
-                        <FormSchemaActionStep Schema="Schema" Value="context" OnChange="FormChange"/>
-                    </Sidebar>
-                    <Content>
-                        <JunctionFormSchemaActionStepHasActionInput Entity="context" Available="Schema.ActionInputList"/>
-                    </Content>
-                </SidebarRightLayout>
-            }
-            else
-            {
-                <FormSchemaActionStep Schema="Schema" OnChange="FormChange"/>
-            }
+            <FormSchemaActionStep Schema="Schema" Value="context" OnChange="FormChange"/>
         </Form>
     </TemplateSchemaOverview>
 </div>

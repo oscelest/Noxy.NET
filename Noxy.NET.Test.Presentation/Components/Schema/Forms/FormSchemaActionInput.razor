@@ -85,7 +85,7 @@
 
     protected override WebFormContext<FormModelSchemaActionInput> CreateContext()
     {
-        return new(new(Value) { SchemaID = Schema.ID, AttributeList = [] });
+        return new(new(Value) { SchemaID = Schema.ID });
     }
 
     private FormModelAssociationSchemaActionInputHasAttribute.Discriminator GetModel(EntitySchemaAttribute attribute)

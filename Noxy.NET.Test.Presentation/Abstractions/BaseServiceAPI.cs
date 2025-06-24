@@ -16,13 +16,6 @@ public abstract class BaseServiceAPI(HttpClient http, UserAuthenticationStatePro
         return await response.ReadFromJsonAsync<TResult>() ?? throw new FormatException();
     }
 
-    public async Task<TResult> PutForm<TResult>(BaseFormModel model)
-    {
-        HttpRequestMessage requestMessage = CreateRequest(HttpMethod.Put, model.APIEndpoint, model);
-        HttpContent response = HandleResponse(await SendRequest(requestMessage));
-        return await response.ReadFromJsonAsync<TResult>() ?? throw new FormatException();
-    }
-    
     protected HttpRequestMessage CreateRequest(HttpMethod method, string url, object? content = null)
     {
         return new()

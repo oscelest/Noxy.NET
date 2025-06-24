@@ -12,6 +12,7 @@ public class EntitySchemaDynamicValue : BaseEntitySchema
         public string SchemaIdentifier { get; init; } = string.Empty;
 
         public EntitySchemaDynamicValueCode? Code { get; init; }
+        public EntitySchemaDynamicValueStyleParameter? StyleParameter { get; init; }
         public EntitySchemaDynamicValueSystemParameter? SystemParameter { get; init; }
         public EntitySchemaDynamicValueTextParameter? TextParameter { get; init; }
 
@@ -24,14 +25,17 @@ public class EntitySchemaDynamicValue : BaseEntitySchema
         {
             switch (entity)
             {
-                case EntitySchemaDynamicValueCode code:
-                    Code = code;
+                case EntitySchemaDynamicValueCode value:
+                    Code = value;
                     break;
-                case EntitySchemaDynamicValueSystemParameter system:
-                    SystemParameter = system;
+                case EntitySchemaDynamicValueStyleParameter value:
+                    StyleParameter = value;
                     break;
-                case EntitySchemaDynamicValueTextParameter text:
-                    TextParameter = text;
+                case EntitySchemaDynamicValueSystemParameter value:
+                    SystemParameter = value;
+                    break;
+                case EntitySchemaDynamicValueTextParameter value:
+                    TextParameter = value;
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -45,6 +49,7 @@ public class EntitySchemaDynamicValue : BaseEntitySchema
         public EntitySchemaDynamicValue GetValue()
         {
             if (Code != null) return Code;
+            if (StyleParameter != null) return StyleParameter;
             if (SystemParameter != null) return SystemParameter;
             if (TextParameter != null) return TextParameter;
             throw new();

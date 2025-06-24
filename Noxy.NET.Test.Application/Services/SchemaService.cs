@@ -77,9 +77,9 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
                 FormModelAssociationSchemaActionInputHasAttribute item = discriminator.GetValue();
                 List<EntityAssociationSchemaActionInputHasAttribute> parsed = item switch
                 {
-                    FormModelAssociationSchemaActionInputHasAttribute<string> value => await uow.Association.AssociateActionInputWithAttribute(value.EntityID, value.RelationID, value.Value),
-                    FormModelAssociationSchemaActionInputHasAttribute<int?> value => await uow.Association.AssociateActionInputWithAttribute(value.EntityID, value.RelationID, value.Value),
-                    FormModelAssociationSchemaActionInputHasAttribute<GenericUUID<EntitySchemaDynamicValue>?> value => await uow.Association.AssociateActionInputWithAttribute(value.EntityID, value.RelationID, value.Value),
+                    FormModelAssociationSchemaActionInputHasAttribute<string> value => await uow.Association.AssociateActionInputWithAttribute(result.ID, value.RelationID, value.Value),
+                    FormModelAssociationSchemaActionInputHasAttribute<int?> value => await uow.Association.AssociateActionInputWithAttribute(result.ID, value.RelationID, value.Value),
+                    FormModelAssociationSchemaActionInputHasAttribute<GenericUUID<EntitySchemaDynamicValue>?> value => await uow.Association.AssociateActionInputWithAttribute(result.ID, value.RelationID, value.Value),
                     _ => throw new ArgumentOutOfRangeException(nameof(model))
                 };
 
@@ -198,6 +198,34 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
         {
             result = await uow.Schema.GetSchemaDynamicValueByID(model.ID);
             EntitySchemaDynamicValueCode property = UpdateSchemaFields(result.Code, model);
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaDynamicValue.Discriminator> CreateOrUpdate(FormModelSchemaDynamicValueStyleParameter model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaDynamicValue.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaDynamicValueStyleParameter()
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                IsApprovalRequired = model.IsApprovalRequired,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaDynamicValueByID(model.ID);
+            EntitySchemaDynamicValueSystemParameter property = UpdateSchemaFields(result.SystemParameter, model);
             uow.Schema.Update(property);
         }
 
@@ -370,6 +398,68 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
         {
             result = await uow.Schema.GetSchemaPropertyByID(model.ID);
             EntitySchemaPropertyDateTime property = UpdateSchemaFields(result.DateTime, model);
+            property.DefaultValue = model.DefaultValue;
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaProperty.Discriminator> CreateOrUpdate(FormModelSchemaPropertyDecimal model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaProperty.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaPropertyDateTime
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                DefaultValue = model.DefaultValue,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaPropertyByID(model.ID);
+            EntitySchemaPropertyDecimal property = UpdateSchemaFields(result.Decimal, model);
+            property.DefaultValue = model.DefaultValue;
+            uow.Schema.Update(property);
+        }
+
+        await uow.Commit();
+        return result;
+    }
+
+    public async Task<EntitySchemaProperty.Discriminator> CreateOrUpdate(FormModelSchemaPropertyInteger model)
+    {
+        await using IUnitOfWork uow = await serviceUoWFactory.Create();
+        EntitySchemaProperty.Discriminator result;
+
+        if (model.ID == Guid.Empty)
+        {
+            result = await uow.Schema.Create(new EntitySchemaPropertyDateTime
+            {
+                SchemaIdentifier = model.SchemaIdentifier,
+                Name = model.Name,
+                Note = model.Note,
+                Order = model.Order,
+                Title = model.Title,
+                Description = model.Description,
+                DefaultValue = model.DefaultValue,
+                SchemaID = model.SchemaID,
+            });
+        }
+        else
+        {
+            result = await uow.Schema.GetSchemaPropertyByID(model.ID);
+            EntitySchemaPropertyInteger property = UpdateSchemaFields(result.Integer, model);
             property.DefaultValue = model.DefaultValue;
             uow.Schema.Update(property);
         }

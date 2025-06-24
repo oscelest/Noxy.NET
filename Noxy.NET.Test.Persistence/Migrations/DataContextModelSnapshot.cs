@@ -424,12 +424,111 @@ namespace Noxy.NET.Test.Persistence.Migrations
                         },
                         new
                         {
-                            ID = new Guid("01978a1f-f0a2-731f-b17d-2553ac69936f"),
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-aa11a0e1ce60"),
+                            SchemaIdentifier = "LabelFormDynamicValueTypeList",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Choose dynamic value type"
+                        },
+                        new
+                        {
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-ae413650b40c"),
+                            SchemaIdentifier = "LabelFormPropertyTypeList",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Choose property type"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-6a3f0bf60dae"),
                             SchemaIdentifier = "LabelFormIsList",
                             TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Value = "Is value list?"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-6c45805d80a3"),
+                            SchemaIdentifier = "LabelFormBoolean",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Boolean"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-72817ce487a1"),
+                            SchemaIdentifier = "LabelFormDateTime",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "DateTime"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-77fdd478928f"),
+                            SchemaIdentifier = "LabelFormDecimal",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Decimal"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-781625aca070"),
+                            SchemaIdentifier = "LabelFormInteger",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Integer"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-7c0e241b9622"),
+                            SchemaIdentifier = "LabelFormString",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "String"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-809a8b75e571"),
+                            SchemaIdentifier = "LabelFormDynamicValueCode",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Code"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-86038825b246"),
+                            SchemaIdentifier = "LabelFormDynamicValueStyleParameter",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Style parameter"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-8bd3f0f5e948"),
+                            SchemaIdentifier = "LabelFormDynamicValueSystemParameter",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "System parameter"
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a4-1a2b-7368-9b33-8c2e6b4a0b6d"),
+                            SchemaIdentifier = "LabelFormDynamicValueTextParameter",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Text parameter"
                         },
                         new
                         {
@@ -559,12 +658,111 @@ namespace Noxy.NET.Test.Persistence.Migrations
                         },
                         new
                         {
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-b830dc26f9f4"),
+                            SchemaIdentifier = "HelpFormDynamicValueTypeList",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = ""
+                        },
+                        new
+                        {
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-bf20682e54af"),
+                            SchemaIdentifier = "HelpFormPropertyTypeList",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = ""
+                        },
+                        new
+                        {
                             ID = new Guid("01978a20-9692-72ff-be7d-ba24274b04c3"),
                             SchemaIdentifier = "HelpFormIsList",
                             TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Value = "Determines if this input attribute can be configured with a list of values."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-2d147f778de8"),
+                            SchemaIdentifier = "HelpFormBoolean",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a boolean value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-300f0306a227"),
+                            SchemaIdentifier = "HelpFormDateTime",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a datetime value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-35f76c49841a"),
+                            SchemaIdentifier = "HelpFormDecimal",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a decimal value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-3a924229a88a"),
+                            SchemaIdentifier = "HelpFormInteger",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a integer value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-3ca405bc7246"),
+                            SchemaIdentifier = "HelpFormString",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a string value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-40860609aed2"),
+                            SchemaIdentifier = "HelpFormDynamicValueCode",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a dynamic code value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-473fbbc23ec3"),
+                            SchemaIdentifier = "HelpFormDynamicValueStyleParameter",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a dynamic style parameter value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-48183a3903a4"),
+                            SchemaIdentifier = "HelpFormDynamicValueSystemParameter",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a dynamic system parameter value."
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-6b05-7029-b9a7-4c3fb79cf9d1"),
+                            SchemaIdentifier = "HelpFormDynamicValueTextParameter",
+                            TimeApproved = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            TimeEffective = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Value = "Represents a dynamic text parameter value."
                         });
                 });
 
@@ -699,6 +897,9 @@ namespace Noxy.NET.Test.Persistence.Migrations
                     b.Property<Guid>("EntityID")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid>("RelationID")
                         .HasColumnType("TEXT");
 
@@ -726,6 +927,9 @@ namespace Noxy.NET.Test.Persistence.Migrations
                     b.Property<Guid>("EntityID")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid>("RelationID")
                         .HasColumnType("TEXT");
 
@@ -752,6 +956,9 @@ namespace Noxy.NET.Test.Persistence.Migrations
 
                     b.Property<Guid>("EntityID")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("RelationID")
                         .HasColumnType("TEXT");
@@ -834,6 +1041,9 @@ namespace Noxy.NET.Test.Persistence.Migrations
                     b.Property<Guid>("EntityID")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid>("RelationID")
                         .HasColumnType("TEXT");
 
@@ -860,6 +1070,9 @@ namespace Noxy.NET.Test.Persistence.Migrations
 
                     b.Property<Guid>("EntityID")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("RelationID")
                         .HasColumnType("TEXT");
@@ -1790,12 +2003,144 @@ namespace Noxy.NET.Test.Persistence.Migrations
                         },
                         new
                         {
-                            ID = new Guid("01978a1f-f0a2-731f-b17d-14f803055489"),
-                            Name = "LabelFormIsList",
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-a291a3ca06d4"),
+                            Name = "LabelFormDynamicValueTypeList",
                             Note = "",
                             Order = 23,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormDynamicValueTypeList",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-a5aa1089fe1b"),
+                            Name = "LabelFormPropertyTypeList",
+                            Note = "",
+                            Order = 24,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormPropertyTypeList",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("01978a1f-f0a2-731f-b17d-14f803055489"),
+                            Name = "LabelFormIsList",
+                            Note = "",
+                            Order = 25,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "LabelFormIsList",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-b7144f565f3f"),
+                            Name = "LabelFormBoolean",
+                            Note = "",
+                            Order = 26,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormBoolean",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-b8b9e65fa2e9"),
+                            Name = "LabelFormDateTime",
+                            Note = "",
+                            Order = 27,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormDateTime",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-be98a390cf1a"),
+                            Name = "LabelFormDecimal",
+                            Note = "",
+                            Order = 28,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormDecimal",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-c0efbd9b5dbb"),
+                            Name = "LabelFormInteger",
+                            Note = "",
+                            Order = 29,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormInteger",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-c449cc81422f"),
+                            Name = "LabelFormString",
+                            Note = "",
+                            Order = 30,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormString",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-c9599b28ac9c"),
+                            Name = "LabelFormDynamicValueCode",
+                            Note = "",
+                            Order = 31,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormDynamicValueCode",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-cd308b80c164"),
+                            Name = "LabelFormDynamicValueStyleParameter",
+                            Note = "",
+                            Order = 32,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormDynamicValueStyleParameter",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-d3344af0a274"),
+                            Name = "LabelFormDynamicValueSystemParameter",
+                            Note = "",
+                            Order = 33,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormDynamicValueSystemParameter",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a3-a72f-725a-b4f6-d6b06a4f6d1b"),
+                            Name = "LabelFormDynamicValueTextParameter",
+                            Note = "",
+                            Order = 34,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "LabelFormDynamicValueTextParameter",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsApprovalRequired = false,
                             Type = 0
@@ -1805,7 +2150,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("019789fc-3929-75a9-99e8-f7a6abf0c139"),
                             Name = "HelpFormSchemaIdentifier",
                             Note = "",
-                            Order = 24,
+                            Order = 35,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormSchemaIdentifier",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1817,7 +2162,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("019789fc-3929-75a9-99e8-f819edf63934"),
                             Name = "HelpFormName",
                             Note = "",
-                            Order = 25,
+                            Order = 36,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormName",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1829,7 +2174,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("019789fc-3929-75a9-99e8-ffd616e87b30"),
                             Name = "HelpFormNote",
                             Note = "",
-                            Order = 26,
+                            Order = 37,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormNote",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1841,7 +2186,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("019789fc-3929-75a9-99e9-0229499f0ddd"),
                             Name = "HelpFormTitle",
                             Note = "",
-                            Order = 27,
+                            Order = 38,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormTitle",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1853,7 +2198,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("019789fc-3929-75a9-99e9-046632ba51b7"),
                             Name = "HelpFormDescription",
                             Note = "",
-                            Order = 28,
+                            Order = 39,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormDescription",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1865,7 +2210,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("019789fc-3929-75a9-99e9-0a5f8ca00604"),
                             Name = "HelpFormOrder",
                             Note = "",
-                            Order = 29,
+                            Order = 40,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormOrder",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1877,7 +2222,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("019789fc-3929-75a9-99e9-0c9241c61162"),
                             Name = "HelpFormInputID",
                             Note = "",
-                            Order = 30,
+                            Order = 41,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormInputID",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1889,7 +2234,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("01978a17-b7b1-772f-a129-4ce642008489"),
                             Name = "HelpFormValue",
                             Note = "",
-                            Order = 31,
+                            Order = 42,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormValue",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1901,7 +2246,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("01978a17-b7b1-772f-a129-52ee6b9269cd"),
                             Name = "HelpFormDefaultValue",
                             Note = "",
-                            Order = 32,
+                            Order = 43,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormDefaultValue",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1913,7 +2258,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("01978a17-b7b1-772f-a129-543b087e1606"),
                             Name = "HelpFormIsApprovalRequired",
                             Note = "",
-                            Order = 33,
+                            Order = 44,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormIsApprovalRequired",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1925,7 +2270,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("01978a17-b7b1-772f-a129-5bbae750bee1"),
                             Name = "HelpFormIsAsynchronous",
                             Note = "",
-                            Order = 34,
+                            Order = 45,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormIsAsynchronous",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1937,7 +2282,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("01978a20-9692-72ff-be7d-9cb3d3d46359"),
                             Name = "HelpFormIsRepeatable",
                             Note = "",
-                            Order = 35,
+                            Order = 46,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormIsRepeatable",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1949,7 +2294,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("01978a20-9692-72ff-be7d-a3b72d338572"),
                             Name = "HelpFormAttributeType",
                             Note = "",
-                            Order = 36,
+                            Order = 47,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormAttributeType",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
@@ -1958,12 +2303,36 @@ namespace Noxy.NET.Test.Persistence.Migrations
                         },
                         new
                         {
-                            ID = new Guid("01978a20-9692-72ff-be7d-a62334e7d3c4"),
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-b33557c5a806"),
                             Name = "HelpFormTextParameterType",
                             Note = "",
-                            Order = 37,
+                            Order = 48,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormTextParameterType",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-c3a68639a28a"),
+                            Name = "HelpFormDynamicValueTypeList",
+                            Note = "",
+                            Order = 49,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormDynamicValueTypeList",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("01979d14-54ad-72f9-b5d8-c4050ea1f0fd"),
+                            Name = "HelpFormPropertyTypeList",
+                            Note = "",
+                            Order = 50,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormPropertyTypeList",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsApprovalRequired = false,
                             Type = 0
@@ -1973,9 +2342,117 @@ namespace Noxy.NET.Test.Persistence.Migrations
                             ID = new Guid("01978a20-9692-72ff-be7d-a9bb3d99565a"),
                             Name = "HelpFormIsList",
                             Note = "",
-                            Order = 38,
+                            Order = 51,
                             SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
                             SchemaIdentifier = "HelpFormIsList",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-97a26b3415dc"),
+                            Name = "HelpFormBoolean",
+                            Note = "",
+                            Order = 52,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormBoolean",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-986c4570a7bd"),
+                            Name = "HelpFormDateTime",
+                            Note = "",
+                            Order = 53,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormDateTime",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-9f89357ebb7f"),
+                            Name = "HelpFormDecimal",
+                            Note = "",
+                            Order = 54,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormDecimal",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-a390807971d2"),
+                            Name = "HelpFormInteger",
+                            Note = "",
+                            Order = 55,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormInteger",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-a44ca62f2e18"),
+                            Name = "HelpFormString",
+                            Note = "",
+                            Order = 56,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormString",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-a93e37c915a8"),
+                            Name = "HelpFormDynamicValueCode",
+                            Note = "",
+                            Order = 57,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormDynamicValueCode",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-ad7a01af4eac"),
+                            Name = "HelpFormDynamicValueStyleParameter",
+                            Note = "",
+                            Order = 58,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormDynamicValueStyleParameter",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-b0be19e7dcdd"),
+                            Name = "HelpFormDynamicValueSystemParameter",
+                            Note = "",
+                            Order = 59,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormDynamicValueSystemParameter",
+                            TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsApprovalRequired = false,
+                            Type = 0
+                        },
+                        new
+                        {
+                            ID = new Guid("019799a6-8dc0-75af-8866-b4f08d0df491"),
+                            Name = "HelpFormDynamicValueTextParameter",
+                            Note = "",
+                            Order = 60,
+                            SchemaID = new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"),
+                            SchemaIdentifier = "HelpFormDynamicValueTextParameter",
                             TimeCreated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsApprovalRequired = false,
                             Type = 0

@@ -18,7 +18,6 @@ export class NoxyNETUI {
 
     static RegisterCollapsible(refElement, refDotNet, method) {
         const handler = event => {
-            console.log("Finished with", event.propertyName);
             if (event.propertyName !== "grid-template-rows") return;
             refDotNet.invokeMethodAsync(method, refElement.getAttribute("state") === "1");
         };
@@ -27,7 +26,7 @@ export class NoxyNETUI {
         refElement.addEventListener('transitionend', handler);
     }
 
-    static DeregisterCollapsible(refElement) {
+    static DisposeCollapsible(refElement) {
         const handler = refElement["__handlerCollapsible"];
 
         if (handler) {
@@ -37,14 +36,12 @@ export class NoxyNETUI {
     }
 
     static AnimateExpand(refElement) {
-        console.log("Expanding", refElement);
         refElement.style.marginTop = '';
         refElement.style.gridTemplateRows = 'minmax(0, 1fr)';
         refElement.setAttribute("state", 0);
     }
 
     static AnimateCollapse(refElement) {
-        console.log("Collapsing", refElement);
         refElement.style.marginTop = "0px";
         refElement.style.gridTemplateRows = 'minmax(0, 0fr)';
         refElement.setAttribute("state", 1);

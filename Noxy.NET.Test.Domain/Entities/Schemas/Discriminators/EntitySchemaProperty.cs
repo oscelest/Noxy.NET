@@ -18,6 +18,8 @@ public class EntitySchemaProperty : BaseEntitySchemaComponent
 
         public EntitySchemaPropertyBoolean? Boolean { get; init; }
         public EntitySchemaPropertyDateTime? DateTime { get; init; }
+        public EntitySchemaPropertyDecimal? Decimal { get; init; }
+        public EntitySchemaPropertyInteger? Integer { get; init; }
         public EntitySchemaPropertyString? String { get; init; }
 
         [JsonConstructor]
@@ -29,14 +31,20 @@ public class EntitySchemaProperty : BaseEntitySchemaComponent
         {
             switch (entity)
             {
-                case EntitySchemaPropertyBoolean propertyBoolean:
-                    Boolean = propertyBoolean;
+                case EntitySchemaPropertyBoolean property:
+                    Boolean = property;
                     break;
-                case EntitySchemaPropertyString propertyString:
-                    String = propertyString;
+                case EntitySchemaPropertyDateTime property:
+                    DateTime = property;
                     break;
-                case EntitySchemaPropertyDateTime propertyDateTime:
-                    DateTime = propertyDateTime;
+                case EntitySchemaPropertyDecimal property:
+                    Decimal = property;
+                    break;
+                case EntitySchemaPropertyInteger property:
+                    Integer = property;
+                    break;
+                case EntitySchemaPropertyString property:
+                    String = property;
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -51,6 +59,8 @@ public class EntitySchemaProperty : BaseEntitySchemaComponent
         {
             if (Boolean != null) return Boolean;
             if (DateTime != null) return DateTime;
+            if (Decimal != null) return Decimal;
+            if (Integer != null) return Integer;
             if (String != null) return String;
             throw new();
         }

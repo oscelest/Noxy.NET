@@ -154,7 +154,7 @@
     {
         if (_module != null && _reference != null)
         {
-            await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.DeregisterCollapsible", _contentRef, _reference, nameof(OnAnimationComplete));
+            await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.DisposeCollapsible", _contentRef, _reference, nameof(OnAnimationComplete));
 
             await _module.DisposeAsync();
             _reference.Dispose();

@@ -33,6 +33,13 @@
     --size-control-md: 46px;
     --size-control-lg: 50px;
     --size-control-xl: 55px;
+    --size-icon-xxs: 16px;
+    --size-icon-xs: 20px;
+    --size-icon-sm: 24px;
+    --size-icon-md: 28px;
+    --size-icon-lg: 32px;
+    --size-icon-xl: 36px;
+    --size-icon-xxl: 40px;
     --size-page-xs: 320px;
     --size-page-sm: 360px;
     --size-page-md: 720px;
@@ -56,6 +63,17 @@
 }
 
 :root {
+    --color-background-none: #4d4Ad3;
+    --color-background-highlight: #0073ec;
+    --color-background-info: #289ed9;
+    --color-background-success: #23883d;
+    --color-background-warning: #d97f00;
+    --color-background-notice: #a948dd;
+    --color-background-error: #e42b21;
+    --color-background-disabled: #4d4d4d;
+}
+
+:root {
     /* TEMP FOR WHEN YOU ADD DARK MODE OKAY? */
     --color-mixin-primary: #ffffff;
     --color-mixin-complementary: #000000;
@@ -67,16 +85,7 @@
     --color-focus-control: #ffffff;
 }
 
-:root {
-    --color-background-none: #4d4Ad3;
-    --color-background-highlight: #0073ec;
-    --color-background-info: #289ed9;
-    --color-background-success: #23883d;
-    --color-background-warning: #d97f00;
-    --color-background-notice: #a948dd;
-    --color-background-error: #e42b21;
-    --color-background-disabled: #4d4d4d;
-}
+
 
 /* Color mix-in */
 :root[theme="Light"] {

@@ -37,21 +37,22 @@ public interface ITableToEntityMapper
 
     #endregion -- Data --
 
-    #region -- Junctions --
+    #region -- Many-To-Many --
 
-    EntityJunctionSchemaActionHasDynamicValueCode Map(TableJunctionSchemaActionHasDynamicValueCode? table);
-    EntityJunctionSchemaActionStepHasActionInput Map(TableJunctionSchemaActionStepHasActionInput? table);
-    EntityJunctionSchemaActionHasActionStep Map(TableJunctionSchemaActionHasActionStep? table);
     EntityAssociationSchemaActionInputHasAttribute.Discriminator Map(TableAssociationSchemaActionInputHasAttribute? table);
     EntityAssociationSchemaActionInputHasAttributeDynamicValue Map(TableAssociationSchemaActionInputHasAttributeDynamicValue? table);
     EntityAssociationSchemaActionInputHasAttributeInteger Map(TableAssociationSchemaActionInputHasAttributeInteger? table);
     EntityAssociationSchemaActionInputHasAttributeString Map(TableAssociationSchemaActionInputHasAttributeString? table);
+    
+    EntityJunctionSchemaActionHasDynamicValueCode Map(TableJunctionSchemaActionHasDynamicValueCode? table);
+    EntityJunctionSchemaActionStepHasActionInput Map(TableJunctionSchemaActionStepHasActionInput? table);
+    EntityJunctionSchemaActionHasActionStep Map(TableJunctionSchemaActionHasActionStep? table);
     EntityJunctionSchemaContextHasAction Map(TableJunctionSchemaContextHasAction? table);
     EntityJunctionSchemaContextHasElement Map(TableJunctionSchemaContextHasElement? table);
     EntityJunctionSchemaElementHasProperty Map(TableJunctionSchemaElementHasProperty? table);
     EntityJunctionSchemaInputHasAttribute Map(TableJunctionSchemaInputHasAttribute? table);
 
-    #endregion -- Junctions --
+    #endregion -- Many-To-Many --
 
     #region -- Schemas --
 

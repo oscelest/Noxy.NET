@@ -210,11 +210,11 @@ public class TableToEntityMapper : ITableToEntityMapper
 
     #endregion
 
-    #region -- Junctions --
+    #region -- Many-To-Many --
 
+    public EntityJunctionSchemaActionHasActionStep Map(TableJunctionSchemaActionHasActionStep? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
     public EntityJunctionSchemaActionHasDynamicValueCode Map(TableJunctionSchemaActionHasDynamicValueCode? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
     public EntityJunctionSchemaActionStepHasActionInput Map(TableJunctionSchemaActionStepHasActionInput? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
-    public EntityJunctionSchemaActionHasActionStep Map(TableJunctionSchemaActionHasActionStep? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
     public EntityAssociationSchemaActionInputHasAttribute.Discriminator Map(TableAssociationSchemaActionInputHasAttribute? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
     public EntityAssociationSchemaActionInputHasAttributeDynamicValue Map(TableAssociationSchemaActionInputHasAttributeDynamicValue? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
     public EntityAssociationSchemaActionInputHasAttributeInteger Map(TableAssociationSchemaActionInputHasAttributeInteger? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
@@ -224,6 +224,26 @@ public class TableToEntityMapper : ITableToEntityMapper
     public EntityJunctionSchemaElementHasProperty Map(TableJunctionSchemaElementHasProperty? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
     public EntityJunctionSchemaInputHasAttribute Map(TableJunctionSchemaInputHasAttribute? table) => MapInternal(table) ?? throw new ArgumentNullException(nameof(table));
 
+    private static EntityJunctionSchemaActionHasActionStep? MapInternal(TableJunctionSchemaActionHasActionStep? table, Guid[]? listVisitedRelation = null)
+    {
+        if (table == null) return null;
+
+        EntityJunctionSchemaActionHasActionStep mapped = new()
+        {
+            ID = table.ID,
+            Order = table.Order,
+            TimeCreated = table.TimeCreated,
+            EntityID = table.EntityID,
+            RelationID = table.RelationID,
+        };
+
+        if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
+        mapped.Entity = MapInternal(table.Entity, listExtendedRelation);
+        mapped.Relation = MapInternal(table.Relation, listExtendedRelation);
+
+        return mapped;
+    }
+    
     private static EntityJunctionSchemaActionHasDynamicValueCode? MapInternal(TableJunctionSchemaActionHasDynamicValueCode? table, Guid[]? listVisitedRelation = null)
     {
         if (table == null) return null;
@@ -231,6 +251,7 @@ public class TableToEntityMapper : ITableToEntityMapper
         EntityJunctionSchemaActionHasDynamicValueCode mapped = new()
         {
             ID = table.ID,
+            Order = table.Order,
             TimeCreated = table.TimeCreated,
             EntityID = table.EntityID,
             RelationID = table.RelationID,
@@ -250,6 +271,7 @@ public class TableToEntityMapper : ITableToEntityMapper
         EntityJunctionSchemaActionStepHasActionInput mapped = new()
         {
             ID = table.ID,
+            Order = table.Order,
             TimeCreated = table.TimeCreated,
             EntityID = table.EntityID,
             RelationID = table.RelationID,
@@ -262,24 +284,6 @@ public class TableToEntityMapper : ITableToEntityMapper
         return mapped;
     }
 
-    private static EntityJunctionSchemaActionHasActionStep? MapInternal(TableJunctionSchemaActionHasActionStep? table, Guid[]? listVisitedRelation = null)
-    {
-        if (table == null) return null;
-
-        EntityJunctionSchemaActionHasActionStep mapped = new()
-        {
-            ID = table.ID,
-            TimeCreated = table.TimeCreated,
-            EntityID = table.EntityID,
-            RelationID = table.RelationID,
-        };
-
-        if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
-        mapped.Entity = MapInternal(table.Entity, listExtendedRelation);
-        mapped.Relation = MapInternal(table.Relation, listExtendedRelation);
-
-        return mapped;
-    }
 
     private static EntityAssociationSchemaActionInputHasAttribute.Discriminator? MapInternal(TableAssociationSchemaActionInputHasAttribute? table, Guid[]? listVisitedRelation = null)
     {
@@ -399,6 +403,7 @@ public class TableToEntityMapper : ITableToEntityMapper
         EntityJunctionSchemaElementHasProperty mapped = new()
         {
             ID = table.ID,
+            Order = table.Order,
             TimeCreated = table.TimeCreated,
             EntityID = table.EntityID,
             RelationID = table.RelationID,
@@ -418,6 +423,7 @@ public class TableToEntityMapper : ITableToEntityMapper
         EntityJunctionSchemaInputHasAttribute mapped = new()
         {
             ID = table.ID,
+            Order = table.Order,
             TimeCreated = table.TimeCreated,
             EntityID = table.EntityID,
             RelationID = table.RelationID,
@@ -430,7 +436,7 @@ public class TableToEntityMapper : ITableToEntityMapper
         return mapped;
     }
 
-    #endregion -- Junctions --
+    #endregion -- Many-To-Many --
 
     #region -- Schemas --
 
@@ -737,6 +743,8 @@ public class TableToEntityMapper : ITableToEntityMapper
         {
             TableSchemaPropertyBoolean property => MapInternal(property, listVisitedRelation),
             TableSchemaPropertyDateTime property => MapInternal(property, listVisitedRelation),
+            TableSchemaPropertyDecimal property => MapInternal(property, listVisitedRelation),
+            TableSchemaPropertyInteger property => MapInternal(property, listVisitedRelation),
             TableSchemaPropertyString property => MapInternal(property, listVisitedRelation),
             _ => throw new ArgumentOutOfRangeException(nameof(table), table, null)
         });
@@ -772,6 +780,56 @@ public class TableToEntityMapper : ITableToEntityMapper
         if (table == null) return null;
 
         EntitySchemaPropertyDateTime mapped = new()
+        {
+            ID = table.ID,
+            SchemaIdentifier = table.SchemaIdentifier,
+            Name = table.Name,
+            Note = table.Note,
+            Order = table.Order,
+            Title = table.Title,
+            Description = table.Description,
+            DefaultValue = table.DefaultValue,
+            TimeCreated = table.TimeCreated,
+            SchemaID = table.SchemaID,
+        };
+
+        if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
+        mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
+
+        return mapped;
+    }
+
+    private static EntitySchemaPropertyDecimal? MapInternal(TableSchemaPropertyDecimal? table, Guid[]? listVisitedRelation = null)
+    {
+        if (table == null) return null;
+
+        EntitySchemaPropertyDecimal mapped = new()
+        {
+            ID = table.ID,
+            SchemaIdentifier = table.SchemaIdentifier,
+            Name = table.Name,
+            Note = table.Note,
+            Order = table.Order,
+            Title = table.Title,
+            Description = table.Description,
+            DefaultValue = table.DefaultValue,
+            TimeCreated = table.TimeCreated,
+            SchemaID = table.SchemaID,
+        };
+
+        if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
+        mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
+
+        return mapped;
+    }
+
+    private static EntitySchemaPropertyInteger? MapInternal(TableSchemaPropertyInteger? table, Guid[]? listVisitedRelation = null)
+    {
+        if (table == null) return null;
+
+        EntitySchemaPropertyInteger mapped = new()
         {
             ID = table.ID,
             SchemaIdentifier = table.SchemaIdentifier,

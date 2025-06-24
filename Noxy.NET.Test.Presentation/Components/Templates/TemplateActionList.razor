@@ -1,4 +1,3 @@
-@inject ActionHubService ActionHubService
 @inherits ElementComponent
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
@@ -7,7 +6,6 @@
         ViewModelSchemaAction action = List.First();
 
         <DynamicHTMLTag Tag="@HeaderLevelCurrent.ToText()">
-            @ActionHubService.
             @action.Title
         </DynamicHTMLTag>
 

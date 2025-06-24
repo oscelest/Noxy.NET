@@ -1,5 +1,5 @@
-@typeparam T where T : class
 @inherits ElementComponent
+@typeparam T where T : class
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
     @foreach (KeyValuePair<string, string?> pair in GetCollection())

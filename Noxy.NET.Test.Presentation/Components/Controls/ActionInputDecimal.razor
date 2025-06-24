@@ -13,7 +13,7 @@
         return Context.Value as decimal?;
     }
 
-    private async Task  SetValue(decimal? value)
+    private async Task SetValue(decimal? value)
     {
         Context.Value = value;
         await Commit();

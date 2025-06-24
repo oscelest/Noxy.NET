@@ -18,8 +18,8 @@ public interface IEntityToTableMapper
     TableUser Map(EntityUser entity);
 
     #endregion -- Authentication --
-    
-    #region -- Junctions --
+
+    #region -- Many-To-Many --
 
     TableJunctionSchemaActionHasActionStep Map(EntityJunctionSchemaActionHasActionStep entity);
     TableJunctionSchemaActionHasDynamicValueCode Map(EntityJunctionSchemaActionHasDynamicValueCode entity);
@@ -28,9 +28,9 @@ public interface IEntityToTableMapper
     TableJunctionSchemaContextHasElement Map(EntityJunctionSchemaContextHasElement entity);
     TableJunctionSchemaElementHasProperty Map(EntityJunctionSchemaElementHasProperty entity);
     TableJunctionSchemaInputHasAttribute Map(EntityJunctionSchemaInputHasAttribute entity);
-    
-    #endregion -- Junctions --
-    
+
+    #endregion -- Many-To-Many --
+
     #region -- Schemas --
 
     TableSchemaAction Map(EntitySchemaAction entity);
@@ -40,6 +40,7 @@ public interface IEntityToTableMapper
     TableSchemaContext Map(EntitySchemaContext entity);
     TableSchemaDynamicValue Map(EntitySchemaDynamicValue entity);
     TableSchemaDynamicValueCode Map(EntitySchemaDynamicValueCode entity);
+    TableSchemaDynamicValueStyleParameter Map(EntitySchemaDynamicValueStyleParameter entity);
     TableSchemaDynamicValueSystemParameter Map(EntitySchemaDynamicValueSystemParameter entity);
     TableSchemaDynamicValueTextParameter Map(EntitySchemaDynamicValueTextParameter entity);
     TableSchemaElement Map(EntitySchemaElement entity);
@@ -48,14 +49,15 @@ public interface IEntityToTableMapper
     TableSchemaProperty Map(EntitySchemaProperty baseEntity);
     TableSchemaPropertyBoolean Map(EntitySchemaPropertyBoolean entity);
     TableSchemaPropertyDateTime Map(EntitySchemaPropertyDateTime entity);
+    TableSchemaPropertyDecimal Map(EntitySchemaPropertyDecimal entity);
+    TableSchemaPropertyInteger Map(EntitySchemaPropertyInteger entity);
     TableSchemaPropertyString Map(EntitySchemaPropertyString entity);
 
     #endregion -- Schemas --
-    
-    #region -- Templates --
-    
-    TableSchema Map(EntitySchema entity);
-    
-    #endregion -- Templates --
 
+    #region -- Templates --
+
+    TableSchema Map(EntitySchema entity);
+
+    #endregion -- Templates --
 }

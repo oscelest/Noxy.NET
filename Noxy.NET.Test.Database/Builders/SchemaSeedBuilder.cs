@@ -228,6 +228,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             EntityID = refAction.ID,
             Relation = refDynamicValueCode,
             RelationID = refDynamicValueCode.ID,
+            Order = GetNextOrder(nameof(TableSchemaAction) + nameof(TableSchemaDynamicValueCode)),
             TimeCreated = timeCreated ?? Now,
         });
     }
@@ -240,6 +241,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             EntityID = refAction.ID,
             Relation = refActionStep,
             RelationID = refActionStep.ID,
+            Order = GetNextOrder(nameof(TableSchemaAction) + nameof(TableSchemaActionStep)),
             TimeCreated = timeCreated ?? Now,
         });
     }
@@ -252,10 +254,11 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             EntityID = refActionStep.ID,
             Relation = refActionInput,
             RelationID = refActionInput.ID,
+            Order = GetNextOrder(nameof(TableSchemaActionStep) + nameof(TableSchemaActionInput)),
             TimeCreated = timeCreated ?? Now,
         });
     }
-    
+
     public void Relate(TableSchemaActionInput refInput, TableSchemaAttribute refAttribute, string value, DateTime? timeCreated = null)
     {
         context.SchemaActionInputHasAttributeString.Add(new()
@@ -268,7 +271,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             TimeCreated = timeCreated ?? Now,
         });
     }
-    
+
     public void Relate(TableSchemaActionInput refInput, TableSchemaAttribute refAttribute, int value, DateTime? timeCreated = null)
     {
         context.SchemaActionInputHasAttributeInteger.Add(new()
@@ -281,7 +284,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             TimeCreated = timeCreated ?? Now,
         });
     }
-    
+
     public void Relate(TableSchemaActionInput refInput, TableSchemaAttribute refAttribute, TableSchemaDynamicValue refDynamicValue, DateTime? timeCreated = null)
     {
         context.SchemaActionInputHasAttributeDynamicValue.Add(new()
@@ -327,10 +330,11 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             EntityID = refElement.ID,
             Relation = refProperty,
             RelationID = refProperty.ID,
+            Order = GetNextOrder(nameof(TableSchemaInput) + nameof(TableSchemaAttribute)),
             TimeCreated = timeCreated ?? Now,
         });
     }
-    
+
     public void Relate(TableSchemaInput refInput, TableSchemaAttribute refAttribute, DateTime? timeCreated = null)
     {
         context.SchemaInputHasAttribute.Add(new()
@@ -339,6 +343,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             EntityID = refInput.ID,
             Relation = refAttribute,
             RelationID = refAttribute.ID,
+            Order = GetNextOrder(nameof(TableSchemaInput) + nameof(TableSchemaAttribute)),
             TimeCreated = timeCreated ?? Now,
         });
     }

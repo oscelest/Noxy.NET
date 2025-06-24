@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Noxy.NET.UI.Components;
 
 namespace Noxy.NET.UI.Abstractions;
 

@@ -7,7 +7,7 @@
         <Collapsible>
             <Header>
                 <label class="header">
-                    <input @attributes="AdditionalAttributes" class="@CssClass" id="@IDCurrent" name="@NameCurrent" type="checkbox" checked="@IsChecked(context)" @onchange="x => OnInputChange(x, context)"/>
+                    <input @attributes="AdditionalAttributes" class="@CssClass" name="@NameCurrent" type="checkbox" checked="@IsChecked(context)" @onchange="x => OnInputChange(x, context)"/>
                     @Header(context)
                 </label>
             </Header>

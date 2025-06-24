@@ -17,4 +17,6 @@ public abstract class BaseFormModelEntitySchemaComponent(BaseEntitySchemaCompone
     [DisplayName(TextConstants.LabelFormDescription)]
     [Description(TextConstants.HelpFormDescription)]
     public string Description { get; set; } = entity?.Description ?? string.Empty;
+    
+    
 }

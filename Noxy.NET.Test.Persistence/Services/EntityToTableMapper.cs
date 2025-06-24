@@ -55,13 +55,14 @@ public class EntityToTableMapper : IEntityToTableMapper
 
     #endregion -- Authentication --
 
-    #region -- Junctions --
+    #region -- Many-To-Many --
 
     public TableJunctionSchemaActionHasActionStep Map(EntityJunctionSchemaActionHasActionStep entity)
     {
         return new()
         {
             ID = entity.ID,
+            Order = entity.Order,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             EntityID = entity.EntityID,
             RelationID = entity.RelationID,
@@ -73,6 +74,7 @@ public class EntityToTableMapper : IEntityToTableMapper
         return new()
         {
             ID = entity.ID,
+            Order = entity.Order,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             EntityID = entity.EntityID,
             RelationID = entity.RelationID,
@@ -84,6 +86,7 @@ public class EntityToTableMapper : IEntityToTableMapper
         return new()
         {
             ID = entity.ID,
+            Order = entity.Order,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             EntityID = entity.EntityID,
             RelationID = entity.RelationID,
@@ -117,6 +120,7 @@ public class EntityToTableMapper : IEntityToTableMapper
         return new()
         {
             ID = entity.ID,
+            Order = entity.Order,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             EntityID = entity.EntityID,
             RelationID = entity.RelationID,
@@ -131,10 +135,11 @@ public class EntityToTableMapper : IEntityToTableMapper
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             EntityID = entity.EntityID,
             RelationID = entity.RelationID,
+            Order = entity.Order,
         };
     }
 
-    #endregion -- Junctions --
+    #endregion -- Many-To-Many --
 
     #region -- Templates --
 
@@ -243,6 +248,7 @@ public class EntityToTableMapper : IEntityToTableMapper
         return entity switch
         {
             EntitySchemaDynamicValueCode value => Map(value),
+            EntitySchemaDynamicValueStyleParameter value => Map(value),
             EntitySchemaDynamicValueSystemParameter value => Map(value),
             EntitySchemaDynamicValueTextParameter value => Map(value),
             _ => throw new ArgumentOutOfRangeException(nameof(entity))
@@ -260,6 +266,21 @@ public class EntityToTableMapper : IEntityToTableMapper
             Order = entity.Order,
             IsAsynchronous = entity.IsAsynchronous,
             Value = entity.Value,
+            TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
+            SchemaID = entity.SchemaID,
+        };
+    }
+
+    public TableSchemaDynamicValueStyleParameter Map(EntitySchemaDynamicValueStyleParameter entity)
+    {
+        return new()
+        {
+            ID = entity.ID,
+            SchemaIdentifier = entity.SchemaIdentifier,
+            Name = entity.Name,
+            Note = entity.Note,
+            Order = entity.Order,
+            IsApprovalRequired = entity.IsApprovalRequired,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
         };
@@ -340,13 +361,15 @@ public class EntityToTableMapper : IEntityToTableMapper
         };
     }
 
-    TableSchemaProperty IEntityToTableMapper.Map(EntitySchemaProperty entity)
+    public TableSchemaProperty Map(EntitySchemaProperty entity)
     {
         return entity switch
         {
             EntitySchemaPropertyBoolean value => Map(value),
             EntitySchemaPropertyDateTime value => Map(value),
             EntitySchemaPropertyString value => Map(value),
+            EntitySchemaPropertyDecimal value => Map(value),
+            EntitySchemaPropertyInteger value => Map(value),
             _ => throw new ArgumentOutOfRangeException(nameof(entity))
         };
     }
@@ -369,6 +392,40 @@ public class EntityToTableMapper : IEntityToTableMapper
     }
 
     public TableSchemaPropertyDateTime Map(EntitySchemaPropertyDateTime entity)
+    {
+        return new()
+        {
+            ID = entity.ID,
+            SchemaIdentifier = entity.SchemaIdentifier,
+            Name = entity.Name,
+            Note = entity.Note,
+            Order = entity.Order,
+            Title = entity.Title,
+            Description = entity.Description,
+            DefaultValue = entity.DefaultValue,
+            TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
+            SchemaID = entity.SchemaID,
+        };
+    }
+
+    public TableSchemaPropertyDecimal Map(EntitySchemaPropertyDecimal entity)
+    {
+        return new()
+        {
+            ID = entity.ID,
+            SchemaIdentifier = entity.SchemaIdentifier,
+            Name = entity.Name,
+            Note = entity.Note,
+            Order = entity.Order,
+            Title = entity.Title,
+            Description = entity.Description,
+            DefaultValue = entity.DefaultValue,
+            TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
+            SchemaID = entity.SchemaID,
+        };
+    }
+
+    public TableSchemaPropertyInteger Map(EntitySchemaPropertyInteger entity)
     {
         return new()
         {

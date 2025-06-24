@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Noxy.NET.Test.Persistence.Abstractions.Tables;
 
-public abstract class BaseTableAssociation<TEntity, TRelation> : BaseTable
+public abstract class BaseTableManyToMany<TEntity, TRelation> : BaseTable
 {
     [Required]
     public TEntity? Entity { get; set; }

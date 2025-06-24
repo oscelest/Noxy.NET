@@ -1,0 +1,93 @@
+@inject IJSRuntime JS
+@inherits ElementComponent
+@typeparam T where T : BaseEntitySchema
+
+<div @attributes="AdditionalAttributes" class="@CssClass">
+    <SortableList List="Current" OnLoad="OnLoad">
+        <Collapsible>
+            <Header>
+                <div class="handle">
+                    <IconBorderLeft/>
+                </div>
+                <span class="title">@context.Name</span>
+                <Button type="button" Status="StatusEnum.Error" @onclick="EventCallback.Factory.Create(this, () => OnRemove.InvokeAsync(context))">
+                    <IconSaltire Size="IconSizeEnum.ExtraSmall"/>
+                </Button>
+            </Header>
+            <Content>
+                <TemplateElementDisplay Entity="context"/>
+            </Content>
+        </Collapsible>
+    </SortableList>
+
+    <div class="list">
+        @foreach (T item in Available)
+        {
+            <Collapsible>
+                <Header>
+                    <div class="handle">
+                        <IconBorderLeft/>
+                    </div>
+                    <span class="title">@item.Name</span>
+                    <Button type="button" Status="StatusEnum.Error" @onclick="EventCallback.Factory.Create(this, () => OnAdd.InvokeAsync(item))">
+                        <IconSaltire Size="IconSizeEnum.ExtraSmall"/>
+                    </Button>
+                </Header>
+                <Content>
+                    <TemplateElementDisplay Entity="item"/>
+                </Content>
+            </Collapsible>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required IEnumerable<T> Current { get; set; }
+
+    [Parameter, EditorRequired]
+    public required IEnumerable<T> Available { get; set; }
+
+    [Parameter]
+    public EventCallback<T> OnAdd { get; set; }
+
+    [Parameter]
+    public EventCallback<T> OnRemove { get; set; }
+
+    [Parameter]
+    public EventCallback<IEnumerable<T>> OnChange { get; set; }
+
+    private IJSObjectReference? _module;
+    private ElementReference _refElement;
+    private DotNetObjectReference<TemplateSchemaEntitySelect<T>>? _refClass;
+
+    private IEnumerable<T> list;
+    
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (!Equals(list, Current))
+        {
+            list = Current;
+        }
+    }
+
+    private async Task OnLoad(ElementReference reference)
+    {
+        _refElement = reference;
+        _refClass ??= DotNetObjectReference.Create(this);
+
+        _module ??= await JS.InvokeAsync<IJSObjectReference>("import", JS.GetComponentPath(typeof(TemplateSchemaEntitySelect<T>)));
+        await _module.InvokeVoidAsync("Register", _refElement, _refClass, nameof(OnSort));
+    }
+
+    [JSInvokable]
+    public void OnSort(int oldIndex, int newIndex)
+    {
+        List<T> list = Current.ToList();
+        List<T> ordered = list.MoveItem(oldIndex, newIndex);
+        OnChange.InvokeAsync(ordered);
+    }
+
+}

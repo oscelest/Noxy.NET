@@ -552,6 +552,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
                     TimeCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EntityID = table.Column<Guid>(type: "TEXT", nullable: false),
                     RelationID = table.Column<Guid>(type: "TEXT", nullable: false)
@@ -604,6 +605,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
                     TimeCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EntityID = table.Column<Guid>(type: "TEXT", nullable: false),
                     RelationID = table.Column<Guid>(type: "TEXT", nullable: false)
@@ -656,6 +658,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
                     TimeCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EntityID = table.Column<Guid>(type: "TEXT", nullable: false),
                     RelationID = table.Column<Guid>(type: "TEXT", nullable: false)
@@ -700,6 +703,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
                     TimeCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EntityID = table.Column<Guid>(type: "TEXT", nullable: false),
                     RelationID = table.Column<Guid>(type: "TEXT", nullable: false)
@@ -839,6 +843,7 @@ namespace Noxy.NET.Test.Persistence.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
                     TimeCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EntityID = table.Column<Guid>(type: "TEXT", nullable: false),
                     RelationID = table.Column<Guid>(type: "TEXT", nullable: false)
@@ -898,11 +903,33 @@ namespace Noxy.NET.Test.Persistence.Migrations
                     { new Guid("01978a1f-f0a2-731f-b17d-1981b375a5db"), "LabelFormIsRepeatable", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Is repeatable?" },
                     { new Guid("01978a1f-f0a2-731f-b17d-1e57e7540e08"), "LabelFormAttributeType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Attribute type" },
                     { new Guid("01978a1f-f0a2-731f-b17d-2174a6ecd4fe"), "LabelFormTextParameterType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Text parameter type" },
-                    { new Guid("01978a1f-f0a2-731f-b17d-2553ac69936f"), "LabelFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Is value list?" },
                     { new Guid("01978a20-9692-72ff-be7d-ac500344bf4b"), "HelpFormIsRepeatable", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Determines if this step can be completed with multiple results." },
                     { new Guid("01978a20-9692-72ff-be7d-b08279f62f4a"), "HelpFormAttributeType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "The type of attribute." },
                     { new Guid("01978a20-9692-72ff-be7d-b59a17facafb"), "HelpFormTextParameterType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "The type of text parameter." },
-                    { new Guid("01978a20-9692-72ff-be7d-ba24274b04c3"), "HelpFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Determines if this input attribute can be configured with a list of values." }
+                    { new Guid("01978a20-9692-72ff-be7d-ba24274b04c3"), "HelpFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Determines if this input attribute can be configured with a list of values." },
+                    { new Guid("019799a4-1a2b-7368-9b33-6a3f0bf60dae"), "LabelFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Is value list?" },
+                    { new Guid("019799a4-1a2b-7368-9b33-6c45805d80a3"), "LabelFormBoolean", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Boolean" },
+                    { new Guid("019799a4-1a2b-7368-9b33-72817ce487a1"), "LabelFormDateTime", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "DateTime" },
+                    { new Guid("019799a4-1a2b-7368-9b33-77fdd478928f"), "LabelFormDecimal", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Decimal" },
+                    { new Guid("019799a4-1a2b-7368-9b33-781625aca070"), "LabelFormInteger", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Integer" },
+                    { new Guid("019799a4-1a2b-7368-9b33-7c0e241b9622"), "LabelFormString", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "String" },
+                    { new Guid("019799a4-1a2b-7368-9b33-809a8b75e571"), "LabelFormDynamicValueCode", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Code" },
+                    { new Guid("019799a4-1a2b-7368-9b33-86038825b246"), "LabelFormDynamicValueStyleParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Style parameter" },
+                    { new Guid("019799a4-1a2b-7368-9b33-8bd3f0f5e948"), "LabelFormDynamicValueSystemParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "System parameter" },
+                    { new Guid("019799a4-1a2b-7368-9b33-8c2e6b4a0b6d"), "LabelFormDynamicValueTextParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Text parameter" },
+                    { new Guid("019799a6-6b05-7029-b9a7-2d147f778de8"), "HelpFormBoolean", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a boolean value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-300f0306a227"), "HelpFormDateTime", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a datetime value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-35f76c49841a"), "HelpFormDecimal", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a decimal value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-3a924229a88a"), "HelpFormInteger", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a integer value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-3ca405bc7246"), "HelpFormString", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a string value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-40860609aed2"), "HelpFormDynamicValueCode", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a dynamic code value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-473fbbc23ec3"), "HelpFormDynamicValueStyleParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a dynamic style parameter value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-48183a3903a4"), "HelpFormDynamicValueSystemParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a dynamic system parameter value." },
+                    { new Guid("019799a6-6b05-7029-b9a7-4c3fb79cf9d1"), "HelpFormDynamicValueTextParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Represents a dynamic text parameter value." },
+                    { new Guid("01979d14-54ad-72f9-b5d8-aa11a0e1ce60"), "LabelFormDynamicValueTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Choose dynamic value type" },
+                    { new Guid("01979d14-54ad-72f9-b5d8-ae413650b40c"), "LabelFormPropertyTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Choose property type" },
+                    { new Guid("01979d14-54ad-72f9-b5d8-b830dc26f9f4"), "HelpFormDynamicValueTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "" },
+                    { new Guid("01979d14-54ad-72f9-b5d8-bf20682e54af"), "HelpFormPropertyTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "" }
                 });
 
             migrationBuilder.InsertData(
@@ -929,30 +956,52 @@ namespace Noxy.NET.Test.Persistence.Migrations
                     { new Guid("019789de-e449-71aa-ab1d-192c4a3c0eb6"), false, "LabelFormTitle", "", 12, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormTitle", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("019789de-e449-71aa-ab1d-1c1707f61f89"), false, "LabelFormDescription", "", 13, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDescription", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("019789de-e449-71aa-ab1d-205e04219122"), false, "LabelFormOrder", "", 14, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormOrder", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("019789fc-3929-75a9-99e8-f7a6abf0c139"), false, "HelpFormSchemaIdentifier", "", 24, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormSchemaIdentifier", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("019789fc-3929-75a9-99e8-f819edf63934"), false, "HelpFormName", "", 25, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormName", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("019789fc-3929-75a9-99e8-ffd616e87b30"), false, "HelpFormNote", "", 26, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormNote", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("019789fc-3929-75a9-99e9-0229499f0ddd"), false, "HelpFormTitle", "", 27, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormTitle", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("019789fc-3929-75a9-99e9-046632ba51b7"), false, "HelpFormDescription", "", 28, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDescription", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("019789fc-3929-75a9-99e9-0a5f8ca00604"), false, "HelpFormOrder", "", 29, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormOrder", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("019789fc-3929-75a9-99e9-0c9241c61162"), false, "HelpFormInputID", "", 30, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormInputID", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019789fc-3929-75a9-99e8-f7a6abf0c139"), false, "HelpFormSchemaIdentifier", "", 35, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormSchemaIdentifier", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019789fc-3929-75a9-99e8-f819edf63934"), false, "HelpFormName", "", 36, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormName", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019789fc-3929-75a9-99e8-ffd616e87b30"), false, "HelpFormNote", "", 37, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormNote", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019789fc-3929-75a9-99e9-0229499f0ddd"), false, "HelpFormTitle", "", 38, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormTitle", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019789fc-3929-75a9-99e9-046632ba51b7"), false, "HelpFormDescription", "", 39, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDescription", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019789fc-3929-75a9-99e9-0a5f8ca00604"), false, "HelpFormOrder", "", 40, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormOrder", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019789fc-3929-75a9-99e9-0c9241c61162"), false, "HelpFormInputID", "", 41, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormInputID", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("019789fc-3929-75a9-99e9-11f9d8b81e8a"), false, "DefaultEmptyValue", "", 1, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "DefaultEmptyValue", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("01978a17-7901-7131-8b48-f882aa64e37a"), false, "LabelFormValue", "", 16, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormValue", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("01978a17-7901-7131-8b48-ff6a41005bb3"), false, "LabelFormDefaultValue", "", 17, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDefaultValue", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("01978a17-7901-7131-8b49-005b042a1608"), false, "LabelFormIsApprovalRequired", "", 18, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormIsApprovalRequired", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("01978a17-7901-7131-8b49-07a43e807dfd"), false, "LabelFormIsAsynchronous", "", 19, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormIsAsynchronous", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a17-b7b1-772f-a129-4ce642008489"), false, "HelpFormValue", "", 31, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormValue", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a17-b7b1-772f-a129-52ee6b9269cd"), false, "HelpFormDefaultValue", "", 32, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDefaultValue", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a17-b7b1-772f-a129-543b087e1606"), false, "HelpFormIsApprovalRequired", "", 33, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsApprovalRequired", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a17-b7b1-772f-a129-5bbae750bee1"), false, "HelpFormIsAsynchronous", "", 34, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsAsynchronous", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01978a17-b7b1-772f-a129-4ce642008489"), false, "HelpFormValue", "", 42, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormValue", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01978a17-b7b1-772f-a129-52ee6b9269cd"), false, "HelpFormDefaultValue", "", 43, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDefaultValue", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01978a17-b7b1-772f-a129-543b087e1606"), false, "HelpFormIsApprovalRequired", "", 44, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsApprovalRequired", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01978a17-b7b1-772f-a129-5bbae750bee1"), false, "HelpFormIsAsynchronous", "", 45, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsAsynchronous", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("01978a1f-f0a2-731f-b17d-0991eba49899"), false, "LabelFormIsRepeatable", "", 20, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormIsRepeatable", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("01978a1f-f0a2-731f-b17d-0e2bbf4c0700"), false, "LabelFormAttributeType", "", 21, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormAttributeType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
                     { new Guid("01978a1f-f0a2-731f-b17d-12579bcc7198"), false, "LabelFormTextParameterType", "", 22, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormTextParameterType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a1f-f0a2-731f-b17d-14f803055489"), false, "LabelFormIsList", "", 23, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a20-9692-72ff-be7d-9cb3d3d46359"), false, "HelpFormIsRepeatable", "", 35, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsRepeatable", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a20-9692-72ff-be7d-a3b72d338572"), false, "HelpFormAttributeType", "", 36, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormAttributeType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a20-9692-72ff-be7d-a62334e7d3c4"), false, "HelpFormTextParameterType", "", 37, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormTextParameterType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
-                    { new Guid("01978a20-9692-72ff-be7d-a9bb3d99565a"), false, "HelpFormIsList", "", 38, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 }
+                    { new Guid("01978a1f-f0a2-731f-b17d-14f803055489"), false, "LabelFormIsList", "", 25, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01978a20-9692-72ff-be7d-9cb3d3d46359"), false, "HelpFormIsRepeatable", "", 46, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsRepeatable", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01978a20-9692-72ff-be7d-a3b72d338572"), false, "HelpFormAttributeType", "", 47, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormAttributeType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01978a20-9692-72ff-be7d-a9bb3d99565a"), false, "HelpFormIsList", "", 51, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormIsList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-b7144f565f3f"), false, "LabelFormBoolean", "", 26, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormBoolean", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-b8b9e65fa2e9"), false, "LabelFormDateTime", "", 27, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDateTime", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-be98a390cf1a"), false, "LabelFormDecimal", "", 28, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDecimal", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-c0efbd9b5dbb"), false, "LabelFormInteger", "", 29, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormInteger", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-c449cc81422f"), false, "LabelFormString", "", 30, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormString", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-c9599b28ac9c"), false, "LabelFormDynamicValueCode", "", 31, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDynamicValueCode", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-cd308b80c164"), false, "LabelFormDynamicValueStyleParameter", "", 32, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDynamicValueStyleParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-d3344af0a274"), false, "LabelFormDynamicValueSystemParameter", "", 33, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDynamicValueSystemParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a3-a72f-725a-b4f6-d6b06a4f6d1b"), false, "LabelFormDynamicValueTextParameter", "", 34, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDynamicValueTextParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-97a26b3415dc"), false, "HelpFormBoolean", "", 52, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormBoolean", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-986c4570a7bd"), false, "HelpFormDateTime", "", 53, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDateTime", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-9f89357ebb7f"), false, "HelpFormDecimal", "", 54, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDecimal", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-a390807971d2"), false, "HelpFormInteger", "", 55, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormInteger", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-a44ca62f2e18"), false, "HelpFormString", "", 56, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormString", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-a93e37c915a8"), false, "HelpFormDynamicValueCode", "", 57, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDynamicValueCode", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-ad7a01af4eac"), false, "HelpFormDynamicValueStyleParameter", "", 58, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDynamicValueStyleParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-b0be19e7dcdd"), false, "HelpFormDynamicValueSystemParameter", "", 59, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDynamicValueSystemParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("019799a6-8dc0-75af-8866-b4f08d0df491"), false, "HelpFormDynamicValueTextParameter", "", 60, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDynamicValueTextParameter", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01979d14-54ad-72f9-b5d8-a291a3ca06d4"), false, "LabelFormDynamicValueTypeList", "", 23, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormDynamicValueTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01979d14-54ad-72f9-b5d8-a5aa1089fe1b"), false, "LabelFormPropertyTypeList", "", 24, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "LabelFormPropertyTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01979d14-54ad-72f9-b5d8-b33557c5a806"), false, "HelpFormTextParameterType", "", 48, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormTextParameterType", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01979d14-54ad-72f9-b5d8-c3a68639a28a"), false, "HelpFormDynamicValueTypeList", "", 49, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormDynamicValueTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 },
+                    { new Guid("01979d14-54ad-72f9-b5d8-c4050ea1f0fd"), false, "HelpFormPropertyTypeList", "", 50, new Guid("01974e8c-ecb8-75ab-9070-ef902ff370a7"), "HelpFormPropertyTypeList", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 0 }
                 });
 
             migrationBuilder.InsertData(

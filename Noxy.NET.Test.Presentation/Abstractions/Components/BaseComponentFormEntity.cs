@@ -2,15 +2,11 @@ using Microsoft.AspNetCore.Components;
 using Noxy.NET.Test.Domain.Abstractions.Entities;
 using Noxy.NET.Test.Domain.Abstractions.Forms;
 using Noxy.NET.Test.Domain.Constants;
-using Noxy.NET.Test.Presentation.Services;
 
 namespace Noxy.NET.Test.Presentation.Abstractions.Components;
 
 public abstract class BaseComponentFormEntity<TForm, TEntity> : BaseComponentForm<TForm> where TForm : BaseFormModelEntity where TEntity : BaseEntity
 {
-    [Inject]
-    public TextService TextService { get; set; } = null!;
-
     [Parameter]
     public TEntity? Value { get; set; }
 
@@ -43,8 +39,6 @@ public abstract class BaseComponentFormEntity<TForm, TEntity> : BaseComponentFor
 
     protected virtual async Task<TEntity> HandleSubmission(BaseFormModelEntity model)
     {
-        return model.ID == Guid.Empty
-            ? await SchemaAPIService.PostForm<TEntity>(model)
-            : await SchemaAPIService.PutForm<TEntity>(model);
+        return await SchemaAPIService.PostForm<TEntity>(model);
     }
 }

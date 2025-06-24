@@ -5,15 +5,22 @@
         <Header>
             @HeaderText
         </Header>
-        
+
         <Content>
-            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.SchemaIdentifier))" Description="@GetDescription(nameof(Context.Model.SchemaIdentifier))" @bind-Value="Context.Model.SchemaIdentifier"/>
-            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Name))" Description="@GetDescription(nameof(Context.Model.Name))" @bind-Value="Context.Model.Name"/>
-            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Note))" Description="@GetDescription(nameof(Context.Model.Note))" @bind-Value="Context.Model.Note"/>
-            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Title))" Description="@GetDescription(nameof(Context.Model.Title))" @bind-Value="Context.Model.Title"/>
-            <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Description))" Description="@GetDescription(nameof(Context.Model.Description))" @bind-Value="Context.Model.Description"/>
+            <SidebarLeftLayout>
+                <Sidebar>
+                    <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.SchemaIdentifier))" Description="@GetDescription(nameof(Context.Model.SchemaIdentifier))" @bind-Value="Context.Model.SchemaIdentifier"/>
+                    <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Name))" Description="@GetDescription(nameof(Context.Model.Name))" @bind-Value="Context.Model.Name"/>
+                    <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Note))" Description="@GetDescription(nameof(Context.Model.Note))" @bind-Value="Context.Model.Note"/>
+                    <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Title))" Description="@GetDescription(nameof(Context.Model.Title))" @bind-Value="Context.Model.Title"/>
+                    <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Description))" Description="@GetDescription(nameof(Context.Model.Description))" @bind-Value="Context.Model.Description"/>
+                </Sidebar>
+                <Content>
+                    <TemplateSchemaEntitySelect T="EntitySchemaActionInput" Current="GetCurrentList()" Available="GetAvailableList()" OnAdd="AddActionInput" OnRemove="RemoveActionInput" OnChange="ChangeList"/>
+                </Content>
+            </SidebarLeftLayout>
         </Content>
-        
+
         <Actions>
             <Button Loading="Context.IsSubmitting" Status="StatusEnum.Success" type="submit">
                 @SubmitText
@@ -29,7 +36,46 @@
 
     protected override WebFormContext<FormModelSchemaActionStep> CreateContext()
     {
-        return new(new(Value){ SchemaID = Schema.ID });
+        return new(new(Value) { SchemaID = Schema.ID });
+    }
+
+    private void AddActionInput(EntitySchemaActionInput input)
+    {
+        Context.Model.ActionInputList?.Add(new(Value, input) { Order = Context.Model.ActionInputList.Count });
+    }
+
+    private void RemoveActionInput(EntitySchemaActionInput input)
+    {
+        Context.Model.ActionInputList = Context.Model.ActionInputList?.Where(x => x.RelationID != input.ID).ToList();
+    }
+
+    private void ChangeList(IEnumerable<EntitySchemaActionInput> list)
+    {
+        Context.Model.ActionInputList = list.Select((x, i) => new FormModelAssociationSchemaActionStepHasActionInput(Value, x) { Order = i + 1 }).ToList();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private EntitySchemaActionInput GetActionInput(Guid id)
+    {
+        return Schema.ActionInputList?.FirstOrDefault(x => x.ID == id) ?? throw new KeyNotFoundException(id.ToString());
+    }
+
+    private EntitySchemaActionInput[] GetCurrentList()
+    {
+        var list = Context.Model.ActionInputList?
+            .OrderBy(x => x.Order)
+            .Select(x => GetActionInput(x.RelationID))
+            .ToArray() ?? [];
+        return list;
+    }
+
+    private EntitySchemaActionInput[] GetAvailableList()
+    {
+        List<FormModelAssociationSchemaActionStepHasActionInput> list = Context.Model.ActionInputList ?? [];
+        return Schema.ActionInputList?
+            .Where(x => list.All(y => y.RelationID != x.ID))
+            .OrderBy(x => x.Order)
+            .ToArray() ?? [];
     }
 
 }
