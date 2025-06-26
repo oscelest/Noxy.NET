@@ -51,39 +51,37 @@
 
     private void ChangeList(IEnumerable<EntityJunctionSchemaActionStepHasActionInput> list)
     {
-        Context.Model.ActionInputList = list.Select((x, i) => new FormModelAssociationSchemaActionStepHasActionInput(x)).ToList();
+        Context.Model.ActionInputList = list.Select((x, i) => new FormModelSchemaActionStep.HasActionInput(x)).ToList();
     }
 
-    private EntityJunctionSchemaActionStepHasActionInput GetActionInput(FormModelAssociationSchemaActionStepHasActionInput form)
+    private EntityJunctionSchemaActionStepHasActionInput GetActionInput(FormModelSchemaActionStep.HasActionInput form)
     {
         return new()
         {
             ID = form.ID,
             Order = form.Order,
-            EntityID = form.EntityID,
-            Entity = Schema.ActionStepList?.FirstOrDefault(x => x.ID == form.EntityID) ?? throw new KeyNotFoundException(form.EntityID.ToString()),
+            EntityID = Guid.Empty,
+            Entity = null,
             RelationID = form.RelationID,
-            Relation = Schema.ActionInputList?.FirstOrDefault(x => x.ID == form.RelationID) ?? throw new KeyNotFoundException(form.EntityID.ToString()),
+            Relation = Schema.ActionInputList?.FirstOrDefault(x => x.ID == form.RelationID) ?? throw new KeyNotFoundException(form.RelationID.ToString()),
         };
     }
 
     private EntityJunctionSchemaActionStepHasActionInput[] GetCurrentList()
     {
-        return Context.Model.ActionInputList?.OrderBy(x => x.Order).Select(GetActionInput).ToArray() ?? [];
+        return Context.Model.ActionInputList?
+            .OrderBy(x => x.Order)
+            .Select(GetActionInput)
+            .ToArray() ?? [];
     }
 
     private EntityJunctionSchemaActionStepHasActionInput[] GetAvailableList()
     {
-        List<FormModelAssociationSchemaActionStepHasActionInput> list = Context.Model.ActionInputList ?? [];
+        List<FormModelSchemaActionStep.HasActionInput> list = Context.Model.ActionInputList ?? [];
         return Schema.ActionInputList?
             .Where(x => list.All(y => y.RelationID != x.ID))
             .OrderBy(x => x.Order)
-            .Select(x => GetActionInput(new FormModelAssociationSchemaActionStepHasActionInput()
-            {
-                Order = 0,
-                EntityID = Value?.ID ?? Guid.Empty,
-                RelationID = x.ID,
-            }))
+            .Select(x => GetActionInput(new() { ID = Guid.Empty, Order = 0, RelationID = x.ID, }))
             .ToArray() ?? [];
     }
 

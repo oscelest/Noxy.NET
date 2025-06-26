@@ -25,7 +25,7 @@
             }
         </div>
     </div>
-    <div @ref="_contentRef" class="content">
+    <div class="content" id="@UUIDCode">
         @if (!_internalCollapsed)
         {
             @Content
@@ -57,7 +57,6 @@
     public Expression<Func<bool>>? CollapsedExpression { get; set; }
 
     private bool _internalCollapsed;
-    private ElementReference _contentRef;
     private IJSObjectReference? _module;
     private DotNetObjectReference<Collapsible>? _reference;
 
@@ -94,7 +93,7 @@
 
         if (!IsRendered || !Animated.HasValue) return;
 
-        switch (Animated ?? true)
+        switch (Animated.Value)
         {
             case true when _module == null:
                 await Register();
@@ -125,6 +124,28 @@
         await Toggle();
     }
 
+    private async Task Register()
+    {
+        _reference ??= DotNetObjectReference.Create(this);
+        _module ??= await JS.InvokeAsync<IJSObjectReference>("import", JS.GetComponentPath(typeof(Collapsible)));
+
+        await _module.InvokeVoidAsync("RegisterCollapsible", UUIDCode, _reference, nameof(OnAnimationComplete));
+    }
+
+    private async Task Deregister()
+    {
+        if (_module != null && _reference != null)
+        {
+            await _module.InvokeVoidAsync("DisposeCollapsible", UUIDCode);
+
+            await _module.DisposeAsync();
+            _reference.Dispose();
+
+            _module = null;
+            _reference = null;
+        }
+    }
+
     private async Task Toggle()
     {
         if (_module == null || _reference == null)
@@ -139,28 +160,7 @@
                 await CollapsedChanged.InvokeAsync(_internalCollapsed = false);
             }
 
-            await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.{method}", _contentRef, _reference, nameof(OnAnimationComplete));
-        }
-    }
-
-    private async Task Register()
-    {
-        _reference ??= DotNetObjectReference.Create(this);
-        _module ??= await JS.InvokeAsync<IJSObjectReference>("import", $"./_content/{Constants.AssemblyNameUICommon}/Interop.js");
-        await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.RegisterCollapsible", _contentRef, _reference, nameof(OnAnimationComplete));
-    }
-
-    private async Task Deregister()
-    {
-        if (_module != null && _reference != null)
-        {
-            await _module.InvokeVoidAsync($"{Constants.InteropNameUICommon}.DisposeCollapsible", _contentRef, _reference, nameof(OnAnimationComplete));
-
-            await _module.DisposeAsync();
-            _reference.Dispose();
-
-            _module = null;
-            _reference = null;
+            await _module.InvokeVoidAsync(method, UUIDCode);
         }
     }
 

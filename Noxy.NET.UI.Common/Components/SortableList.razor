@@ -5,7 +5,7 @@
 <div @attributes="AdditionalAttributes" @ref="_contentRef" class="@CssClass">
     @foreach (T item in List)
     {
-        <div @key="item" class="@CombineCssClass("item", ItemClass?.Invoke(item), Filter?.Invoke(item))">
+        <div class="@CombineCssClass("item", ItemClass?.Invoke(item), Filter?.Invoke(item))">
             @ChildContent(item)
         </div>
     }

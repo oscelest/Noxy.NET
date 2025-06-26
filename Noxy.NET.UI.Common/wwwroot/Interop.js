@@ -16,37 +16,6 @@ export class NoxyNETUI {
         element.addEventListener(event, e => e.stopPropagation());
     }
 
-    static RegisterCollapsible(refElement, refDotNet, method) {
-        const handler = event => {
-            if (event.propertyName !== "grid-template-rows") return;
-            refDotNet.invokeMethodAsync(method, refElement.getAttribute("state") === "1");
-        };
-
-        refElement["__handlerCollapsible"] = handler;
-        refElement.addEventListener('transitionend', handler);
-    }
-
-    static DisposeCollapsible(refElement) {
-        const handler = refElement["__handlerCollapsible"];
-
-        if (handler) {
-            refElement.removeEventListener('transitionend', handler);
-            delete refElement["__handlerCollapsible"];
-        }
-    }
-
-    static AnimateExpand(refElement) {
-        refElement.style.marginTop = '';
-        refElement.style.gridTemplateRows = 'minmax(0, 1fr)';
-        refElement.setAttribute("state", 0);
-    }
-
-    static AnimateCollapse(refElement) {
-        refElement.style.marginTop = "0px";
-        refElement.style.gridTemplateRows = 'minmax(0, 0fr)';
-        refElement.setAttribute("state", 1);
-    }
-
     static SetTheme(theme) {
         window.document.documentElement.setAttribute("theme", theme);
         localStorage.theme = theme;

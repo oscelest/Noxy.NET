@@ -119,7 +119,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
 
         if (model.ActionInputList != null)
         {
-            foreach (FormModelAssociationSchemaActionStepHasActionInput item in model.ActionInputList)
+            foreach (FormModelSchemaActionStep.HasActionInput item in model.ActionInputList)
             {
                 EntityJunctionSchemaActionStepHasActionInput parsed;
                 if (item.ID == Guid.Empty)
@@ -136,7 +136,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
                 {
                     parsed = await uow.Junction.GetActionStepHasActionInputByID(item.ID);
                     parsed.Order = item.Order;
-                    parsed.EntityID = item.EntityID;
+                    parsed.EntityID = result.ID;
                     parsed.RelationID = item.RelationID;
                     uow.Junction.Update(parsed);
                 }
