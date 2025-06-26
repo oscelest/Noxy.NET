@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Noxy.NET.Test.Application.Interfaces.Repositories;
 using Noxy.NET.Test.Domain.Entities.Schemas.Junctions;
 using Noxy.NET.Test.Persistence.Abstractions;
@@ -12,6 +13,23 @@ namespace Noxy.NET.Test.Persistence.Repositories;
 
 public class JunctionRepository(DataContext context, IEntityToTableMapper mapperE2T, ITableToEntityMapper mapperT2E) : BaseRepository(context, mapperE2T, mapperT2E), IJunctionRepository
 {
+    public async Task<EntityJunctionSchemaActionStepHasActionInput> GetActionStepHasActionInputByID(Guid id)
+    {
+        TableJunctionSchemaActionStepHasActionInput result = await Context.SchemaActionStepHasActionInput.SingleAsync(x => x.ID == id);
+        return mapperT2E.Map(result);
+    }
+
+    public async Task<EntityJunctionSchemaActionStepHasActionInput> Create(EntityJunctionSchemaActionStepHasActionInput entity)
+    {
+        EntityEntry<TableJunctionSchemaActionStepHasActionInput> result = await Context.SchemaActionStepHasActionInput.AddAsync(mapperE2T.Map(entity));
+        return mapperT2E.Map(result.Entity);
+    }
+
+    public void Update(EntityJunctionSchemaActionStepHasActionInput entity)
+    {
+        Context.SchemaActionStepHasActionInput.Update(mapperE2T.Map(entity));
+    }
+
     public async Task<List<EntityJunctionSchemaElementHasProperty>> RelateElementToPropertyList(Guid entityGuid, IEnumerable<Guid> listGuid)
     {
         List<TableJunctionSchemaElementHasProperty> list = await Relate<TableJunctionSchemaElementHasProperty, TableSchemaElement, TableSchemaProperty>(entityGuid, listGuid, (x, y) => new() { EntityID = x, RelationID = y, Order = 0 });

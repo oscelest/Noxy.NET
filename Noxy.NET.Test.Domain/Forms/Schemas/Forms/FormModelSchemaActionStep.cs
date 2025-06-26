@@ -27,10 +27,6 @@ public class FormModelSchemaActionStep(EntitySchemaActionStep? entity) : BaseFor
 
     private static List<FormModelAssociationSchemaActionStepHasActionInput> GetActionInputList(List<EntityJunctionSchemaActionStepHasActionInput>? list)
     {
-        return list?.Select(item => new FormModelAssociationSchemaActionStepHasActionInput(item.Entity, item.Relation)
-            {
-                Order = item.Order,
-            })
-            .ToList() ?? [];
+        return list?.Select(item => new FormModelAssociationSchemaActionStepHasActionInput(item)).ToList() ?? [];
     }
 }

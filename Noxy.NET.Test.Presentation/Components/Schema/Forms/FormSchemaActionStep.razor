@@ -16,7 +16,7 @@
                     <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Description))" Description="@GetDescription(nameof(Context.Model.Description))" @bind-Value="Context.Model.Description"/>
                 </Sidebar>
                 <Content>
-                    <TemplateSchemaEntitySelect T="EntitySchemaActionInput" Current="GetCurrentList()" Available="GetAvailableList()" OnAdd="AddActionInput" OnRemove="RemoveActionInput" OnChange="ChangeList"/>
+                    <TemplateSchemaEntitySelect T="EntityJunctionSchemaActionStepHasActionInput" Current="GetCurrentList()" Available="GetAvailableList()" OnAdd="AddActionInput" OnRemove="RemoveActionInput" OnChange="ChangeList"/>
                 </Content>
             </SidebarLeftLayout>
         </Content>
@@ -39,42 +39,51 @@
         return new(new(Value) { SchemaID = Schema.ID });
     }
 
-    private void AddActionInput(EntitySchemaActionInput input)
+    private void AddActionInput(EntityJunctionSchemaActionStepHasActionInput input)
     {
-        Context.Model.ActionInputList?.Add(new(Value, input) { Order = Context.Model.ActionInputList.Count });
+        Context.Model.ActionInputList?.Add(new(input) { Order = Context.Model.ActionInputList.Count });
     }
 
-    private void RemoveActionInput(EntitySchemaActionInput input)
+    private void RemoveActionInput(EntityJunctionSchemaActionStepHasActionInput input)
     {
-        Context.Model.ActionInputList = Context.Model.ActionInputList?.Where(x => x.RelationID != input.ID).ToList();
+        Context.Model.ActionInputList = Context.Model.ActionInputList?.Where(x => x.RelationID != input.RelationID).ToList();
     }
 
-    private void ChangeList(IEnumerable<EntitySchemaActionInput> list)
+    private void ChangeList(IEnumerable<EntityJunctionSchemaActionStepHasActionInput> list)
     {
-        Context.Model.ActionInputList = list.Select((x, i) => new FormModelAssociationSchemaActionStepHasActionInput(Value, x) { Order = i + 1 }).ToList();
-        InvokeAsync(StateHasChanged);
+        Context.Model.ActionInputList = list.Select((x, i) => new FormModelAssociationSchemaActionStepHasActionInput(x)).ToList();
     }
 
-    private EntitySchemaActionInput GetActionInput(Guid id)
+    private EntityJunctionSchemaActionStepHasActionInput GetActionInput(FormModelAssociationSchemaActionStepHasActionInput form)
     {
-        return Schema.ActionInputList?.FirstOrDefault(x => x.ID == id) ?? throw new KeyNotFoundException(id.ToString());
+        return new()
+        {
+            ID = form.ID,
+            Order = form.Order,
+            EntityID = form.EntityID,
+            Entity = Schema.ActionStepList?.FirstOrDefault(x => x.ID == form.EntityID) ?? throw new KeyNotFoundException(form.EntityID.ToString()),
+            RelationID = form.RelationID,
+            Relation = Schema.ActionInputList?.FirstOrDefault(x => x.ID == form.RelationID) ?? throw new KeyNotFoundException(form.EntityID.ToString()),
+        };
     }
 
-    private EntitySchemaActionInput[] GetCurrentList()
+    private EntityJunctionSchemaActionStepHasActionInput[] GetCurrentList()
     {
-        var list = Context.Model.ActionInputList?
-            .OrderBy(x => x.Order)
-            .Select(x => GetActionInput(x.RelationID))
-            .ToArray() ?? [];
-        return list;
+        return Context.Model.ActionInputList?.OrderBy(x => x.Order).Select(GetActionInput).ToArray() ?? [];
     }
 
-    private EntitySchemaActionInput[] GetAvailableList()
+    private EntityJunctionSchemaActionStepHasActionInput[] GetAvailableList()
     {
         List<FormModelAssociationSchemaActionStepHasActionInput> list = Context.Model.ActionInputList ?? [];
         return Schema.ActionInputList?
             .Where(x => list.All(y => y.RelationID != x.ID))
             .OrderBy(x => x.Order)
+            .Select(x => GetActionInput(new FormModelAssociationSchemaActionStepHasActionInput()
+            {
+                Order = 0,
+                EntityID = Value?.ID ?? Guid.Empty,
+                RelationID = x.ID,
+            }))
             .ToArray() ?? [];
     }
 

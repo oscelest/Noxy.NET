@@ -1,6 +1,6 @@
 @inject IJSRuntime JS
 @inherits ElementComponent
-@typeparam T where T : BaseEntitySchema
+@typeparam T where T : BaseEntity
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
     <SortableList List="Current" OnLoad="OnLoad">
@@ -9,7 +9,16 @@
                 <div class="handle">
                     <IconBorderLeft/>
                 </div>
-                <span class="title">@context.Name</span>
+                <span class="title">
+                    @if (CurrentTemplate != null)
+                    {
+                        @CurrentTemplate(context)
+                    }
+                    else
+                    {
+                        @context.ToString()
+                    }
+                </span>
                 <Button type="button" Status="StatusEnum.Error" @onclick="EventCallback.Factory.Create(this, () => OnRemove.InvokeAsync(context))">
                     <IconSaltire Size="IconSizeEnum.ExtraSmall"/>
                 </Button>
@@ -28,7 +37,16 @@
                     <div class="handle">
                         <IconBorderLeft/>
                     </div>
-                    <span class="title">@item.Name</span>
+                    <span class="title">
+                        @if (AvailableTemplate != null)
+                        {
+                            @AvailableTemplate(item)
+                        }
+                        else
+                        {
+                            @item.ToString()
+                        }
+                    </span>
                     <Button type="button" Status="StatusEnum.Error" @onclick="EventCallback.Factory.Create(this, () => OnAdd.InvokeAsync(item))">
                         <IconSaltire Size="IconSizeEnum.ExtraSmall"/>
                     </Button>
@@ -50,6 +68,12 @@
     public required IEnumerable<T> Available { get; set; }
 
     [Parameter]
+    public RenderFragment<T>? CurrentTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment<T>? AvailableTemplate { get; set; }
+
+    [Parameter]
     public EventCallback<T> OnAdd { get; set; }
 
     [Parameter]
@@ -61,17 +85,6 @@
     private IJSObjectReference? _module;
     private ElementReference _refElement;
     private DotNetObjectReference<TemplateSchemaEntitySelect<T>>? _refClass;
-
-    private IEnumerable<T> list;
-    
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-        if (!Equals(list, Current))
-        {
-            list = Current;
-        }
-    }
 
     private async Task OnLoad(ElementReference reference)
     {

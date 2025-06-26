@@ -5,6 +5,7 @@ using Noxy.NET.Test.Domain.Abstractions.Entities;
 using Noxy.NET.Test.Domain.Abstractions.Forms;
 using Noxy.NET.Test.Domain.Entities.Schemas;
 using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
+using Noxy.NET.Test.Domain.Entities.Schemas.Junctions;
 using Noxy.NET.Test.Domain.Forms.Schemas.AssociationForms;
 using Noxy.NET.Test.Domain.Forms.Schemas.Forms;
 
@@ -114,6 +115,34 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
         {
             result = UpdateSchemaFields(await uow.Schema.GetSchemaActionStepByID(model.ID), model);
             uow.Schema.Update(result);
+        }
+
+        if (model.ActionInputList != null)
+        {
+            foreach (FormModelAssociationSchemaActionStepHasActionInput item in model.ActionInputList)
+            {
+                EntityJunctionSchemaActionStepHasActionInput parsed;
+                if (item.ID == Guid.Empty)
+                {
+                    parsed = await uow.Junction.Create(new()
+                    {
+                        ID = item.ID,
+                        Order = item.Order,
+                        EntityID = result.ID,
+                        RelationID = item.RelationID,
+                    });
+                }
+                else
+                {
+                    parsed = await uow.Junction.GetActionStepHasActionInputByID(item.ID);
+                    parsed.Order = item.Order;
+                    parsed.EntityID = item.EntityID;
+                    parsed.RelationID = item.RelationID;
+                    uow.Junction.Update(parsed);
+                }
+
+                result.ActionInputList?.Add(parsed);
+            }
         }
 
         await uow.Commit();
