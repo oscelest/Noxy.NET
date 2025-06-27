@@ -42,6 +42,49 @@
     cursor: not-allowed;
 }
 
+.Button[size="xxs"] {
+    min-width: var(--size-control-xxs, 24px);
+    height: var(--size-control-xxs, 24px);
+    padding: 0 var(--size-gap-xxs, 2px);
+}
+
+.Button[size="xs"] {
+    min-width: var(--size-control-xs, 30px);
+    height: var(--size-control-xs, 30px);
+    padding: 0 var(--size-gap-xs, 4px);
+}
+
+.Button[size="sm"] {
+    min-width: var(--size-control-sm, 36px);
+    height: var(--size-control-sm, 36px);
+    padding: 0 var(--size-gap-xs, 4px);
+}
+
+.Button[size="md"] {
+    min-width: var(--size-control-md, 42px);
+    height: var(--size-control-md, 42px);
+    padding: 0 var(--size-gap-sm, 8px);
+}
+
+.Button[size="lg"] {
+    min-width: var(--size-control-lg, 48px);
+    height: var(--size-control-lg, 48px);
+    padding: 0 var(--size-gap-sm, 8px);
+}
+
+.Button[size="xl"] {
+    min-width: var(--size-control-xl, 64px);
+    height: var(--size-control-xl, 64px);
+    padding: 0 var(--size-gap-md, 12px);
+}
+
+.Button[size="xxl"] {
+    min-width: var(--size-control-xxl, 92px);
+    height: var(--size-control-xxl, 92px);
+    padding: 0 var(--size-gap-lg, 16px);
+}
+
+
 .Button[status="none"] {
     --color-background-button: var(--color-background-none);
 }

@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noxy.NET.Test.Database", "N
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noxy.NET.Test.Presentation", "Noxy.NET.Test.Presentation\Noxy.NET.Test.Presentation.csproj", "{F2383CFF-BC98-4493-838C-D076C5E52737}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noxy.NET.UI.Elements", "Noxy.NET.UI.Elements\Noxy.NET.UI.Elements.csproj", "{7BCBD6FF-DAC3-465A-917E-E27E5FCEE4DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,10 @@ Global
 		{F2383CFF-BC98-4493-838C-D076C5E52737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2383CFF-BC98-4493-838C-D076C5E52737}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2383CFF-BC98-4493-838C-D076C5E52737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BCBD6FF-DAC3-465A-917E-E27E5FCEE4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BCBD6FF-DAC3-465A-917E-E27E5FCEE4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BCBD6FF-DAC3-465A-917E-E27E5FCEE4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BCBD6FF-DAC3-465A-917E-E27E5FCEE4DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -137,6 +143,7 @@ Global
 		{21886EE4-3684-4A5F-AA7E-8AB5616E245F} = {9CAE45F9-21CA-4791-8D55-E3EFF1D4BC67}
 		{4C1AD2C6-8D7D-48B7-92F2-3DA59BEF8FFA} = {9CAE45F9-21CA-4791-8D55-E3EFF1D4BC67}
 		{F2383CFF-BC98-4493-838C-D076C5E52737} = {9CAE45F9-21CA-4791-8D55-E3EFF1D4BC67}
+		{7BCBD6FF-DAC3-465A-917E-E27E5FCEE4DF} = {7225C7C5-5628-446B-9AF5-97E7FE3356E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B114B5EB-0D5D-43A3-8CA4-66193E2ED600}

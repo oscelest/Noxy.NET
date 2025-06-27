@@ -1,6 +1,13 @@
-.TemplateActionList {
+.TemplateSchemaEntitySelect {
     display: flex;
     flex-flow: column;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
     row-gap: var(--size-gap-lg);
+}
+
+.column {
+    display: flex;
+    flex-flow: column;
+    flex: 0 1 auto;
+    width: var(--size-column);
 }

@@ -3,59 +3,64 @@
 @typeparam T where T : BaseEntity
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
-    <SortableList List="Current" OnLoad="OnLoad">
-        <Collapsible>
-            <Header>
-                <div class="handle">
-                    <IconBorderLeft/>
-                </div>
-                <span class="title">
-                    @if (CurrentTemplate != null)
-                    {
-                        @CurrentTemplate(context)
-                    }
-                    else
-                    {
-                        @context.ToString()
-                    }
-                </span>
-                <Button type="button" Status="StatusEnum.Error" @onclick="EventCallback.Factory.Create(this, () => OnRemove.InvokeAsync(context))">
-                    <IconSaltire Size="IconSizeEnum.ExtraSmall"/>
-                </Button>
-            </Header>
-            <Content>
-                <TemplateElementDisplay Entity="context"/>
-            </Content>
-        </Collapsible>
-    </SortableList>
-
-    <div class="list">
-        @foreach (T item in Available)
-        {
+    <div class="column">
+        <span>Current:</span>
+        
+        <SortableList List="Current" OnLoad="OnLoad">
             <Collapsible>
                 <Header>
                     <div class="handle">
-                        <IconBorderLeft/>
+                        <IconDraggable/>
                     </div>
                     <span class="title">
-                        @if (AvailableTemplate != null)
+                        @if (CurrentTemplate != null)
                         {
-                            @AvailableTemplate(item)
+                            @CurrentTemplate(context)
                         }
                         else
                         {
-                            @item.ToString()
+                            @context.ToString()
                         }
                     </span>
-                    <Button type="button" Status="StatusEnum.Error" @onclick="EventCallback.Factory.Create(this, () => OnAdd.InvokeAsync(item))">
+                    <Button type="button" Status="StatusEnum.Error" @onclick="EventCallback.Factory.Create(this, () => OnRemove.InvokeAsync(context))">
                         <IconSaltire Size="IconSizeEnum.ExtraSmall"/>
                     </Button>
                 </Header>
                 <Content>
-                    <TemplateElementDisplay Entity="item"/>
+                    <TemplateElementDisplay Entity="context"/>
                 </Content>
             </Collapsible>
-        }
+        </SortableList>
+    </div>
+
+    <div class="column">
+        <span>Available:</span>
+        
+        <div class="list">
+            @foreach (T item in Available)
+            {
+                <Collapsible>
+                    <Header>
+                        <span class="title">
+                            @if (AvailableTemplate != null)
+                            {
+                                @AvailableTemplate(item)
+                            }
+                            else
+                            {
+                                @item.ToString()
+                            }
+                        </span>
+                        <Button type="button" Status="StatusEnum.Success" @onclick="EventCallback.Factory.Create(this, () => OnAdd.InvokeAsync(item))">
+                            <IconPlus Size="IconSizeEnum.ExtraSmall"/>
+                        </Button>
+                    </Header>
+                    <Content>
+                        <TemplateElementDisplay Entity="item"/>
+                    </Content>
+                </Collapsible>
+            }
+        </div>
     </div>
 </div>
 
@@ -66,7 +71,10 @@
 
     [Parameter, EditorRequired]
     public required IEnumerable<T> Available { get; set; }
-
+    
+    [Parameter]
+    public RenderFragment? Filter { get; set; }
+    
     [Parameter]
     public RenderFragment<T>? CurrentTemplate { get; set; }
 

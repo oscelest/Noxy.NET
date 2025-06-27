@@ -28,11 +28,13 @@
     --size-border-radius-md: 4px;
     --size-border-radius-lg: 8px;
     --size-box-shadow: 2px;
-    --size-control-xs: 20px;
+    --size-control-xxs: 24px;
+    --size-control-xs: 30px;
     --size-control-sm: 36px;
-    --size-control-md: 46px;
-    --size-control-lg: 50px;
-    --size-control-xl: 55px;
+    --size-control-md: 42px;
+    --size-control-lg: 48px;
+    --size-control-xl: 64px;
+    --size-control-xxl: 92px;
     --size-icon-xxs: 16px;
     --size-icon-xs: 20px;
     --size-icon-sm: 24px;

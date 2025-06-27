@@ -135,7 +135,7 @@ public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueAPI)
         sb.AppendLine("using System.Runtime;");
         sb.AppendLine("using Noxy.NET.Test.Application.Interfaces.Services;");
 
-        sb.AppendLine($"public class {DynamicClassName} (IDynamicValueAPIService API)");
+        sb.AppendLine($"public class {DynamicClassName}(IDynamicValueAPIService API)");
         sb.AppendLine("{");
 
         foreach (EntitySchemaDynamicValueCode item in context)

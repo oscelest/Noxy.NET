@@ -51,7 +51,7 @@
 
     private void ChangeList(IEnumerable<EntityJunctionSchemaActionStepHasActionInput> list)
     {
-        Context.Model.ActionInputList = list.Select((x, i) => new FormModelSchemaActionStep.HasActionInput(x)).ToList();
+        Context.Model.ActionInputList = list.Select((x, i) => new FormModelSchemaActionStep.HasActionInput(x) { Order = i }).ToList();
     }
 
     private EntityJunctionSchemaActionStepHasActionInput GetActionInput(FormModelSchemaActionStep.HasActionInput form)

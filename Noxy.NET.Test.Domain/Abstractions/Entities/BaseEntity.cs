@@ -4,4 +4,9 @@ public abstract class BaseEntity
 {
     public Guid ID { get; init; } = Guid.NewGuid();
     public DateTime? TimeCreated { get; set; } = DateTime.UtcNow;
+    
+    public override string ToString()
+    {
+        return ID.ToString();
+    }
 }

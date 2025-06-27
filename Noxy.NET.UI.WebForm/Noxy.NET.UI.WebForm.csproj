@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Noxy.NET.UI.Common\Noxy.NET.UI.Common.csproj" />
+    <ProjectReference Include="..\Noxy.NET.UI.Elements\Noxy.NET.UI.Elements.csproj" />
     <ProjectReference Include="..\Noxy.NET.UI.Graphics\Noxy.NET.UI.Graphics.csproj" />
   </ItemGroup>
 
@@ -33,10 +34,6 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Templates\TemplateInputField.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="Components\Templates\TemplateInputField.razor" />
   </ItemGroup>
 
 </Project>
