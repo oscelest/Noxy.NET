@@ -15,7 +15,7 @@ public class JunctionRepository(DataContext context, IEntityToTableMapper mapper
 {
     public async Task<EntityJunctionSchemaActionStepHasActionInput> GetActionStepHasActionInputByID(Guid id)
     {
-        TableJunctionSchemaActionStepHasActionInput result = await Context.SchemaActionStepHasActionInput.SingleAsync(x => x.ID == id);
+        TableJunctionSchemaActionStepHasActionInput result = await Context.SchemaActionStepHasActionInput.AsNoTracking().SingleAsync(x => x.ID == id);
         return mapperT2E.Map(result);
     }
 

@@ -16,7 +16,14 @@
                     <InputGroupText DisplayName="@GetDisplayName(nameof(Context.Model.Description))" Description="@GetDescription(nameof(Context.Model.Description))" @bind-Value="Context.Model.Description"/>
                 </Sidebar>
                 <Content>
-                    <TemplateSchemaEntitySelect T="EntityJunctionSchemaActionStepHasActionInput" Current="GetCurrentList()" Available="GetAvailableList()" OnAdd="AddActionInput" OnRemove="RemoveActionInput" OnChange="ChangeList"/>
+                    <TemplateSchemaEntitySelect T="EntityJunctionSchemaActionStepHasActionInput" Current="GetCurrentList()" Available="GetAvailableList()" OnAdd="AddActionInput" OnRemove="RemoveActionInput" OnChange="ChangeList">
+                        <HeaderTemplate>
+                            @context.Relation?.Name
+                        </HeaderTemplate>
+                        <ContentTemplate>
+                            <TemplateEntityDisplay Entity="context.Relation"/>
+                        </ContentTemplate>
+                    </TemplateSchemaEntitySelect>
                 </Content>
             </SidebarLeftLayout>
         </Content>
@@ -51,7 +58,7 @@
 
     private void ChangeList(IEnumerable<EntityJunctionSchemaActionStepHasActionInput> list)
     {
-        Context.Model.ActionInputList = list.Select((x, i) => new FormModelSchemaActionStep.HasActionInput(x) { Order = i }).ToList();
+        Context.Model.ActionInputList = list.Select((x, i) => new FormModelSchemaActionStep.HasActionInput(x) { Order = i + 1 }).ToList();
     }
 
     private EntityJunctionSchemaActionStepHasActionInput GetActionInput(FormModelSchemaActionStep.HasActionInput form)

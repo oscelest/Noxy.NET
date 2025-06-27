@@ -4,9 +4,7 @@
 
 <div @attributes="@AdditionalAttributes" class="@CssClass" collapsed="@_internalCollapsed" animated="@IsAnimated">
     <div class="header-wrapper">
-        <div class="header">
-            @Header
-        </div>
+        @Header
         <div class="arrow" tabindex="0" @onclick="ArrowClicked" @onkeydown="ArrowKeyPressed">
             @if (Arrow != null)
             {
@@ -16,16 +14,16 @@
             {
                 @if (_internalCollapsed)
                 {
-                    <span>⮟</span>
+                    <IconChevronDown Size="IconSizeEnum.Small"/>
                 }
                 else
                 {
-                    <span>⮝</span>
+                    <IconChevronUp Size="IconSizeEnum.Small"/>
                 }
             }
         </div>
     </div>
-    <div class="content" id="@UUIDCode">
+    <div class="content-wrapper" id="@UUIDCode">
         @if (!_internalCollapsed)
         {
             @Content
