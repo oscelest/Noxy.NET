@@ -4,10 +4,21 @@ namespace Noxy.NET.Test.Application.Interfaces.Repositories;
 
 public interface IJunctionRepository
 {
-    Task<EntityJunctionSchemaActionStepHasActionInput> GetActionStepHasActionInputByID(Guid id);
+    Task ClearSchemaActionHasActionStepByEntityID(Guid id);
     Task<EntityJunctionSchemaActionStepHasActionInput> Create(EntityJunctionSchemaActionStepHasActionInput entity);
-    void Update(EntityJunctionSchemaActionStepHasActionInput entity);
 
+    Task ClearSchemaActionStepHasActionInputByEntityID(Guid id);
+    Task<EntityJunctionSchemaActionHasActionStep> Create(EntityJunctionSchemaActionHasActionStep entity);
+    
+    Task ClearSchemaContextHasActionByEntityID(Guid id);
+    Task<EntityJunctionSchemaContextHasAction> Create(EntityJunctionSchemaContextHasAction entity);
+
+    Task ClearSchemaContextHasElementByEntityID(Guid id);
+    Task<EntityJunctionSchemaContextHasElement> Create(EntityJunctionSchemaContextHasElement entity);
+
+    Task ClearSchemaElementHasPropertyByEntityID(Guid id);
+    Task<EntityJunctionSchemaElementHasProperty> Create(EntityJunctionSchemaElementHasProperty entity);
+    
     Task<List<EntityJunctionSchemaElementHasProperty>> RelateElementToPropertyList(Guid entityGuid, IEnumerable<Guid> listGuid);
     Task<List<EntityJunctionSchemaActionHasActionStep>> RelateActionToActionStepList(Guid entityGuid, IEnumerable<Guid> listGuid);
     Task<List<EntityJunctionSchemaActionHasDynamicValueCode>> RelateActionToDynamicValueCode(Guid entityGuid, IEnumerable<Guid> listGuid);

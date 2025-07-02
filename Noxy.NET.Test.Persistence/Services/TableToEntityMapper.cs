@@ -365,6 +365,7 @@ public class TableToEntityMapper : ITableToEntityMapper
         EntityJunctionSchemaContextHasAction mapped = new()
         {
             ID = table.ID,
+            Order = table.Order,
             TimeCreated = table.TimeCreated,
             EntityID = table.EntityID,
             RelationID = table.RelationID,
@@ -384,6 +385,7 @@ public class TableToEntityMapper : ITableToEntityMapper
         EntityJunctionSchemaContextHasElement mapped = new()
         {
             ID = table.ID,
+            Order = table.Order,
             TimeCreated = table.TimeCreated,
             EntityID = table.EntityID,
             RelationID = table.RelationID,
@@ -788,6 +790,7 @@ public class TableToEntityMapper : ITableToEntityMapper
             Order = table.Order,
             Title = table.Title,
             Description = table.Description,
+            Type = table.Type,
             DefaultValue = table.DefaultValue,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,

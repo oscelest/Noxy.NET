@@ -38,6 +38,23 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
             uow.Schema.Update(result);
         }
 
+        if (model.ActionStepList != null)
+        {
+            await uow.Junction.ClearSchemaActionHasActionStepByEntityID(result.ID);
+
+            foreach (FormModelSchemaAction.HasActionStep item in model.ActionStepList)
+            {
+                EntityJunctionSchemaActionHasActionStep parsed = await uow.Junction.Create(new EntityJunctionSchemaActionHasActionStep
+                {
+                    ID = item.ID != Guid.Empty ? item.ID : BaseEntity.CreateID(),
+                    Order = item.Order,
+                    EntityID = result.ID,
+                    RelationID = item.RelationID,
+                });
+                result.ActionStepList?.Add(parsed);
+            }
+        }
+        
         await uow.Commit();
         return result;
     }
@@ -119,28 +136,17 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
 
         if (model.ActionInputList != null)
         {
+            await uow.Junction.ClearSchemaActionStepHasActionInputByEntityID(result.ID);
+
             foreach (FormModelSchemaActionStep.HasActionInput item in model.ActionInputList)
             {
-                EntityJunctionSchemaActionStepHasActionInput parsed;
-                if (item.ID == Guid.Empty)
+                EntityJunctionSchemaActionStepHasActionInput parsed = await uow.Junction.Create(new EntityJunctionSchemaActionStepHasActionInput
                 {
-                    parsed = await uow.Junction.Create(new()
-                    {
-                        ID = item.ID,
-                        Order = item.Order,
-                        EntityID = result.ID,
-                        RelationID = item.RelationID,
-                    });
-                }
-                else
-                {
-                    parsed = await uow.Junction.GetActionStepHasActionInputByID(item.ID);
-                    parsed.Order = item.Order;
-                    parsed.EntityID = result.ID;
-                    parsed.RelationID = item.RelationID;
-                    uow.Junction.Update(parsed);
-                }
-
+                    ID = item.ID != Guid.Empty ? item.ID : BaseEntity.CreateID(),
+                    Order = item.Order,
+                    EntityID = result.ID,
+                    RelationID = item.RelationID,
+                });
                 result.ActionInputList?.Add(parsed);
             }
         }
@@ -201,6 +207,40 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
             uow.Schema.Update(result);
         }
 
+        if (model.ActionList != null)
+        {
+            await uow.Junction.ClearSchemaContextHasActionByEntityID(result.ID);
+
+            foreach (FormModelSchemaContext.HasAction item in model.ActionList)
+            {
+                EntityJunctionSchemaContextHasAction parsed = await uow.Junction.Create(new EntityJunctionSchemaContextHasAction()
+                {
+                    ID = item.ID != Guid.Empty ? item.ID : BaseEntity.CreateID(),
+                    Order = item.Order,
+                    EntityID = result.ID,
+                    RelationID = item.RelationID,
+                });
+                result.ActionList?.Add(parsed);
+            }
+        }
+
+        if (model.ElementList != null)
+        {
+            await uow.Junction.ClearSchemaContextHasElementByEntityID(result.ID);
+
+            foreach (FormModelSchemaContext.HasElement item in model.ElementList)
+            {
+                EntityJunctionSchemaContextHasElement parsed = await uow.Junction.Create(new EntityJunctionSchemaContextHasElement()
+                {
+                    ID = item.ID != Guid.Empty ? item.ID : BaseEntity.CreateID(),
+                    Order = item.Order,
+                    EntityID = result.ID,
+                    RelationID = item.RelationID,
+                });
+                result.ElementList?.Add(parsed);
+            }
+        }
+        
         await uow.Commit();
         return result;
     }
@@ -241,7 +281,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
 
         if (model.ID == Guid.Empty)
         {
-            result = await uow.Schema.Create(new EntitySchemaDynamicValueStyleParameter()
+            result = await uow.Schema.Create(new EntitySchemaDynamicValueStyleParameter
             {
                 SchemaIdentifier = model.SchemaIdentifier,
                 Name = model.Name,
@@ -343,6 +383,23 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
             uow.Schema.Update(result);
         }
 
+        if (model.PropertyList != null)
+        {
+            await uow.Junction.ClearSchemaElementHasPropertyByEntityID(result.ID);
+
+            foreach (FormModelSchemaElement.HasProperty item in model.PropertyList)
+            {
+                EntityJunctionSchemaElementHasProperty parsed = await uow.Junction.Create(new EntityJunctionSchemaElementHasProperty()
+                {
+                    ID = item.ID != Guid.Empty ? item.ID : BaseEntity.CreateID(),
+                    Order = item.Order,
+                    EntityID = result.ID,
+                    RelationID = item.RelationID,
+                });
+                result.PropertyList?.Add(parsed);
+            }
+        }
+        
         await uow.Commit();
         return result;
     }
@@ -419,6 +476,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
                 Order = model.Order,
                 Title = model.Title,
                 Description = model.Description,
+                Type = model.Type,
                 DefaultValue = model.DefaultValue,
                 SchemaID = model.SchemaID,
             });
@@ -442,7 +500,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
 
         if (model.ID == Guid.Empty)
         {
-            result = await uow.Schema.Create(new EntitySchemaPropertyDateTime
+            result = await uow.Schema.Create(new EntitySchemaPropertyDecimal
             {
                 SchemaIdentifier = model.SchemaIdentifier,
                 Name = model.Name,
@@ -473,7 +531,7 @@ public class SchemaService(IUnitOfWorkFactory serviceUoWFactory) : ISchemaServic
 
         if (model.ID == Guid.Empty)
         {
-            result = await uow.Schema.Create(new EntitySchemaPropertyDateTime
+            result = await uow.Schema.Create(new EntitySchemaPropertyInteger
             {
                 SchemaIdentifier = model.SchemaIdentifier,
                 Name = model.Name,

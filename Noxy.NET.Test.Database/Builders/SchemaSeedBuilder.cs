@@ -188,7 +188,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
         }).Entity;
     }
 
-    public TableSchemaPropertyDateTime AddPropertyDateTime(string identifier, string name, string title, string note = "", string description = "", string @default = "", DateTime? timeCreated = null)
+    public TableSchemaPropertyDateTime AddPropertyDateTime(string identifier, string name, string title, string note = "", string description = "", DateTimeTypeEnum type = DateTimeTypeEnum.Date, string @default = "", DateTime? timeCreated = null)
     {
         return context.SchemaPropertyDateTime.Add(new()
         {
@@ -198,6 +198,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
             Order = GetNextOrder(nameof(TableSchemaProperty)),
             Title = title,
             Description = description,
+            Type = type,
             DefaultValue = @default,
             SchemaID = schema.ID,
             TimeCreated = timeCreated ?? Now,
@@ -302,6 +303,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
     {
         context.SchemaContextHasAction.Add(new()
         {
+            Order = GetNextOrder(nameof(TableSchemaContext) + nameof(TableSchemaAction)),
             Entity = refContext,
             EntityID = refContext.ID,
             Relation = refAction,
@@ -314,6 +316,7 @@ public class SchemaSeedBuilder(DataContext context, TableSchema schema)
     {
         context.SchemaContextHasElement.Add(new()
         {
+            Order = GetNextOrder(nameof(TableSchemaContext) + nameof(TableSchemaElement)),
             Entity = refContext,
             EntityID = refContext.ID,
             Relation = refElement,

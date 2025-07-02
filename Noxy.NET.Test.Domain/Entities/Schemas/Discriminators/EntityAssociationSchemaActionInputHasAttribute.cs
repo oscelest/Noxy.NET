@@ -4,7 +4,7 @@ using Noxy.NET.Test.Domain.Entities.Schemas.Associations;
 
 namespace Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
 
-public class EntityAssociationSchemaActionInputHasAttribute : BaseEntityAssociation<EntitySchemaActionInput, EntitySchemaAttribute>
+public class EntityAssociationSchemaActionInputHasAttribute : BaseEntityManyToMany<EntitySchemaActionInput, EntitySchemaAttribute>
 {
     public class Discriminator : BaseEntity
     {

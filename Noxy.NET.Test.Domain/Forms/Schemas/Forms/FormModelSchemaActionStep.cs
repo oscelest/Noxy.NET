@@ -47,9 +47,9 @@ public class FormModelSchemaActionStep(EntitySchemaActionStep? entity = null) : 
         [SetsRequiredMembers]
         public HasActionInput(EntityJunctionSchemaActionStepHasActionInput model)
         {
-            ID = model?.ID ?? Guid.Empty;
-            RelationID = model?.RelationID ?? Guid.NewGuid();
-            Order = model?.Order ?? 0;
+            ID = model.ID;
+            RelationID = model.RelationID;
+            Order = model.Order;
         }
     }
 }

@@ -114,7 +114,7 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
             stateActionFieldAttribute.List.Add(GetAttributeValue(junctionActionInputAttribute));
         }
 
-        return result.ToDictionary(x => x.Key, y => new StateActionFieldAttribute()
+        return result.ToDictionary(x => x.Key, y => new StateActionFieldAttribute
         {
             Value = y.Value.List,
             Type = y.Value.Attribute.Type,

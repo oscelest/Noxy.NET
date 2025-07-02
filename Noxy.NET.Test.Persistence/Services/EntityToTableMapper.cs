@@ -98,6 +98,7 @@ public class EntityToTableMapper : IEntityToTableMapper
         return new()
         {
             ID = entity.ID,
+            Order = entity.Order,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             EntityID = entity.EntityID,
             RelationID = entity.RelationID,
@@ -109,6 +110,7 @@ public class EntityToTableMapper : IEntityToTableMapper
         return new()
         {
             ID = entity.ID,
+            Order = entity.Order,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             EntityID = entity.EntityID,
             RelationID = entity.RelationID,
@@ -402,6 +404,7 @@ public class EntityToTableMapper : IEntityToTableMapper
             Order = entity.Order,
             Title = entity.Title,
             Description = entity.Description,
+            Type = entity.Type,
             DefaultValue = entity.DefaultValue,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
