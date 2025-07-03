@@ -11,13 +11,4 @@ public class EntitySchemaInput : BaseEntitySchema
 
     [JsonIgnore]
     public List<EntitySchemaActionInput>? ActionInputList { get; set; }
-
-    public ViewModelSchemaInput ToViewModel()
-    {
-        return new()
-        {
-            ID = ID,
-            SchemaIdentifier = SchemaIdentifier
-        };
-    }
 }

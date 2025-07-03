@@ -55,12 +55,13 @@ public class EntitySchemaDynamicValue : BaseEntitySchema
             throw new();
         }
 
-        public ViewModelSchemaDynamicValue ToViewModel()
+        public ViewModelSchemaDynamicValue ToViewModel(object value)
         {
             return new()
             {
                 ID = ID,
                 SchemaIdentifier = SchemaIdentifier,
+                Value = new(value)
             };
         }
     }

@@ -172,11 +172,10 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
             TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -189,11 +188,11 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
             InputID = entity.InputID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -206,10 +205,10 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -238,10 +237,10 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -328,10 +327,10 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -385,11 +384,11 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             DefaultValue = entity.DefaultValue,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -402,12 +401,12 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             Type = entity.Type,
             DefaultValue = entity.DefaultValue,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -420,11 +419,11 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             DefaultValue = entity.DefaultValue,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -437,11 +436,11 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             DefaultValue = entity.DefaultValue,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 
@@ -454,11 +453,11 @@ public class EntityToTableMapper : IEntityToTableMapper
             Name = entity.Name,
             Note = entity.Note,
             Order = entity.Order,
-            Title = entity.Title,
-            Description = entity.Description,
             DefaultValue = entity.DefaultValue,
             TimeCreated = entity.TimeCreated ?? DateTime.UtcNow,
             SchemaID = entity.SchemaID,
+            TitleDynamicID = entity.TitleDynamicID,
+            DescriptionDynamicID = entity.DescriptionDynamicID,
         };
     }
 

@@ -13,7 +13,7 @@
             <NavLink href="/Schema">Schema List</NavLink>
             @foreach (ViewModelSchemaContext item in _listContext)
             {
-                <NavLink href="@GetLink(item)">@item.Title</NavLink>
+                <NavLink href="@GetLink(item)">@item.TitleDynamic</NavLink>
             }
         </div>
         <div class="account">

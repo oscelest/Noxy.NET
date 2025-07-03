@@ -19,7 +19,6 @@ public class FormModelSchemaPropertyDateTime(EntitySchemaPropertyDateTime? entit
 
     [Required]
     public DateTimeTypeEnum Type { get; set; } = entity?.Type ?? DateTimeTypeEnum.Date;
-
     
     [JsonConstructor]
     public FormModelSchemaPropertyDateTime() : this(null)

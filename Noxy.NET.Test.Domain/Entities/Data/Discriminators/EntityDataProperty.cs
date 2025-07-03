@@ -46,24 +46,5 @@ public abstract class EntityDataProperty : BaseEntityData
             if (String != null) return String;
             throw new();
         }
-
-        public ViewModelDataProperty ToViewModel(EntitySchemaProperty schemaProperty)
-        {
-            return new()
-            {
-                ID = ID,
-                SchemaIdentifier = SchemaIdentifier,
-                Title = schemaProperty.Title,
-                Description = schemaProperty.Description,
-                Order = schemaProperty.Order,
-                Value = GetValue() switch
-                {
-                    EntityDataPropertyBoolean entityBoolean => entityBoolean.Value,
-                    EntityDataPropertyDateTime entityDateTime => entityDateTime.Value,
-                    EntityDataPropertyString entityString => entityString.Value,
-                    _ => throw new ArgumentOutOfRangeException()
-                }
-            };
-        }
     }
 }

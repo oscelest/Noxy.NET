@@ -77,8 +77,8 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
 
                 collectionField[entityActionInput.SchemaIdentifier] = new()
                 {
-                    Title = entityActionInput.Title,
-                    Description = entityActionInput.Description,
+                    Title = serviceDynamicValue.ResolveAsString(entityActionInput.TitleDynamic?.GetValue()) ?? string.Empty,
+                    Description = serviceDynamicValue.ResolveAsString(entityActionInput.DescriptionDynamic?.GetValue()) ?? string.Empty,
                     ErrorList = [],
                     IsActive = true,
                     Value = new(data[entityActionInput.SchemaIdentifier]),
@@ -90,7 +90,7 @@ public class ActionHub(IApplicationService serviceApplication, IDynamicValueServ
         return new()
         {
             Title = serviceDynamicValue.ResolveAsString(entityAction.TitleDynamic?.GetValue(), data, context) ?? string.Empty,
-            Description = entityAction.Description,
+            Description = serviceDynamicValue.ResolveAsString(entityAction.DescriptionDynamic?.GetValue()) ?? string.Empty,
             FieldCollection = collectionField,
         };
     }

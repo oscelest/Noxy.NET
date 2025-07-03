@@ -4,5 +4,5 @@ namespace Noxy.NET.Test.Domain.ViewModels;
 
 public class ViewModelSchemaActionStep : BaseViewModelSchemaComponent
 {
-    public ViewModelSchemaActionInput[]? ActionInputList { get; set; }
+    public ViewModelSchemaActionStepHasActionInput[]? ActionInputList { get; set; }
 }

@@ -8,21 +8,21 @@ using Noxy.NET.Test.Domain.ViewModels;
 
 namespace Noxy.NET.Test.Application.Services;
 
-public class DataService(IUnitOfWorkFactory serviceUoWFactory, IApplicationService serviceApplication) : IDataService
+public class DataService(IUnitOfWorkFactory serviceUoWFactory, IApplicationService serviceApplication, IViewModelFactoryService serviceViewModelFactory) : IDataService
 {
     public ViewModelSchemaContext[] GetContextList()
     {
-        return serviceApplication.GetSchemaContext().Select(x => x.ToViewModel()).ToArray();
+        return serviceApplication.GetSchemaContext().Select(serviceViewModelFactory.Create).ToArray();
     }
 
     public ViewModelSchemaContext GetContextListWithIdentifier(string identifier)
     {
-        return serviceApplication.GetSchemaContext(identifier).ToViewModel();
+        return serviceViewModelFactory.Create(serviceApplication.GetSchemaContext(identifier));
     }
 
     public ViewModelSchemaAction[] GetActionListWithContextIdentifier(string identifier)
     {
-        return serviceApplication.GetSchemaContext(identifier).ActionList?.Select(x => x.Relation?.ToViewModel() ?? throw new InvalidOperationException()).ToArray() ?? [];
+        return serviceApplication.GetSchemaContext(identifier).ActionList?.Select(x => x.Relation != null ? serviceViewModelFactory.Create(x.Relation) : throw new InvalidOperationException()).ToArray() ?? [];
     }
 
     public async Task<ViewModelDataElement[]> GetElementListWithContextIdentifier(string identifier)
@@ -41,8 +41,9 @@ public class DataService(IUnitOfWorkFactory serviceUoWFactory, IApplicationServi
                     List<EntityDataProperty.Discriminator> listDataProperty = await uow.Data.GetPropertyListWithIdentifierAndElementID(entitySchemaProperty.SchemaIdentifier, entityDataElement.ID);
                     listProperty.AddRange(listDataProperty.Select(x => x.ToViewModel(entitySchemaProperty)));
                 }
+                entityDataElement.PropertyList = listProperty.ToArray();
 
-                result.Add(entityDataElement.ToViewModel(entitySchemaElement, listProperty));
+                result.Add(serviceViewModelFactory.Create(entityDataElement));
             }
         }
 

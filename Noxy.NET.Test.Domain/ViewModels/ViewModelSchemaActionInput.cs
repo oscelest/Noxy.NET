@@ -6,5 +6,5 @@ public class ViewModelSchemaActionInput : BaseViewModelSchemaComponent
 {
     public ViewModelSchemaInput? Input { get; set; } 
     
-    public ViewModelSchemaActionInputAttribute[]? ActionInputAttributeList { get; set; }
+    public ViewModelSchemaActionInputHasAttribute[]? ActionInputAttributeList { get; set; }
 }

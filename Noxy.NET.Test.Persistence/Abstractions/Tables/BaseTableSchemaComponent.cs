@@ -1,13 +1,15 @@
 using System.ComponentModel.DataAnnotations;
+using Noxy.NET.Test.Persistence.Tables.Schemas.Discriminators;
 
 namespace Noxy.NET.Test.Persistence.Abstractions.Tables;
 
 public abstract class BaseTableSchemaComponent : BaseTableSchema
 {
     [Required]
-    [MaxLength(64)]
-    public required string Title { get; set; }
+    public TableSchemaDynamicValue? TitleDynamic { get; set; }
+    public required Guid TitleDynamicID { get; set; }
 
-    [MaxLength(1024)]
-    public required string Description { get; set; }
+    [Required]
+    public TableSchemaDynamicValue? DescriptionDynamic { get; set; }
+    public required Guid DescriptionDynamicID { get; set; }
 }

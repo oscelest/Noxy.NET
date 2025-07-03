@@ -10,8 +10,8 @@
     <PageLayout>
         @foreach (ViewModelSchemaContext item in _listContext)
         {
-            <h2>@item.Title</h2>
-            <span>@item.Description</span>
+            <h2>@item.TitleDynamic</h2>
+            <span>@item.DescriptionDynamic</span>
             <NavLink href="@GetLink(item.SchemaIdentifier)">@TextService.Get(TextConstants.LinkNavigationSchema)</NavLink>
         }
 

@@ -1,3 +1,4 @@
+@using Noxy.NET.Test.Domain.Abstractions.ViewModels
 @inherits ElementComponent
 
 <div @attributes="AdditionalAttributes" class="@CssClass">
@@ -6,12 +7,12 @@
         ViewModelSchemaAction action = List.First();
 
         <DynamicHTMLTag Tag="@HeaderLevelCurrent.ToText()">
-            @action.Title
+            @action.TitleDynamic
         </DynamicHTMLTag>
 
-        @if (!string.IsNullOrWhiteSpace(action.Description))
+        @if (action.DescriptionDynamic != null)
         {
-            <span>@action.Description</span>
+            <span>@action.DescriptionDynamic</span>
         }
 
         <TemplateAction Action="action" HeaderLevel="HeaderLevelCurrent.GetNext()"/>
@@ -23,14 +24,14 @@
             <Collapsible>
                 <Header>
                     <DynamicHTMLTag Tag="@HeaderLevelCurrent.ToText()">
-                        @action.Title
+                        @(((BaseViewModelSchemaComponent)action).TitleDynamic)
                     </DynamicHTMLTag>
                 </Header>
                 <Content>
                     <div class="content">
-                        @if (!string.IsNullOrWhiteSpace(action.Description))
+                        @if (action.DescriptionDynamic != null)
                         {
-                            <span>@action.Description</span>
+                            <span>@action.DescriptionDynamic</span>
                         }
 
                         <TemplateAction Action="action" HeaderLevel="HeaderLevelCurrent.GetNext()"/>

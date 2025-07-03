@@ -15,18 +15,5 @@ public class EntitySchemaActionInput : BaseEntitySchemaComponent
     
     [JsonIgnore]
     public List<EntityJunctionSchemaActionStepHasActionInput>? ActionStepList { get; set; }
-    
-    public ViewModelSchemaActionInput ToViewModel()
-    {
-        return new()
-        {
-            ID = ID,
-            SchemaIdentifier = SchemaIdentifier,
-            Description = Description,
-            Title = Title,
-            Order = Order,
-            Input = Input?.ToViewModel()
-        };
-    }
 }
     

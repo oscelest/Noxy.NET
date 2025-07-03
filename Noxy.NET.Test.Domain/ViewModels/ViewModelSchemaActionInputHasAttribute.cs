@@ -2,7 +2,7 @@ using Noxy.NET.Test.Domain.Abstractions.ViewModels;
 
 namespace Noxy.NET.Test.Domain.ViewModels;
 
-public class ViewModelSchemaActionInputAttribute : BaseViewModel
+public class ViewModelSchemaActionInputHasAttribute : BaseViewModel
 {
     
 }

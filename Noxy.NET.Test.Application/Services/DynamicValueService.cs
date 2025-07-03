@@ -12,7 +12,7 @@ using Noxy.NET.Test.Domain.Entities.Schemas.Discriminators;
 
 namespace Noxy.NET.Test.Application.Services;
 
-public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueAPI) : IDynamicValueService
+public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueApi) : IDynamicValueService
 {
     private AssemblyLoadContext? AssemblyLoadContext { get; set; }
     private Type? CompiledClass { get; set; }
@@ -34,7 +34,7 @@ public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueAPI)
         List<EntitySchemaDynamicValueCode> context = ExtractDynamicValueCodeContext(schema);
         string code = GenerateCode(context);
         CompiledClass = Compile(code);
-        CompiledInstance = Activator.CreateInstance(CompiledClass, [serviceDynamicValueAPI]);
+        CompiledInstance = Activator.CreateInstance(CompiledClass, [serviceDynamicValueApi]);
 
         SystemParameterContext = ExtractDynamicValueSystemParameterContext(listSystemParameter);
         TextParameterContext = ExtractDynamicValueTextParameterContext(listTextParameter);
@@ -52,6 +52,11 @@ public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueAPI)
         };
     }
 
+    public object? Resolve(EntitySchemaDynamicValue.Discriminator? value, object? data = null, object? context = null)
+    {
+        return Resolve(value?.GetValue(), data, context);
+    }
+
     public string? ResolveAsString(EntitySchemaDynamicValue? value, object? data = null, object? context = null)
     {
         object? resolved = Resolve(value, data, context);
@@ -61,6 +66,11 @@ public class DynamicValueService(IDynamicValueAPIService serviceDynamicValueAPI)
             string parsed => parsed,
             _ => resolved.ToString(),
         };
+    }
+
+    public string? ResolveAsString(EntitySchemaDynamicValue.Discriminator? value, object? data = null, object? context = null)
+    {
+        return ResolveAsString(value?.GetValue(), data, context);
     }
 
     public object? Execute(string identifier, object? data, object? context = null)

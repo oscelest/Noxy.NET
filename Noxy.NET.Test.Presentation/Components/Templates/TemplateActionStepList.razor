@@ -3,37 +3,37 @@
 <div @attributes="AdditionalAttributes" class="@CssClass">
     @if (ListActionStep.Length == 1)
     {
-        ViewModelSchemaActionStep step = ListActionStep.First();
+        ViewModelSchemaActionHasActionStep step = ListActionStep.First();
 
         <DynamicHTMLTag Tag="@HeaderLevelCurrent.ToText()">
-            @step.Title
+            @step.ActionStep?.TitleDynamic
         </DynamicHTMLTag>
         
-        @if (!string.IsNullOrWhiteSpace(step.Description))
+        @if (step.ActionStep?.DescriptionDynamic != null)
         {
-            <span>@step.Description</span>
+            <span>@step.ActionStep?.DescriptionDynamic</span>
         }
 
-        <TemplateActionStep Context="Context" ActionStep="step"/>
+        <TemplateActionStep Context="Context" ActionStep="step.ActionStep"/>
     }
     else
     {
-        @foreach (ViewModelSchemaActionStep step in ListActionStep.OrderBy(x => x.Order))
+        @foreach (ViewModelSchemaActionHasActionStep step in ListActionStep.OrderBy(x => x.Order))
         {
             <Collapsible>
                 <Header>
                     <DynamicHTMLTag Tag="@HeaderLevelCurrent.ToText()">
-                        @step.Title
+                        @step.ActionStep?.TitleDynamic
                     </DynamicHTMLTag>
                 </Header>
                 <Content>
                     <div class="content">
-                        @if (!string.IsNullOrWhiteSpace(step.Description))
+                        @if (step.ActionStep?.DescriptionDynamic != null)
                         {
-                            <span>@step.Description</span>
+                            <span>@step.ActionStep?.DescriptionDynamic</span>
                         }
 
-                        <TemplateActionStep Context="Context" ActionStep="step"/>
+                        <TemplateActionStep Context="Context" ActionStep="step.ActionStep"/>
                     </div>
                 </Content>
             </Collapsible>
@@ -44,7 +44,7 @@
 @code {
 
     [Parameter, EditorRequired]
-    public required ViewModelSchemaActionStep[] ListActionStep { get; set; }
+    public required ViewModelSchemaActionHasActionStep[] ListActionStep { get; set; }
 
     [Parameter, EditorRequired]
     public required ContextAction? Context { get; set; }

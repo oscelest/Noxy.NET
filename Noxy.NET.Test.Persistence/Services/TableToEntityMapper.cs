@@ -471,17 +471,17 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
             TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
-        mapped.ActionStepList = table.ActionStepList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
         mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
+        mapped.ActionStepList = table.ActionStepList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
         return mapped;
     }
@@ -497,15 +497,17 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
-            InputID = table.InputID
+            InputID = table.InputID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ActionStepList = table.ActionStepList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
         return mapped;
@@ -522,15 +524,17 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             IsRepeatable = table.IsRepeatable,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ActionList = table.ActionList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
         mapped.ActionInputList = table.ActionInputList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
@@ -572,14 +576,16 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ActionList = table.ActionList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
         mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
@@ -679,14 +685,16 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.GroupElementList = table.GroupElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
         mapped.PropertyList = table.PropertyList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
@@ -763,15 +771,17 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             DefaultValue = table.DefaultValue,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
         return mapped;
@@ -788,16 +798,18 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             Type = table.Type,
             DefaultValue = table.DefaultValue,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID,
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
         return mapped;
@@ -814,15 +826,17 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             DefaultValue = table.DefaultValue,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID,
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
         return mapped;
@@ -839,15 +853,17 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             DefaultValue = table.DefaultValue,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
         return mapped;
@@ -864,15 +880,17 @@ public class TableToEntityMapper : ITableToEntityMapper
             Name = table.Name,
             Note = table.Note,
             Order = table.Order,
-            Title = table.Title,
-            Description = table.Description,
             DefaultValue = table.DefaultValue,
             TimeCreated = table.TimeCreated,
             SchemaID = table.SchemaID,
+            TitleDynamicID = table.TitleDynamicID,
+            DescriptionDynamicID = table.DescriptionDynamicID
         };
 
         if (!TryExtendRelation(table.ID, listVisitedRelation, out Guid[] listExtendedRelation)) return mapped;
         mapped.Schema = MapInternal(table.Schema, listExtendedRelation);
+        mapped.TitleDynamic = MapInternal(table.TitleDynamic, listExtendedRelation);
+        mapped.DescriptionDynamic = MapInternal(table.DescriptionDynamic, listExtendedRelation);
         mapped.ElementList = table.ElementList?.Select(x => MapInternal(x, listExtendedRelation)!).ToList();
 
         return mapped;

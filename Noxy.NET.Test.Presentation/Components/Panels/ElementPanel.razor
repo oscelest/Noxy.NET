@@ -14,7 +14,7 @@
                         <div class="element">
                             @foreach (ViewModelDataProperty property in item.PropertyList ?? [])
                             {
-                                <TemplateInputGroup DisplayName="@property.Title">
+                                <TemplateInputGroup DisplayName="@property.TitleDynamic?.Value?.AsString()">
                                     <span>@property.Value?.ToString()?.DefaultIfEmpty(TextConstants.DefaultEmptyValue)</span>
                                 </TemplateInputGroup>
                             }
